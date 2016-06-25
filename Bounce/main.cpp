@@ -9,10 +9,16 @@ int main(int, char const**)
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "Bounce");
     
-    sf::CircleShape dot(50.0f);
-    dot.setFillColor(sf::Color::Green);
+    sf::Texture sphereTexture;
+    if (!sphereTexture.loadFromFile(resourcePath() + "sphere.png"))
+    {
+        return EXIT_FAILURE;
+    }
+    sf::Vector2u sphereTextureSize = sphereTexture.getSize();
+    
+    sf::Sprite dot(sphereTexture);
     dot.setPosition(sf::Vector2f(400, 300));
-    dot.setOrigin(dot.getRadius(), dot.getRadius());
+    dot.setOrigin(sphereTextureSize.x / 2, sphereTextureSize.y / 2);
 
     // Start the game loop
     while (window.isOpen())
