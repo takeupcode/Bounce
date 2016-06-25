@@ -8,6 +8,10 @@ int main(int, char const**)
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "Bounce");
+    
+    sf::CircleShape dot(50.0f);
+    dot.setFillColor(sf::Color::Green);
+    dot.setPosition(sf::Vector2f(200, 200));
 
     // Start the game loop
     while (window.isOpen())
@@ -29,6 +33,8 @@ int main(int, char const**)
 
         // Clear screen
         window.clear(sf::Color::Black);
+        
+        window.draw(dot);
 
         // Update the window
         window.display();
