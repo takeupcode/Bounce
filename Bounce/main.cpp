@@ -19,6 +19,8 @@ int main(int, char const**)
     sf::Sprite dot(sphereTexture);
     dot.setPosition(sf::Vector2f(400, 300));
     dot.setOrigin(sphereTextureSize.x / 2, sphereTextureSize.y / 2);
+    
+    sf::Vector2f positionDelta(0.0f, 0.5f);
 
     // Start the game loop
     while (window.isOpen())
@@ -37,6 +39,16 @@ int main(int, char const**)
                 window.close();
             }
         }
+        
+        if ((dot.getPosition().y + sphereTextureSize.x / 2 > window.getSize().y &&
+            positionDelta.y > 0) ||
+            (dot.getPosition().y - sphereTextureSize.x / 2 < 0 &&
+             positionDelta.y < 0))
+        {
+            positionDelta.y = -positionDelta.y;
+        }
+        
+        dot.setPosition(dot.getPosition() + positionDelta);
 
         // Clear screen
         window.clear(sf::Color::Black);
