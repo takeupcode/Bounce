@@ -9,10 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E9112B41D1E3B9C00D43AC1 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E9112B31D1E3B9C00D43AC1 /* ResourcePath.mm */; };
 		3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9112B61D1E3B9C00D43AC1 /* main.cpp */; };
-		3E9112BA1D1E3B9C00D43AC1 /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112B91D1E3B9C00D43AC1 /* cute_image.jpg */; };
-		3E9112BC1D1E3B9C00D43AC1 /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112BB1D1E3B9C00D43AC1 /* nice_music.ogg */; };
 		3E9112BE1D1E3B9C00D43AC1 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */; };
-		3E9112C01D1E3B9C00D43AC1 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112BF1D1E3B9C00D43AC1 /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,10 +18,7 @@
 		3E9112B31D1E3B9C00D43AC1 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		3E9112B51D1E3B9C00D43AC1 /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		3E9112B61D1E3B9C00D43AC1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		3E9112B91D1E3B9C00D43AC1 /* cute_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cute_image.jpg; sourceTree = "<group>"; };
-		3E9112BB1D1E3B9C00D43AC1 /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
 		3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
-		3E9112BF1D1E3B9C00D43AC1 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,10 +71,7 @@
 		3E9112B81D1E3B9C00D43AC1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E9112B91D1E3B9C00D43AC1 /* cute_image.jpg */,
-				3E9112BB1D1E3B9C00D43AC1 /* nice_music.ogg */,
 				3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */,
-				3E9112BF1D1E3B9C00D43AC1 /* icon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -142,10 +133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E9112C01D1E3B9C00D43AC1 /* icon.png in Resources */,
 				3E9112BE1D1E3B9C00D43AC1 /* sansation.ttf in Resources */,
-				3E9112BC1D1E3B9C00D43AC1 /* nice_music.ogg in Resources */,
-				3E9112BA1D1E3B9C00D43AC1 /* cute_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +299,7 @@
 				3E9112C51D1E3B9C00D43AC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
