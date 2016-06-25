@@ -11,7 +11,8 @@ int main(int, char const**)
     
     sf::CircleShape dot(50.0f);
     dot.setFillColor(sf::Color::Green);
-    dot.setPosition(sf::Vector2f(200, 200));
+    dot.setPosition(sf::Vector2f(400, 300));
+    dot.setOrigin(dot.getRadius(), dot.getRadius());
 
     // Start the game loop
     while (window.isOpen())
