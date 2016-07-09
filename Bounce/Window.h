@@ -17,7 +17,7 @@ class Window
 {
 public:
     explicit Window ();
-    Window (const std::string & title, unsigned int width, unsigned int height);
+    Window (const std::string & title, const sf::Vector2u & size);
     ~Window ();
     
     void drawBegin ();
@@ -28,8 +28,7 @@ public:
     void toggleFullScreen ();
     
     std::string title () const;
-    unsigned int width () const;
-    unsigned int height () const;
+    sf::Vector2u size () const;
     bool isDone () const;
     bool isFullScreen () const;
     
@@ -39,8 +38,7 @@ private:
     
     sf::RenderWindow mWindow;
     std::string mTitle;
-    unsigned int mWidth;
-    unsigned int mHeight;
+    sf::Vector2u mSize;
     bool mDone;
     bool mFullScreen;
 };
