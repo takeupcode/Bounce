@@ -14,17 +14,14 @@ class Game
 {
 public:
     explicit Game ();
-    ~Game ();
+    virtual ~Game ();
     
-    void handleInput ();
-    void update ();
-    void render ();
+    virtual void handleInput () = 0;
+    virtual void update () = 0;
+    virtual void render () = 0;
     
     Window * getWindow ();
     
 private:
-    void moveDot ();
-    
     Window mWindow;
-    sf::Texture mSphereTexture;
 };
