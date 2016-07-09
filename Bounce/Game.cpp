@@ -7,3 +7,21 @@
 //
 
 #include "Game.h"
+
+Game::Game ()
+{
+}
+
+Game::Game (const std::string & title, const sf::Vector2u & size)
+: mWindow(title, size)
+{
+}
+
+Game::~Game ()
+{
+}
+
+Window * Game::getWindow ()
+{
+    return &mWindow;
+}

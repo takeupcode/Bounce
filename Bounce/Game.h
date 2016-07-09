@@ -13,7 +13,6 @@
 class Game
 {
 public:
-    explicit Game ();
     virtual ~Game ();
     
     virtual void handleInput () = 0;
@@ -21,6 +20,10 @@ public:
     virtual void render () = 0;
     
     Window * getWindow ();
+    
+protected:
+    Game ();
+    Game (const std::string & title, const sf::Vector2u & size);
     
 private:
     Window mWindow;

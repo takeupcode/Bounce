@@ -24,7 +24,7 @@ private:
     void moveDot ();
     
     sf::Texture mSphereTexture;
-    sf::Vector2u sphereTextureSize;
-    sf::Sprite dot;
-    sf::Vector2f positionDelta;
+    sf::Vector2u mSphereTextureSize;
+    sf::Sprite mDot;
+    sf::Vector2f mPositionDelta;
 };
