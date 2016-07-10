@@ -1,13 +1,9 @@
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-
 #include "BounceGame.h"
 
-int main(int, char const**)
+int main()
 {
     BounceGame game;
 
-    // Start the game loop
     while (!game.getWindow()->isDone())
     {
         game.handleInput();
