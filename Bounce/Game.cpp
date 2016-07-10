@@ -34,4 +34,15 @@ sf::Time Game::elapsed () const
 void Game::restartClock ()
 {
     mElapsed = mClock.restart();
+    mFixedFrameTotal += mElapsed;
+}
+
+bool Game::isFixedFrameReady () const
+{
+    return mFixedFrameTotal.asSeconds() >= mFixedFrameTime;
+}
+
+void Game::completeFixedFrame ()
+{
+    mFixedFrameTotal -= sf::seconds(mFixedFrameTime);
 }

@@ -23,13 +23,18 @@ public:
     
     sf::Time elapsed () const;
     void restartClock ();
+    bool isFixedFrameReady () const;
+    void completeFixedFrame ();
     
 protected:
     Game ();
     Game (const std::string & title, const sf::Vector2u & size);
     
 private:
+    const float mFixedFrameTime = 1.0f / 60.0f;
+    
     Window mWindow;
     sf::Clock mClock;
     sf::Time mElapsed;
+    sf::Time mFixedFrameTotal;
 };

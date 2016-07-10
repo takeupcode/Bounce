@@ -6,9 +6,13 @@ int main()
 
     while (!game.getWindow()->isDone())
     {
-        game.handleInput();
-        game.update();
-        game.render();
+        if (game.isFixedFrameReady())
+        {
+            game.handleInput();
+            game.update();
+            game.render();
+            game.completeFixedFrame();
+        }
         game.restartClock();
     }
 
