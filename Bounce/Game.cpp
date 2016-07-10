@@ -25,3 +25,13 @@ Window * Game::getWindow ()
 {
     return &mWindow;
 }
+
+sf::Time Game::elapsed () const 
+{
+    return mElapsed;
+}
+
+void Game::restartClock ()
+{
+    mElapsed = mClock.restart();
+}

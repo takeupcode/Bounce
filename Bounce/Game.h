@@ -21,10 +21,15 @@ public:
     
     Window * getWindow ();
     
+    sf::Time elapsed () const;
+    void restartClock ();
+    
 protected:
     Game ();
     Game (const std::string & title, const sf::Vector2u & size);
     
 private:
     Window mWindow;
+    sf::Clock mClock;
+    sf::Time mElapsed;
 };

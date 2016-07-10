@@ -26,7 +26,7 @@ BounceGame::BounceGame ()
     mDot.setPosition(sf::Vector2f(400, 300));
     mDot.setOrigin(mSphereTextureSize.x / 2, mSphereTextureSize.y / 2);
     
-    mPositionDelta = {0.0f, 1.5f};
+    mPositionDelta = {0.0f, 200.0f};
 }
 
 BounceGame::~BounceGame ()
@@ -52,6 +52,8 @@ void BounceGame::render ()
 
 void BounceGame::moveDot ()
 {
+    float elapsedSeconds = elapsed().asSeconds();
+    
     if ((mDot.getPosition().y + mSphereTextureSize.y / 2 > getWindow()->size().y &&
          mPositionDelta.y > 0) ||
         (mDot.getPosition().y - mSphereTextureSize.y / 2 < 0 &&
@@ -60,5 +62,5 @@ void BounceGame::moveDot ()
         mPositionDelta.y = -mPositionDelta.y;
     }
     
-    mDot.setPosition(mDot.getPosition() + mPositionDelta);
+    mDot.setPosition(mDot.getPosition() + mPositionDelta * elapsedSeconds);
 }
