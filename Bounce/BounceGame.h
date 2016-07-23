@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <random>
+
 #include "Game.h"
 
 class BounceGame : public Game
@@ -27,4 +29,8 @@ private:
     sf::Vector2u mSphereTextureSize;
     sf::Sprite mDot;
     sf::Vector2f mPositionDelta;
+    float randomX;
+    float randomY;
+    std::mt19937 randomGenerator;
+    std::uniform_real_distribution<float> uniformDistribution;
 };

@@ -13,7 +13,7 @@
 #include "ResourcePath.hpp"
 
 BounceGame::BounceGame ()
-: Game("Bounce", {800, 600})
+: Game("Bounce", {800, 600}), randomX(0.0f), randomY(0.0f), uniformDistribution(-10.0f, 10.0f)
 {
     if (!mSphereTexture.loadFromFile(resourcePath() + "sphere.png"))
     {
@@ -27,6 +27,8 @@ BounceGame::BounceGame ()
     mDot.setOrigin(mSphereTextureSize.x / 2, mSphereTextureSize.y / 2);
     
     mPositionDelta = {0.0f, 0.0f};
+    
+    randomGenerator.seed(std::random_device()());
 }
 
 BounceGame::~BounceGame ()
@@ -56,6 +58,12 @@ void BounceGame::handleInput ()
     {
         mPositionDelta.y += 10.0f;
     }
+    
+    randomX = uniformDistribution(randomGenerator);
+    randomY = uniformDistribution(randomGenerator);
+    
+    mPositionDelta.x += randomX;
+    mPositionDelta.y += randomY;
     
     if (mPositionDelta.x > 500.0f)
     {
