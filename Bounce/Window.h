@@ -22,7 +22,7 @@ public:
     void drawBegin ();
     void drawEnd ();
     void draw (const sf::Drawable & obj);
-    void update ();
+    void handleInput ();
     
     void toggleFullScreen ();
     

@@ -35,11 +35,11 @@ BounceGame::~BounceGame ()
 
 void BounceGame::handleInput ()
 {
+    getWindow()->handleInput();
 }
 
 void BounceGame::update ()
 {
-    getWindow()->update();
     moveDot();
 }
 

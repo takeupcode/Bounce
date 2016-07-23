@@ -40,7 +40,7 @@ void Window::draw (const sf::Drawable & obj)
     mWindow.draw(obj);
 }
 
-void Window::update ()
+void Window::handleInput ()
 {
     sf::Event event;
     while (mWindow.pollEvent(event))
