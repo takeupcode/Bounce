@@ -4,7 +4,7 @@ int main()
 {
     BounceGame game;
 
-    while (!game.getWindow()->isDone())
+    while (!game.isDone())
     {
         if (game.isFixedFrameReady())
         {

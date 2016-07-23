@@ -19,8 +19,7 @@ public:
     virtual void update () = 0;
     virtual void render () = 0;
     
-    Window * getWindow ();
-    
+    bool isDone () const;
     sf::Time elapsed () const;
     void restartClock ();
     bool isFixedFrameReady () const;
@@ -29,6 +28,9 @@ public:
 protected:
     Game ();
     Game (const std::string & title, const sf::Vector2u & size);
+    
+    Window * getWindow ();
+    const Window * getWindow () const;
     
 private:
     const float mFixedFrameTime = 1.0f / 60.0f;

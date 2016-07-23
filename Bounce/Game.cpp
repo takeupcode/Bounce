@@ -26,6 +26,16 @@ Window * Game::getWindow ()
     return &mWindow;
 }
 
+const Window * Game::getWindow () const
+{
+    return &mWindow;
+}
+
+bool Game::isDone () const
+{
+    return getWindow()->isDone();
+}
+
 sf::Time Game::elapsed () const 
 {
     return mElapsed;
