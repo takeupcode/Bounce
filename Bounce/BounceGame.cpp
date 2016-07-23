@@ -26,7 +26,7 @@ BounceGame::BounceGame ()
     mDot.setPosition(sf::Vector2f(400, 300));
     mDot.setOrigin(mSphereTextureSize.x / 2, mSphereTextureSize.y / 2);
     
-    mPositionDelta = {0.0f, 200.0f};
+    mPositionDelta = {0.0f, 0.0f};
 }
 
 BounceGame::~BounceGame ()
@@ -40,19 +40,39 @@ void BounceGame::handleInput ()
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
     {
         mPositionDelta.x -= 10.0f;
-        if (mPositionDelta.x < -500.0f)
-        {
-            mPositionDelta.x = -500.0f;
-        }
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
     {
         mPositionDelta.x += 10.0f;
-        if (mPositionDelta.x > 500.0f)
-        {
-            mPositionDelta.x = 500.0f;
-        }
+    }
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+    {
+        mPositionDelta.y -= 10.0f;
+    }
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+    {
+        mPositionDelta.y += 10.0f;
+    }
+    
+    if (mPositionDelta.x > 500.0f)
+    {
+        mPositionDelta.x = 500.0f;
+    }
+    else if (mPositionDelta.x < -500.0f)
+    {
+        mPositionDelta.x = -500.0f;
+    }
+    
+    if (mPositionDelta.y > 500.0f)
+    {
+        mPositionDelta.y = 500.0f;
+    }
+    else if (mPositionDelta.y < -500.0f)
+    {
+        mPositionDelta.y = -500.0f;
     }
 }
 
