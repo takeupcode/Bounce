@@ -9,8 +9,11 @@
 #pragma once
 
 #include <random>
+#include <vector>
 
+#include "Command.h"
 #include "Game.h"
+#include "Dot.h"
 
 class BounceGame : public Game
 {
@@ -23,14 +26,11 @@ public:
     virtual void render ();
     
 private:
-    void moveDot ();
-    
     sf::Texture mSphereTexture;
-    sf::Vector2u mSphereTextureSize;
-    sf::Sprite mDot;
-    sf::Vector2f mPositionDelta;
+    Dot * mDotPtr;
     float randomX;
     float randomY;
     std::mt19937 randomGenerator;
     std::uniform_real_distribution<float> uniformDistribution;
+    std::vector<Command *> mCommands;
 };

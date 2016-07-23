@@ -9,6 +9,7 @@
 #include <stdexcept>
 
 #include "BounceGame.h"
+#include "MoveDotCommand.h"
 
 #include "ResourcePath.hpp"
 
@@ -20,101 +21,64 @@ BounceGame::BounceGame ()
         throw std::runtime_error("Could not load sphere.png.");
     }
     
-    mSphereTextureSize = mSphereTexture.getSize();
-    
-    mDot.setTexture(mSphereTexture);
-    mDot.setPosition(sf::Vector2f(400, 300));
-    mDot.setOrigin(mSphereTextureSize.x / 2, mSphereTextureSize.y / 2);
-    
-    mPositionDelta = {0.0f, 0.0f};
+    mDotPtr = new Dot(getWindow(), mSphereTexture, sf::Vector2f(400, 300));
     
     randomGenerator.seed(std::random_device()());
 }
 
 BounceGame::~BounceGame ()
 {
+    delete mDotPtr;
 }
 
 void BounceGame::handleInput ()
 {
     getWindow()->handleInput();
     
+    sf::Vector2f positionDelta {0.0f, 0.0f};
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
     {
-        mPositionDelta.x -= 10.0f;
+        positionDelta.x -= 10.0f;
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
     {
-        mPositionDelta.x += 10.0f;
+        positionDelta.x += 10.0f;
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
     {
-        mPositionDelta.y -= 10.0f;
+        positionDelta.y -= 10.0f;
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
     {
-        mPositionDelta.y += 10.0f;
+        positionDelta.y += 10.0f;
     }
     
     randomX = uniformDistribution(randomGenerator);
     randomY = uniformDistribution(randomGenerator);
     
-    mPositionDelta.x += randomX;
-    mPositionDelta.y += randomY;
+    positionDelta.x += randomX;
+    positionDelta.y += randomY;
     
-    if (mPositionDelta.x > 500.0f)
-    {
-        mPositionDelta.x = 500.0f;
-    }
-    else if (mPositionDelta.x < -500.0f)
-    {
-        mPositionDelta.x = -500.0f;
-    }
-    
-    if (mPositionDelta.y > 500.0f)
-    {
-        mPositionDelta.y = 500.0f;
-    }
-    else if (mPositionDelta.y < -500.0f)
-    {
-        mPositionDelta.y = -500.0f;
-    }
+    float elapsedSeconds = elapsed().asSeconds();
+    mCommands.push_back(new MoveDotCommand(mDotPtr, positionDelta, elapsedSeconds));
 }
 
 void BounceGame::update ()
 {
-    moveDot();
+    for (Command * cmdPtr: mCommands)
+    {
+        cmdPtr->execute();
+        delete cmdPtr;
+    }
+    mCommands.clear();
 }
 
 void BounceGame::render ()
 {
     getWindow()->drawBegin();
-    getWindow()->draw(mDot);
+    mDotPtr->draw();
     getWindow()->drawEnd();
-}
-
-void BounceGame::moveDot ()
-{
-    float elapsedSeconds = elapsed().asSeconds();
-    
-    if ((mDot.getPosition().x + mSphereTextureSize.x / 2 > getWindow()->size().x &&
-         mPositionDelta.x > 0) ||
-        (mDot.getPosition().x - mSphereTextureSize.x / 2 < 0 &&
-         mPositionDelta.x < 0))
-    {
-        mPositionDelta.x = -mPositionDelta.x;
-    }
-    
-    if ((mDot.getPosition().y + mSphereTextureSize.y / 2 > getWindow()->size().y &&
-         mPositionDelta.y > 0) ||
-        (mDot.getPosition().y - mSphereTextureSize.y / 2 < 0 &&
-         mPositionDelta.y < 0))
-    {
-        mPositionDelta.y = -mPositionDelta.y;
-    }
-    
-    mDot.setPosition(mDot.getPosition() + mPositionDelta * elapsedSeconds);
 }
