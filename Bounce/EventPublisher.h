@@ -39,14 +39,14 @@ public:
         mData->mSubscribers.reset(new MappedWeakSubscriberType());
     }
     
-    Observable (ObservableType && src)
+    EventPublisher (PublisherType && src)
     : mData(src.mData.release())
     { }
     
-    virtual ~Observable ()
+    virtual ~EventPublisher ()
     { }
     
-    void swap (ObservableType & other)
+    void swap (PublisherType & other)
     {
         std::unique_ptr<EventPublisherData> thisData(mData.release());
         std::unique_ptr<EventPublisherData> otherData(other.mData.release());
@@ -55,7 +55,7 @@ public:
         other.mData.reset(thisData.release());
     }
     
-    ObservableType & operator = (ObservableType && rhs)
+    PublisherType & operator = (PublisherType && rhs)
     {
         if (this == &rhs)
         {
@@ -97,11 +97,11 @@ public:
         auto identifiedPosition = mData->mSubscribers->find(identity);
         if (identifiedPosition != mData->mSubscribers->end())
         {
-            identifiedPosition->second = weakObserver;
+            identifiedPosition->second = weakSubscriber;
         }
         else
         {
-            mData->mSubscribers->insert({identity, weakObserver});
+            mData->mSubscribers->insert({identity, weakSubscriber});
         }
     }
     
