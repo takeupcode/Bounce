@@ -17,7 +17,6 @@
 		3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9112B61D1E3B9C00D43AC1 /* main.cpp */; };
 		3E9112BE1D1E3B9C00D43AC1 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */; };
 		3E9112C71D1E552B00D43AC1 /* sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112C61D1E552B00D43AC1 /* sphere.png */; };
-		3EE3908B1D443CDF0078876E /* Binding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EE390891D443CDF0078876E /* Binding.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +39,6 @@
 		3E9112B61D1E3B9C00D43AC1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
 		3E9112C61D1E552B00D43AC1 /* sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sphere.png; sourceTree = "<group>"; };
-		3EE390891D443CDF0078876E /* Binding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binding.cpp; sourceTree = "<group>"; };
 		3EE3908A1D443CDF0078876E /* Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Binding.h; sourceTree = "<group>"; };
 		3EE3908D1D4530480078876E /* EventPublisher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventPublisher.h; sourceTree = "<group>"; };
 		3EE3908E1D45317E0078876E /* EventSubscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventSubscriber.h; sourceTree = "<group>"; };
@@ -76,14 +74,17 @@
 		3E9112B01D1E3B9C00D43AC1 /* Bounce */ = {
 			isa = PBXGroup;
 			children = (
+				3EE3908A1D443CDF0078876E /* Binding.h */,
+				3E4A7A2A1D30AB3B0003B055 /* BounceGame.cpp */,
+				3E4A7A2B1D30AB3B0003B055 /* BounceGame.h */,
 				3E2C56AF1D43364000DEEF44 /* Command.cpp */,
 				3E2C56B01D43364000DEEF44 /* Command.h */,
 				3E2C56B51D433A3700DEEF44 /* Dot.cpp */,
 				3E2C56B61D433A3700DEEF44 /* Dot.h */,
 				3E4A7A271D30A64F0003B055 /* Game.cpp */,
 				3E4A7A281D30A64F0003B055 /* Game.h */,
-				3E4A7A2A1D30AB3B0003B055 /* BounceGame.cpp */,
-				3E4A7A2B1D30AB3B0003B055 /* BounceGame.h */,
+				3EE3908D1D4530480078876E /* EventPublisher.h */,
+				3EE3908E1D45317E0078876E /* EventSubscriber.h */,
 				3E9112B31D1E3B9C00D43AC1 /* ResourcePath.mm */,
 				3E9112B51D1E3B9C00D43AC1 /* ResourcePath.hpp */,
 				3E9112B61D1E3B9C00D43AC1 /* main.cpp */,
@@ -93,10 +94,6 @@
 				3E4A7A251D30A24A0003B055 /* Window.h */,
 				3E9112B81D1E3B9C00D43AC1 /* Resources */,
 				3E9112B11D1E3B9C00D43AC1 /* Supporting Files */,
-				3EE390891D443CDF0078876E /* Binding.cpp */,
-				3EE3908A1D443CDF0078876E /* Binding.h */,
-				3EE3908D1D4530480078876E /* EventPublisher.h */,
-				3EE3908E1D45317E0078876E /* EventSubscriber.h */,
 			);
 			path = Bounce;
 			sourceTree = "<group>";
@@ -207,7 +204,6 @@
 				3E2C56B11D43364000DEEF44 /* Command.cpp in Sources */,
 				3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */,
 				3E4A7A261D30A24A0003B055 /* Window.cpp in Sources */,
-				3EE3908B1D443CDF0078876E /* Binding.cpp in Sources */,
 				3E9112B41D1E3B9C00D43AC1 /* ResourcePath.mm in Sources */,
 				3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */,
 				3E4A7A291D30A64F0003B055 /* Game.cpp in Sources */,
