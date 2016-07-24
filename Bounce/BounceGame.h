@@ -18,7 +18,7 @@
 class BounceGame : public Game
 {
 public:
-    explicit BounceGame ();
+    BounceGame ();
     virtual ~BounceGame ();
     
     virtual void handleInput ();

@@ -15,7 +15,7 @@
 class Dot
 {
 public:
-    Dot (Window * windowPtr, const sf::Texture & texture, const sf::Vector2f position);
+    Dot (Window * windowPtr, const sf::Texture & texture, const sf::Vector2f & position);
     ~Dot ();
 
     void move (const sf::Vector2f delta, float elapsedSeconds);

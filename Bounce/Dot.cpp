@@ -8,7 +8,7 @@
 
 #include "Dot.h"
 
-Dot::Dot (Window * windowPtr, const sf::Texture & texture, const sf::Vector2f position)
+Dot::Dot (Window * windowPtr, const sf::Texture & texture, const sf::Vector2f & position)
 : mWindowPtr(windowPtr)
 {
     mTextureSize = texture.getSize();

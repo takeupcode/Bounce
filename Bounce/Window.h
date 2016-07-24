@@ -15,7 +15,7 @@
 class Window
 {
 public:
-    explicit Window ();
+    Window ();
     Window (const std::string & title, const sf::Vector2u & size);
     ~Window ();
     
