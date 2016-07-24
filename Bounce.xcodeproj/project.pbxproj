@@ -42,6 +42,8 @@
 		3E9112C61D1E552B00D43AC1 /* sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sphere.png; sourceTree = "<group>"; };
 		3EE390891D443CDF0078876E /* Binding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binding.cpp; sourceTree = "<group>"; };
 		3EE3908A1D443CDF0078876E /* Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Binding.h; sourceTree = "<group>"; };
+		3EE3908D1D4530480078876E /* EventPublisher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventPublisher.h; sourceTree = "<group>"; };
+		3EE3908E1D45317E0078876E /* EventSubscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventSubscriber.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,8 @@
 				3E9112B11D1E3B9C00D43AC1 /* Supporting Files */,
 				3EE390891D443CDF0078876E /* Binding.cpp */,
 				3EE3908A1D443CDF0078876E /* Binding.h */,
+				3EE3908D1D4530480078876E /* EventPublisher.h */,
+				3EE3908E1D45317E0078876E /* EventSubscriber.h */,
 			);
 			path = Bounce;
 			sourceTree = "<group>";

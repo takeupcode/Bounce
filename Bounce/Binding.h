@@ -8,9 +8,12 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
+
+#include "EventPublisher.h"
 
 class Binding
 {
@@ -305,9 +308,10 @@ class Binding
     };
     
     using BindingPoints = std::vector<BindingPoint>;
-    
+    using BindingEvent = EventPublisher<const EventDetails &>;
+
     Binding (const std::string & name)
-    : mName(name), mDetails(name), mBindingPointMatches(0)
+    : mName(name), mDetails(name), mBindingPointMatches(0), mEventMatched(new BindingEvent())
     { }
     
     void addBindingPoint (const BindingPoint & bindingPoint)
@@ -315,9 +319,15 @@ class Binding
         mBindingPoints.push_back(bindingPoint);
     }
     
+    BindingEvent * eventMatched ()
+    {
+        return mEventMatched.get();
+    }
+
 private:
     std::string mName;
     EventDetails mDetails;
     BindingPoints mBindingPoints;
     unsigned int mBindingPointMatches;
+    std::unique_ptr<BindingEvent> mEventMatched;
 };
