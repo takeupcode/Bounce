@@ -1,19 +1,22 @@
 #include "BounceGame.h"
 
+using namespace std;
+
 int main()
 {
-    BounceGame game;
+    shared_ptr<BounceGame> game(new BounceGame());
+    game->loadBindings();
 
-    while (!game.isDone())
+    while (!game->isDone())
     {
-        if (game.isFixedFrameReady())
+        if (game->isFixedFrameReady())
         {
-            game.handleInput();
-            game.update();
-            game.render();
-            game.completeFixedFrame();
+            game->handleInput();
+            game->update();
+            game->render();
+            game->completeFixedFrame();
         }
-        game.restartClock();
+        game->restartClock();
     }
 
     return EXIT_SUCCESS;

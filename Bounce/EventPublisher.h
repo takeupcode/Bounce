@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -19,25 +19,51 @@ template <typename... Args>
 class EventPublisher
 {
 public:
-    typedef EventPublisher<Args...> PublisherType;
-    typedef EventSubscriber<Args...> SubscriberType;
-    typedef std::weak_ptr<SubscriberType> WeakSubscriberType;
-    typedef std::shared_ptr<SubscriberType> SharedSubscriberType;
+    using PublisherType = EventPublisher<Args...>;
+    using SubscriberType = EventSubscriber<Args...>;
+    using WeakSubscriberType = std::weak_ptr<SubscriberType> ;
+    using SharedSubscriberType = std::shared_ptr<SubscriberType>;
     
 private:
-    typedef std::map<std::string, WeakSubscriberType> MappedWeakSubscriberType;
+    using MappedWeakSubscriberType = std::unordered_map<std::string, WeakSubscriberType>;
     
     struct EventPublisherData
     {
-        std::unique_ptr<MappedWeakSubscriberType> mSubscribers;
+        MappedWeakSubscriberType mSubscribers;
+        
+        EventPublisherData ()
+        { }
+        
+        EventPublisherData (const EventPublisherData & src)
+        : mSubscribers(src.mSubscribers)
+        { }
+        
+        ~EventPublisherData ()
+        { }
+        
+        EventPublisherData & operator = (const EventPublisherData & rhs)
+        {
+            if (this == &rhs)
+            {
+                return *this;
+            }
+            
+            mSubscribers = rhs.mSubscribers;
+            
+            return *this;
+        }
     };
+    
+    std::unique_ptr<EventPublisherData> mData;
     
 public:
     EventPublisher ()
     : mData(new EventPublisherData())
-    {
-        mData->mSubscribers.reset(new MappedWeakSubscriberType());
-    }
+    { }
+    
+    EventPublisher (const PublisherType & src)
+    : mData(new EventPublisherData(*src.mData))
+    { }
     
     EventPublisher (PublisherType && src)
     : mData(src.mData.release())
@@ -53,6 +79,18 @@ public:
         
         mData.reset(otherData.release());
         other.mData.reset(thisData.release());
+    }
+    
+    PublisherType & operator = (const PublisherType & rhs)
+    {
+        if (this == &rhs)
+        {
+            return *this;
+        }
+        
+        *mData = *rhs.mData;
+        
+        return *this;
     }
     
     PublisherType & operator = (PublisherType && rhs)
@@ -71,7 +109,7 @@ public:
     {
         std::vector<std::string> badConnectionIdentities;
         
-        for (auto & identifiedSubscriberPair : *mData->mSubscribers.get())
+        for (auto & identifiedSubscriberPair : mData->mSubscribers)
         {
             try
             {
@@ -86,7 +124,7 @@ public:
         }
         for (auto & identity : badConnectionIdentities)
         {
-            mData->mSubscribers->erase(identity);
+            mData->mSubscribers.erase(identity);
         }
     }
     
@@ -94,26 +132,20 @@ public:
     {
         WeakSubscriberType weakSubscriber = subscriber;
         
-        auto identifiedPosition = mData->mSubscribers->find(identity);
-        if (identifiedPosition != mData->mSubscribers->end())
+        auto identifiedPosition = mData->mSubscribers.find(identity);
+        if (identifiedPosition != mData->mSubscribers.end())
         {
             identifiedPosition->second = weakSubscriber;
         }
         else
         {
-            mData->mSubscribers->insert({identity, weakSubscriber});
+            mData->mSubscribers.insert({identity, weakSubscriber});
         }
     }
     
     void disconnect (const std::string & identity)
     {
-        mData->mSubscribers->erase(identity);
+        mData->mSubscribers.erase(identity);
     }
-    
-private:
-    EventPublisher (const PublisherType & src) = delete;
-    PublisherType & operator = (const PublisherType & rhs) = delete;
-    
-    std::unique_ptr<EventPublisherData> mData;
 };
 

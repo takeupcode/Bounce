@@ -12,7 +12,9 @@
 
 #include <SFML/Graphics.hpp>
 
-class Window
+#include "BindingManager.h"
+
+class Window : public std::enable_shared_from_this<Window>, public EventSubscriber<Binding::BindingEventParameter>
 {
 public:
     Window ();
@@ -31,6 +33,12 @@ public:
     bool isDone () const;
     bool isFullScreen () const;
     
+    std::shared_ptr<BindingManager> getBindingManager ();
+    
+    void notify (Binding::BindingEventParameter eventDetails) override;
+    
+    void loadBindings ();
+    
 private:
     void create ();
     void destroy ();
@@ -40,4 +48,5 @@ private:
     sf::Vector2u mSize;
     bool mDone;
     bool mFullScreen;
+    std::shared_ptr<BindingManager> mBindingManager;
 };

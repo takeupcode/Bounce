@@ -11,25 +11,26 @@
 #include <random>
 #include <vector>
 
+#include "BindingManager.h"
 #include "Command.h"
 #include "Game.h"
 #include "Dot.h"
 
-class BounceGame : public Game
+class BounceGame : public Game, public std::enable_shared_from_this<BounceGame>, public EventSubscriber<Binding::BindingEventParameter>
 {
 public:
     BounceGame ();
     virtual ~BounceGame ();
+
+    void update () override;
+    void render () override;
+    void loadBindings () override;
     
-    virtual void handleInput ();
-    virtual void update ();
-    virtual void render ();
+    void notify (Binding::BindingEventParameter eventDetails) override;
     
 private:
     sf::Texture mSphereTexture;
     Dot * mDotPtr;
-    float randomX;
-    float randomY;
     std::mt19937 randomGenerator;
     std::uniform_real_distribution<float> uniformDistribution;
     std::vector<Command *> mCommands;

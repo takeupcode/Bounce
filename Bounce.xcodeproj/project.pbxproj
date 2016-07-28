@@ -17,6 +17,7 @@
 		3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9112B61D1E3B9C00D43AC1 /* main.cpp */; };
 		3E9112BE1D1E3B9C00D43AC1 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */; };
 		3E9112C71D1E552B00D43AC1 /* sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112C61D1E552B00D43AC1 /* sphere.png */; };
+		3EE390911D4547F30078876E /* BindingManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EE3908F1D4547F30078876E /* BindingManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		3EE3908A1D443CDF0078876E /* Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Binding.h; sourceTree = "<group>"; };
 		3EE3908D1D4530480078876E /* EventPublisher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventPublisher.h; sourceTree = "<group>"; };
 		3EE3908E1D45317E0078876E /* EventSubscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventSubscriber.h; sourceTree = "<group>"; };
+		3EE3908F1D4547F30078876E /* BindingManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BindingManager.cpp; sourceTree = "<group>"; };
+		3EE390901D4547F30078876E /* BindingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindingManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 				3E4A7A251D30A24A0003B055 /* Window.h */,
 				3E9112B81D1E3B9C00D43AC1 /* Resources */,
 				3E9112B11D1E3B9C00D43AC1 /* Supporting Files */,
+				3EE3908F1D4547F30078876E /* BindingManager.cpp */,
+				3EE390901D4547F30078876E /* BindingManager.h */,
 			);
 			path = Bounce;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				3E4A7A2C1D30AB3B0003B055 /* BounceGame.cpp in Sources */,
 				3E2C56B11D43364000DEEF44 /* Command.cpp in Sources */,
 				3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */,
+				3EE390911D4547F30078876E /* BindingManager.cpp in Sources */,
 				3E4A7A261D30A24A0003B055 /* Window.cpp in Sources */,
 				3E9112B41D1E3B9C00D43AC1 /* ResourcePath.mm in Sources */,
 				3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */,
@@ -311,6 +317,8 @@
 		3E9112C41D1E3B9C00D43AC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "Bounce/Bounce-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -320,6 +328,8 @@
 		3E9112C51D1E3B9C00D43AC1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "Bounce/Bounce-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

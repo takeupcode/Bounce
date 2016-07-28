@@ -8,27 +8,35 @@
 
 #include "Game.h"
 
+using namespace std;
+
 Game::Game ()
 {
 }
 
 Game::Game (const std::string & title, const sf::Vector2u & size)
-: mWindow(title, size)
+: mWindow(new Window(title, size))
 {
+    mWindow->loadBindings();
 }
 
 Game::~Game ()
 {
 }
 
-Window * Game::getWindow ()
+shared_ptr<Window> Game::getWindow ()
 {
-    return &mWindow;
+    return mWindow;
 }
 
-const Window * Game::getWindow () const
+const shared_ptr<Window> Game::getWindow () const
 {
-    return &mWindow;
+    return mWindow;
+}
+
+void Game::handleInput ()
+{
+    getWindow()->handleInput();
 }
 
 bool Game::isDone () const

@@ -15,9 +15,10 @@ class Game
 public:
     virtual ~Game ();
     
-    virtual void handleInput () = 0;
+    virtual void handleInput ();
     virtual void update () = 0;
     virtual void render () = 0;
+    virtual void loadBindings () = 0;
     
     bool isDone () const;
     sf::Time elapsed () const;
@@ -29,13 +30,13 @@ protected:
     Game ();
     Game (const std::string & title, const sf::Vector2u & size);
     
-    Window * getWindow ();
-    const Window * getWindow () const;
+    std::shared_ptr<Window> getWindow ();
+    const std::shared_ptr<Window> getWindow () const;
     
 private:
     const float mFixedFrameTime = 1.0f / 60.0f;
     
-    Window mWindow;
+    std::shared_ptr<Window> mWindow;
     sf::Clock mClock;
     sf::Time mElapsed;
     sf::Time mFixedFrameTotal;

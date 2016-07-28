@@ -8,6 +8,8 @@
 
 #include "Window.h"
 
+using namespace std;
+
 Window::Window ()
 : mTitle("GameWindow"), mSize(800, 600), mDone(false), mFullScreen(false)
 {
@@ -15,9 +17,11 @@ Window::Window ()
 }
 
 Window::Window (const std::string & title, const sf::Vector2u & size)
-: mTitle(title), mSize(size), mDone(false), mFullScreen(false)
+: mTitle(title), mSize(size), mDone(false), mFullScreen(false), mBindingManager(new BindingManager())
 {
     create();
+    
+    mBindingManager->loadBindings();
 }
 
 Window::~Window ()
@@ -45,15 +49,10 @@ void Window::handleInput ()
     sf::Event event;
     while (mWindow.pollEvent(event))
     {
-        if (event.type == sf::Event::Closed)
-        {
-            mDone = true;
-        }
-        else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5)
-        {
-            toggleFullScreen();
-        }
+        mBindingManager->handleEvent(event);
     }
+    
+    mBindingManager->handleCurrentStates();
 }
 
 void Window::toggleFullScreen ()
@@ -81,6 +80,29 @@ bool Window::isDone () const
 bool Window::isFullScreen () const
 {
     return mFullScreen;
+}
+
+std::shared_ptr<BindingManager> Window::getBindingManager ()
+{
+    return mBindingManager;
+}
+
+void Window::notify (Binding::BindingEventParameter eventDetails)
+{
+    if (eventDetails.name() == BindingManager::WindowClosed)
+    {
+        mDone = true;
+    }
+    else if (eventDetails.name() == BindingManager::WindowToggleFullScreen)
+    {
+        toggleFullScreen();
+    }
+}
+
+void Window::loadBindings()
+{
+    mBindingManager->addSubscription(BindingManager::WindowClosed, "Window", shared_from_this());
+    mBindingManager->addSubscription(BindingManager::WindowToggleFullScreen, "Window", shared_from_this());
 }
 
 void Window::create ()

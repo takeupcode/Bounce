@@ -15,7 +15,7 @@
 class Dot
 {
 public:
-    Dot (Window * windowPtr, const sf::Texture & texture, const sf::Vector2f & position);
+    Dot (std::shared_ptr<Window> windowPtr, const sf::Texture & texture, const sf::Vector2f & position);
     ~Dot ();
 
     void move (const sf::Vector2f delta, float elapsedSeconds);
@@ -23,7 +23,7 @@ public:
     void draw ();
     
 private:
-    Window * mWindowPtr;
+    std::shared_ptr<Window> mWindowPtr;
     sf::Sprite mDot;
     sf::Vector2f mPositionDelta;
     sf::Vector2u mTextureSize;
