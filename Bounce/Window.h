@@ -12,9 +12,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "BindingManager.h"
+#include "EventManager.h"
 
-class Window : public std::enable_shared_from_this<Window>, public EventSubscriber<Binding::BindingEventParameter>
+class Window : public std::enable_shared_from_this<Window>, public EventSubscriber<Trigger::EventParameter>
 {
 public:
     Window ();
@@ -33,11 +33,11 @@ public:
     bool isDone () const;
     bool isFullScreen () const;
     
-    std::shared_ptr<BindingManager> getBindingManager ();
+    std::shared_ptr<EventManager> getEventManager ();
     
-    void notify (Binding::BindingEventParameter eventDetails) override;
+    void notify (Trigger::EventParameter eventDetails) override;
     
-    void loadBindings ();
+    void loadTriggers ();
     
 private:
     void create ();
@@ -48,5 +48,5 @@ private:
     sf::Vector2u mSize;
     bool mDone;
     bool mFullScreen;
-    std::shared_ptr<BindingManager> mBindingManager;
+    std::shared_ptr<EventManager> mEventManager;
 };

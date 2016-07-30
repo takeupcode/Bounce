@@ -17,7 +17,7 @@ Game::Game ()
 Game::Game (const std::string & title, const sf::Vector2u & size)
 : mWindow(new Window(title, size))
 {
-    mWindow->loadBindings();
+    mWindow->loadTriggers();
 }
 
 Game::~Game ()

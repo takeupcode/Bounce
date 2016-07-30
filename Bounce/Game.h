@@ -18,7 +18,7 @@ public:
     virtual void handleInput ();
     virtual void update () = 0;
     virtual void render () = 0;
-    virtual void loadBindings () = 0;
+    virtual void loadTriggers () = 0;
     
     bool isDone () const;
     sf::Time elapsed () const;

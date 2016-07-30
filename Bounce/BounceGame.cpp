@@ -31,31 +31,31 @@ BounceGame::~BounceGame ()
     delete mDotPtr;
 }
 
-void BounceGame::loadBindings()
+void BounceGame::loadTriggers()
 {
-    getWindow()->getBindingManager()->addSubscription(BindingManager::MoveCharacterLeft, "BounceGame", shared_from_this());
-    getWindow()->getBindingManager()->addSubscription(BindingManager::MoveCharacterRight, "BounceGame", shared_from_this());
-    getWindow()->getBindingManager()->addSubscription(BindingManager::MoveCharacterUp, "BounceGame", shared_from_this());
-    getWindow()->getBindingManager()->addSubscription(BindingManager::MoveCharacterDown, "BounceGame", shared_from_this());
+    getWindow()->getEventManager()->addSubscription(EventManager::MoveCharacterLeft, "BounceGame", shared_from_this());
+    getWindow()->getEventManager()->addSubscription(EventManager::MoveCharacterRight, "BounceGame", shared_from_this());
+    getWindow()->getEventManager()->addSubscription(EventManager::MoveCharacterUp, "BounceGame", shared_from_this());
+    getWindow()->getEventManager()->addSubscription(EventManager::MoveCharacterDown, "BounceGame", shared_from_this());
 }
 
-void BounceGame::notify (Binding::BindingEventParameter eventDetails)
+void BounceGame::notify (Trigger::EventParameter eventDetails)
 {
     sf::Vector2f positionDelta {0.0f, 0.0f};
     
-    if (eventDetails.name() == BindingManager::MoveCharacterLeft)
+    if (eventDetails.name() == EventManager::MoveCharacterLeft)
     {
         positionDelta.x -= 10.0f;
     }
-    else if (eventDetails.name() == BindingManager::MoveCharacterRight)
+    else if (eventDetails.name() == EventManager::MoveCharacterRight)
     {
         positionDelta.x += 10.0f;
     }
-    else if (eventDetails.name() == BindingManager::MoveCharacterUp)
+    else if (eventDetails.name() == EventManager::MoveCharacterUp)
     {
         positionDelta.y -= 10.0f;
     }
-    else if (eventDetails.name() == BindingManager::MoveCharacterDown)
+    else if (eventDetails.name() == EventManager::MoveCharacterDown)
     {
         positionDelta.y += 10.0f;
     }

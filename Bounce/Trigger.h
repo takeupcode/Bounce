@@ -1,5 +1,5 @@
 //
-//  Binding.h
+//  Trigger.h
 //  Bounce
 //
 //  Created by Abdul Wahid Tanner on 7/23/16.
@@ -15,10 +15,10 @@
 
 #include "EventPublisher.h"
 
-class Binding
+class Trigger
 {
 public:
-    enum class BindingType
+    enum class TriggerType
     {
         // These types map to event types.
         WindowClosed = sf::Event::Closed,
@@ -50,34 +50,34 @@ public:
         CurrentJoystickButtonPressed
     };
 
-    class BindingPoint
+    class TriggerPoint
     {
     public:
-        explicit BindingPoint (BindingType type, int device = 0, int axis = 0, int code = 0)
-        : mData(new BindingPointData(type, device, axis, code))
+        explicit TriggerPoint (TriggerType type, int device = 0, int axis = 0, int code = 0)
+        : mData(new TriggerPointData(type, device, axis, code))
         { }
         
-        BindingPoint (const BindingPoint & src)
-        : mData(new BindingPointData(*src.mData))
+        TriggerPoint (const TriggerPoint & src)
+        : mData(new TriggerPointData(*src.mData))
         { }
         
-        BindingPoint (BindingPoint && src)
+        TriggerPoint (TriggerPoint && src)
         : mData(src.mData.release())
         { }
         
-        ~BindingPoint ()
+        ~TriggerPoint ()
         { }
         
-        void swap (BindingPoint & other)
+        void swap (TriggerPoint & other)
         {
-            std::unique_ptr<BindingPointData> thisData(mData.release());
-            std::unique_ptr<BindingPointData> otherData(other.mData.release());
+            std::unique_ptr<TriggerPointData> thisData(mData.release());
+            std::unique_ptr<TriggerPointData> otherData(other.mData.release());
             
             mData.reset(otherData.release());
             other.mData.reset(thisData.release());
         }
         
-        BindingPoint & operator = (const BindingPoint & rhs)
+        TriggerPoint & operator = (const TriggerPoint & rhs)
         {
             if (this == &rhs)
             {
@@ -89,7 +89,7 @@ public:
             return *this;
         }
         
-        BindingPoint & operator = (BindingPoint && rhs)
+        TriggerPoint & operator = (TriggerPoint && rhs)
         {
             if (this == &rhs)
             {
@@ -101,7 +101,7 @@ public:
             return *this;
         }
 
-        BindingType type () const
+        TriggerType type () const
         {
             return mData->mType;
         }
@@ -127,9 +127,9 @@ public:
         }
 
     private:
-        struct BindingPointData
+        struct TriggerPointData
         {
-            BindingType mType;
+            TriggerType mType;
             
             // The device, axis, and code mean different things depending on the type.
             // For event processing, these can be set to -1 to match any event. But for
@@ -151,18 +151,18 @@ public:
             // Sensor: This is the sensor code. Set to -1 to mean any sensor event.
             int mCode;
             
-            BindingPointData (BindingType type, int device, int axis, int code)
+            TriggerPointData (TriggerType type, int device, int axis, int code)
             : mType(type), mDevice(device), mAxis(axis), mCode(code)
             { }
             
-            BindingPointData (const BindingPointData & src)
+            TriggerPointData (const TriggerPointData & src)
             : mType(src.mType), mDevice(src.mDevice), mAxis(src.mAxis), mCode(src.mCode)
             { }
             
-            ~BindingPointData ()
+            ~TriggerPointData ()
             { }
             
-            BindingPointData & operator = (const BindingPointData & rhs)
+            TriggerPointData & operator = (const TriggerPointData & rhs)
             {
                 if (this == &rhs)
                 {
@@ -178,7 +178,7 @@ public:
             }
         };
         
-        std::unique_ptr<BindingPointData> mData;
+        std::unique_ptr<TriggerPointData> mData;
     };
     
     class EventDetails
@@ -588,35 +588,35 @@ public:
         std::unique_ptr<EventDetailsData> mData;
     };
     
-    using BindingPoints = std::vector<BindingPoint>;
-    using BindingEventParameter = const EventDetails &;
-    using BindingEvent = EventPublisher<BindingEventParameter>;
+    using TriggerPoints = std::vector<TriggerPoint>;
+    using EventParameter = const EventDetails &;
+    using TriggerEvent = EventPublisher<EventParameter>;
 
-    Binding (const std::string & name)
-    : mData(new BindingData(name))
+    Trigger (const std::string & name)
+    : mData(new TriggerData(name))
     { }
     
-    Binding (const Binding & src)
-    : mData(new BindingData(*src.mData))
+    Trigger (const Trigger & src)
+    : mData(new TriggerData(*src.mData))
     { }
     
-    Binding (Binding && src)
+    Trigger (Trigger && src)
     : mData(src.mData.release())
     { }
     
-    ~Binding ()
+    ~Trigger ()
     { }
     
-    void swap (Binding & other)
+    void swap (Trigger & other)
     {
-        std::unique_ptr<BindingData> thisData(mData.release());
-        std::unique_ptr<BindingData> otherData(other.mData.release());
+        std::unique_ptr<TriggerData> thisData(mData.release());
+        std::unique_ptr<TriggerData> otherData(other.mData.release());
         
         mData.reset(otherData.release());
         other.mData.reset(thisData.release());
     }
     
-    Binding & operator = (const Binding & rhs)
+    Trigger & operator = (const Trigger & rhs)
     {
         if (this == &rhs)
         {
@@ -628,7 +628,7 @@ public:
         return *this;
     }
     
-    Binding & operator = (Binding && rhs)
+    Trigger & operator = (Trigger && rhs)
     {
         if (this == &rhs)
         {
@@ -645,211 +645,211 @@ public:
         return mData->mName;
     }
     
-    void addBindingPoint (const BindingPoint & bindingPoint)
+    void addTriggerPoint (const TriggerPoint & triggerPoint)
     {
-        mData->mBindingPoints.push_back(bindingPoint);
+        mData->mTriggerPoints.push_back(triggerPoint);
     }
     
-    std::shared_ptr<BindingEvent> eventMatchedEvent ()
+    std::shared_ptr<TriggerEvent> eventMatchedEvent ()
     {
         return mData->mEventMatchedEvent;
     }
     
     void handleEvent (const sf::Event & event)
     {
-        BindingType sfmlEventType = static_cast<BindingType>(event.type);
-        for (auto & bindingPoint: mData->mBindingPoints)
+        TriggerType sfmlEventType = static_cast<TriggerType>(event.type);
+        for (auto & triggerPoint: mData->mTriggerPoints)
         {
-            if (bindingPoint.type() != sfmlEventType)
+            if (triggerPoint.type() != sfmlEventType)
             {
                 continue;
             }
-            if (sfmlEventType == BindingType::KeyboardKeyPressed ||
-                sfmlEventType == BindingType::KeyboardKeyReleased)
+            if (sfmlEventType == TriggerType::KeyboardKeyPressed ||
+                sfmlEventType == TriggerType::KeyboardKeyReleased)
             {
-                if (bindingPoint.code() == -1 || bindingPoint.code() == event.key.code)
+                if (triggerPoint.code() == -1 || triggerPoint.code() == event.key.code)
                 {
                     mData->mDetails.setKey(event.key);
-                    ++mData->mBindingPointMatches;
+                    ++mData->mTriggerPointMatches;
                 }
                 break;
             }
-            else if (sfmlEventType == BindingType::MouseButtonPressed ||
-                     sfmlEventType == BindingType::MouseButtonReleased)
+            else if (sfmlEventType == TriggerType::MouseButtonPressed ||
+                     sfmlEventType == TriggerType::MouseButtonReleased)
             {
-                if (bindingPoint.code() == -1 || bindingPoint.code() == event.mouseButton.button)
+                if (triggerPoint.code() == -1 || triggerPoint.code() == event.mouseButton.button)
                 {
                     mData->mDetails.setMouseButton(event.mouseButton);
-                    ++mData->mBindingPointMatches;
+                    ++mData->mTriggerPointMatches;
                 }
                 break;
             }
-            else if (sfmlEventType == BindingType::MouseWheelScrolled)
+            else if (sfmlEventType == TriggerType::MouseWheelScrolled)
             {
-                if (bindingPoint.axis() == -1 || bindingPoint.axis() == event.mouseWheelScroll.wheel)
+                if (triggerPoint.axis() == -1 || triggerPoint.axis() == event.mouseWheelScroll.wheel)
                 {
                     mData->mDetails.setMouseWheel(event.mouseWheelScroll);
-                    ++mData->mBindingPointMatches;
+                    ++mData->mTriggerPointMatches;
                 }
                 break;
             }
-            else if (sfmlEventType == BindingType::JoystickButtonPressed ||
-                     sfmlEventType == BindingType::JoystickButtonReleased)
+            else if (sfmlEventType == TriggerType::JoystickButtonPressed ||
+                     sfmlEventType == TriggerType::JoystickButtonReleased)
             {
-                if (bindingPoint.device() == -1 || bindingPoint.device() == event.joystickButton.joystickId)
+                if (triggerPoint.device() == -1 || triggerPoint.device() == event.joystickButton.joystickId)
                 {
-                    if (bindingPoint.code() == -1 || bindingPoint.code() == event.joystickButton.button)
+                    if (triggerPoint.code() == -1 || triggerPoint.code() == event.joystickButton.button)
                     {
                         mData->mDetails.setJoystickButton(event.joystickButton);
-                        ++mData->mBindingPointMatches;
+                        ++mData->mTriggerPointMatches;
                     }
                 }
                 break;
             }
-            else if (sfmlEventType == BindingType::JoystickMoved)
+            else if (sfmlEventType == TriggerType::JoystickMoved)
             {
-                if (bindingPoint.device() == -1 || bindingPoint.device() == event.joystickMove.joystickId)
+                if (triggerPoint.device() == -1 || triggerPoint.device() == event.joystickMove.joystickId)
                 {
                     mData->mDetails.setJoystickMove(event.joystickMove);
-                    ++mData->mBindingPointMatches;
+                    ++mData->mTriggerPointMatches;
                 }
                 break;
             }
-            else if (sfmlEventType == BindingType::JoystickConnected ||
-                     sfmlEventType == BindingType::JoystickDisconnected)
+            else if (sfmlEventType == TriggerType::JoystickConnected ||
+                     sfmlEventType == TriggerType::JoystickDisconnected)
             {
-                if (bindingPoint.device() == -1 || bindingPoint.device() == event.joystickConnect.joystickId)
+                if (triggerPoint.device() == -1 || triggerPoint.device() == event.joystickConnect.joystickId)
                 {
                     mData->mDetails.setJoystickConnect(event.joystickConnect);
-                    ++mData->mBindingPointMatches;
+                    ++mData->mTriggerPointMatches;
                 }
                 break;
             }
-            else if (sfmlEventType == BindingType::TouchBegan ||
-                     sfmlEventType == BindingType::TouchMoved ||
-                     sfmlEventType == BindingType::TouchEnded)
+            else if (sfmlEventType == TriggerType::TouchBegan ||
+                     sfmlEventType == TriggerType::TouchMoved ||
+                     sfmlEventType == TriggerType::TouchEnded)
             {
-                if (bindingPoint.code() == -1 || bindingPoint.code() == event.touch.finger)
+                if (triggerPoint.code() == -1 || triggerPoint.code() == event.touch.finger)
                 {
                     mData->mDetails.setTouch(event.touch);
-                    ++mData->mBindingPointMatches;
+                    ++mData->mTriggerPointMatches;
                 }
                 break;
             }
-            else if (sfmlEventType == BindingType::SensorChanged)
+            else if (sfmlEventType == TriggerType::SensorChanged)
             {
-                if (bindingPoint.code() == -1 || bindingPoint.code() == event.sensor.type)
+                if (triggerPoint.code() == -1 || triggerPoint.code() == event.sensor.type)
                 {
                     mData->mDetails.setSensor(event.sensor);
-                    ++mData->mBindingPointMatches;
+                    ++mData->mTriggerPointMatches;
                 }
                 break;
             }
             else
             {
-                if (sfmlEventType == BindingType::WindowResized)
+                if (sfmlEventType == TriggerType::WindowResized)
                 {
                     mData->mDetails.setSize(event.size);
                 }
-                if (sfmlEventType == BindingType::KeyboardTextEntered)
+                if (sfmlEventType == TriggerType::KeyboardTextEntered)
                 {
                     mData->mDetails.setText(event.text);
                 }
-                if (sfmlEventType == BindingType::MouseMoved)
+                if (sfmlEventType == TriggerType::MouseMoved)
                 {
                     mData->mDetails.setMouseMove(event.mouseMove);
                 }
                 
-                ++mData->mBindingPointMatches;
+                ++mData->mTriggerPointMatches;
                 break;
             }
         }
     }
 
-    void handleCurrentStates (bool checkBindings)
+    void handleCurrentStates (bool checkTriggers)
     {
-        if (checkBindings)
+        if (checkTriggers)
         {
-            for (auto & bindingPoint: mData->mBindingPoints)
+            for (auto & triggerPoint: mData->mTriggerPoints)
             {
-                if (bindingPoint.type() == BindingType::CurrentKeyboardKeyPressed)
+                if (triggerPoint.type() == TriggerType::CurrentKeyboardKeyPressed)
                 {
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(bindingPoint.code())))
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(triggerPoint.code())))
                     {
                         sf::Event::KeyEvent event;
                         event.alt = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LAlt) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RAlt);
                         event.control = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RControl);
                         event.shift = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift);
                         event.system = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LSystem) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RSystem);
-                        event.code = sf::Keyboard::Key(bindingPoint.code());
+                        event.code = sf::Keyboard::Key(triggerPoint.code());
                         
                         mData->mDetails.setKey(event);
-                        ++mData->mBindingPointMatches;
+                        ++mData->mTriggerPointMatches;
                     }
                     continue;
                 }
-                else if (bindingPoint.type() == BindingType::CurrentMouseButtonPressed)
+                else if (triggerPoint.type() == TriggerType::CurrentMouseButtonPressed)
                 {
-                    if (sf::Mouse::isButtonPressed(sf::Mouse::Button(bindingPoint.code())))
+                    if (sf::Mouse::isButtonPressed(sf::Mouse::Button(triggerPoint.code())))
                     {
                         sf::Event::MouseButtonEvent event;
                         sf::Vector2i position = sf::Mouse::getPosition();
                         event.x = position.x;
                         event.y = position.y;
-                        event.button = sf::Mouse::Button(bindingPoint.code());
+                        event.button = sf::Mouse::Button(triggerPoint.code());
                         
                         mData->mDetails.setMouseButton(event);
-                        ++mData->mBindingPointMatches;
+                        ++mData->mTriggerPointMatches;
                     }
                     continue;
                 }
-                else if (bindingPoint.type() == BindingType::CurrentJoystickButtonPressed)
+                else if (triggerPoint.type() == TriggerType::CurrentJoystickButtonPressed)
                 {
-                    if (sf::Joystick::isButtonPressed(bindingPoint.device(), bindingPoint.code()))
+                    if (sf::Joystick::isButtonPressed(triggerPoint.device(), triggerPoint.code()))
                     {
                         sf::Event::JoystickButtonEvent event;
-                        event.joystickId = bindingPoint.device();
-                        event.button = bindingPoint.code();
+                        event.joystickId = triggerPoint.device();
+                        event.button = triggerPoint.code();
                         
                         mData->mDetails.setJoystickButton(event);
-                        ++mData->mBindingPointMatches;
+                        ++mData->mTriggerPointMatches;
                     }
                     continue;
                 }
             }
         }
         
-        if (mData->mBindingPointMatches == mData->mBindingPoints.size())
+        if (mData->mTriggerPointMatches == mData->mTriggerPoints.size())
         {
             mData->mEventMatchedEvent->signal(mData->mDetails);
         }
         
-        mData->mBindingPointMatches = 0;
+        mData->mTriggerPointMatches = 0;
         mData->mDetails.clear();
     }
     
 private:
-    struct BindingData
+    struct TriggerData
     {
         std::string mName;
         EventDetails mDetails;
-        BindingPoints mBindingPoints;
-        unsigned int mBindingPointMatches;
-        std::shared_ptr<BindingEvent> mEventMatchedEvent;
+        TriggerPoints mTriggerPoints;
+        unsigned int mTriggerPointMatches;
+        std::shared_ptr<TriggerEvent> mEventMatchedEvent;
         
-        BindingData (const std::string & name)
-        : mName(name), mDetails(name), mBindingPointMatches(0), mEventMatchedEvent(new BindingEvent())
+        TriggerData (const std::string & name)
+        : mName(name), mDetails(name), mTriggerPointMatches(0), mEventMatchedEvent(new TriggerEvent())
         { }
         
-        BindingData (const BindingData & src)
-        : mName(src.mName), mDetails(src.mDetails), mBindingPoints(src.mBindingPoints),
-        mBindingPointMatches(src.mBindingPointMatches), mEventMatchedEvent(src.mEventMatchedEvent)
+        TriggerData (const TriggerData & src)
+        : mName(src.mName), mDetails(src.mDetails), mTriggerPoints(src.mTriggerPoints),
+        mTriggerPointMatches(src.mTriggerPointMatches), mEventMatchedEvent(src.mEventMatchedEvent)
         { }
         
-        ~BindingData ()
+        ~TriggerData ()
         { }
         
-        BindingData & operator = (const BindingData & rhs)
+        TriggerData & operator = (const TriggerData & rhs)
         {
             if (this == &rhs)
             {
@@ -858,13 +858,13 @@ private:
             
             mName = rhs.mName;
             mDetails = rhs.mDetails;
-            mBindingPoints = rhs.mBindingPoints;
-            mBindingPointMatches = rhs.mBindingPointMatches;
+            mTriggerPoints = rhs.mTriggerPoints;
+            mTriggerPointMatches = rhs.mTriggerPointMatches;
             mEventMatchedEvent = rhs.mEventMatchedEvent;
             
             return *this;
         }
     };
     
-    std::unique_ptr<BindingData> mData;
+    std::unique_ptr<TriggerData> mData;
 };

@@ -17,11 +17,11 @@ Window::Window ()
 }
 
 Window::Window (const std::string & title, const sf::Vector2u & size)
-: mTitle(title), mSize(size), mDone(false), mFullScreen(false), mBindingManager(new BindingManager())
+: mTitle(title), mSize(size), mDone(false), mFullScreen(false), mEventManager(new EventManager())
 {
     create();
     
-    mBindingManager->loadBindings();
+    mEventManager->loadTriggers();
 }
 
 Window::~Window ()
@@ -49,10 +49,10 @@ void Window::handleInput ()
     sf::Event event;
     while (mWindow.pollEvent(event))
     {
-        mBindingManager->handleEvent(event);
+        mEventManager->handleEvent(event);
     }
     
-    mBindingManager->handleCurrentStates();
+    mEventManager->handleCurrentStates();
 }
 
 void Window::toggleFullScreen ()
@@ -82,27 +82,27 @@ bool Window::isFullScreen () const
     return mFullScreen;
 }
 
-std::shared_ptr<BindingManager> Window::getBindingManager ()
+std::shared_ptr<EventManager> Window::getEventManager ()
 {
-    return mBindingManager;
+    return mEventManager;
 }
 
-void Window::notify (Binding::BindingEventParameter eventDetails)
+void Window::notify (Trigger::EventParameter eventDetails)
 {
-    if (eventDetails.name() == BindingManager::WindowClosed)
+    if (eventDetails.name() == EventManager::WindowClosed)
     {
         mDone = true;
     }
-    else if (eventDetails.name() == BindingManager::WindowToggleFullScreen)
+    else if (eventDetails.name() == EventManager::WindowToggleFullScreen)
     {
         toggleFullScreen();
     }
 }
 
-void Window::loadBindings()
+void Window::loadTriggers()
 {
-    mBindingManager->addSubscription(BindingManager::WindowClosed, "Window", shared_from_this());
-    mBindingManager->addSubscription(BindingManager::WindowToggleFullScreen, "Window", shared_from_this());
+    mEventManager->addSubscription(EventManager::WindowClosed, "Window", shared_from_this());
+    mEventManager->addSubscription(EventManager::WindowToggleFullScreen, "Window", shared_from_this());
 }
 
 void Window::create ()

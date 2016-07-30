@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
     shared_ptr<BounceGame> game(new BounceGame());
-    game->loadBindings();
+    game->loadTriggers();
 
     while (!game->isDone())
     {

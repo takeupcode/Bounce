@@ -11,12 +11,12 @@
 #include <random>
 #include <vector>
 
-#include "BindingManager.h"
+#include "EventManager.h"
 #include "Command.h"
 #include "Game.h"
 #include "Dot.h"
 
-class BounceGame : public Game, public std::enable_shared_from_this<BounceGame>, public EventSubscriber<Binding::BindingEventParameter>
+class BounceGame : public Game, public std::enable_shared_from_this<BounceGame>, public EventSubscriber<Trigger::EventParameter>
 {
 public:
     BounceGame ();
@@ -24,9 +24,9 @@ public:
 
     void update () override;
     void render () override;
-    void loadBindings () override;
+    void loadTriggers () override;
     
-    void notify (Binding::BindingEventParameter eventDetails) override;
+    void notify (Trigger::EventParameter eventDetails) override;
     
 private:
     sf::Texture mSphereTexture;
