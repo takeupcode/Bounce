@@ -8,45 +8,54 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include <SFML/Graphics.hpp>
 
-#include "EventManager.h"
+#include "Directable.h"
+#include "EventDetails.h"
+#include "EventSubscriber.h"
 
-class Window : public std::enable_shared_from_this<Window>, public EventSubscriber<Trigger::EventParameter>
+class EventManager;
+
+class Window : public std::enable_shared_from_this<Window>, public EventSubscriber<EventParameter>,
+    public Directable
 {
 public:
-    Window ();
-    Window (const std::string & title, const sf::Vector2u & size);
+    Window (Director * director, int identity);
+    Window (Director * director, int identity, const std::string & title, const sf::Vector2u & size);
     ~Window ();
-    
-    void drawBegin ();
-    void drawEnd ();
-    void draw (const sf::Drawable & obj);
-    void handleInput ();
-    
-    void toggleFullScreen ();
     
     std::string title () const;
     sf::Vector2u size () const;
-    bool isDone () const;
+    int identity () const;
     bool isFullScreen () const;
     
-    std::shared_ptr<EventManager> getEventManager ();
+    void draw (const sf::Drawable & obj);
+    void drawBegin ();
+    void drawEnd ();
     
-    void notify (Trigger::EventParameter eventDetails) override;
+    void handleInput ();
+    
+protected:
+    void notify (EventParameter eventDetails) override;
+    
+private:
+    friend class WindowManager;
+    
+    void toggleFullScreen ();
     
     void loadTriggers ();
     
-private:
     void create ();
     void destroy ();
     
     sf::RenderWindow mWindow;
+    int mIdentity;
     std::string mTitle;
     sf::Vector2u mSize;
-    bool mDone;
     bool mFullScreen;
     std::shared_ptr<EventManager> mEventManager;
+    bool mHasFocus;
 };

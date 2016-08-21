@@ -8,30 +8,41 @@
 
 #pragma once
 
+#include <memory>
 #include <random>
 #include <vector>
 
-#include "EventManager.h"
-#include "Command.h"
 #include "Game.h"
-#include "Dot.h"
 
-class BounceGame : public Game, public std::enable_shared_from_this<BounceGame>, public EventSubscriber<Trigger::EventParameter>
+class Command;
+class Dot;
+class Window;
+
+class BounceGame : public GameShared<BounceGame>
 {
 public:
-    BounceGame ();
+    BounceGame (Director * director);
     virtual ~BounceGame ();
-
+    
     void update () override;
     void render () override;
-    void loadTriggers () override;
+
+protected:
+    void loadDerivedTriggers () override;
+
+    std::shared_ptr<Window> createMainWindow () const override;
+    int mainWindowIdentity () const override;
     
-    void notify (Trigger::EventParameter eventDetails) override;
-    
+    void notify (EventParameter eventDetails) override;
+
 private:
+    const unsigned int MainWindowWidth = 800;
+    const unsigned int MainWindowHeight = 600;
+    
     sf::Texture mSphereTexture;
-    Dot * mDotPtr;
+    std::shared_ptr<Dot> mDot;
     std::mt19937 randomGenerator;
     std::uniform_real_distribution<float> uniformDistribution;
-    std::vector<Command *> mCommands;
+    std::vector<std::unique_ptr<Command>> mCommands;
+    std::shared_ptr<Window> mMainWindow;
 };

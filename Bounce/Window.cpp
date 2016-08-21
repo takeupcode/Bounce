@@ -6,22 +6,24 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
+#include "Director.h"
+#include "EventManager.h"
 #include "Window.h"
 
 using namespace std;
 
-Window::Window ()
-: mTitle("GameWindow"), mSize(800, 600), mDone(false), mFullScreen(false)
+Window::Window (Director * director, int identity)
+: Directable(director), mIdentity(identity), mTitle("GameWindow"), mSize(800, 600), mFullScreen(false), mEventManager(director->eventManager()),
+mHasFocus(true)
 {
     create();
 }
 
-Window::Window (const std::string & title, const sf::Vector2u & size)
-: mTitle(title), mSize(size), mDone(false), mFullScreen(false), mEventManager(new EventManager())
+Window::Window (Director * director, int identity, const std::string & title, const sf::Vector2u & size)
+: Directable(director), mIdentity(identity), mTitle(title), mSize(size), mFullScreen(false), mEventManager(director->eventManager()),
+mHasFocus(true)
 {
     create();
-    
-    mEventManager->loadTriggers();
 }
 
 Window::~Window ()
@@ -49,10 +51,10 @@ void Window::handleInput ()
     sf::Event event;
     while (mWindow.pollEvent(event))
     {
-        mEventManager->handleEvent(event);
+        mEventManager->handleEvent(*this, event);
     }
     
-    mEventManager->handleCurrentStates();
+    mEventManager->handleCurrentStates(mHasFocus);
 }
 
 void Window::toggleFullScreen ()
@@ -72,9 +74,9 @@ sf::Vector2u Window::size () const
     return mSize;
 }
 
-bool Window::isDone () const
+int Window::identity () const
 {
-    return mDone;
+    return mIdentity;
 }
 
 bool Window::isFullScreen () const
@@ -82,27 +84,27 @@ bool Window::isFullScreen () const
     return mFullScreen;
 }
 
-std::shared_ptr<EventManager> Window::getEventManager ()
+void Window::notify (EventParameter eventDetails)
 {
-    return mEventManager;
-}
-
-void Window::notify (Trigger::EventParameter eventDetails)
-{
-    if (eventDetails.name() == EventManager::WindowClosed)
-    {
-        mDone = true;
-    }
-    else if (eventDetails.name() == EventManager::WindowToggleFullScreen)
+    if  (eventDetails.name() == EventManager::WindowToggleFullScreen)
     {
         toggleFullScreen();
+    }
+    else if (eventDetails.name() == EventManager::WindowFocusLost)
+    {
+        mHasFocus = false;
+    }
+    else if (eventDetails.name() == EventManager::WindowFocusGained)
+    {
+        mHasFocus = true;
     }
 }
 
 void Window::loadTriggers()
 {
-    mEventManager->addSubscription(EventManager::WindowClosed, "Window", shared_from_this());
     mEventManager->addSubscription(EventManager::WindowToggleFullScreen, "Window", shared_from_this());
+    mEventManager->addSubscription(EventManager::WindowFocusLost, "Window", shared_from_this());
+    mEventManager->addSubscription(EventManager::WindowFocusGained, "Window", shared_from_this());
 }
 
 void Window::create ()

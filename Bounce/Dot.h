@@ -10,21 +10,21 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Window.h"
+class Window;
 
 class Dot
 {
 public:
-    Dot (std::shared_ptr<Window> windowPtr, const sf::Texture & texture, const sf::Vector2f & position);
+    Dot (const sf::Texture & texture, const sf::Vector2f & position, const sf::Vector2u & bounds);
     ~Dot ();
 
     void move (const sf::Vector2f delta, float elapsedSeconds);
     
-    void draw ();
+    void draw (Window * window);
     
 private:
-    std::shared_ptr<Window> mWindowPtr;
     sf::Sprite mDot;
     sf::Vector2f mPositionDelta;
     sf::Vector2u mTextureSize;
+    sf::Vector2u mBounds;
 };

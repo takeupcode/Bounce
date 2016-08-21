@@ -1,23 +1,20 @@
 #include "BounceGame.h"
+#include "Director.h"
+#include "EventManager.h"
+#include "SceneManager.h"
+#include "WindowManager.h"
 
 using namespace std;
 
 int main()
 {
-    shared_ptr<BounceGame> game(new BounceGame());
-    game->loadTriggers();
-
-    while (!game->isDone())
-    {
-        if (game->isFixedFrameReady())
-        {
-            game->handleInput();
-            game->update();
-            game->render();
-            game->completeFixedFrame();
-        }
-        game->restartClock();
-    }
+    Director director;
+    director.setGame(shared_ptr<Game>(new BounceGame(&director)));
+    director.setEventManager(shared_ptr<EventManager>(new EventManager(&director)));
+    director.setSceneManager(shared_ptr<SceneManager>(new SceneManager(&director)));
+    director.setWindowManager(shared_ptr<WindowManager>(new WindowManager(&director)));
+    
+    director.playGame();
 
     return EXIT_SUCCESS;
 }

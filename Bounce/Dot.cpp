@@ -7,19 +7,16 @@
 //
 
 #include "Dot.h"
+#include "Window.h"
 
 using namespace std;
 
-Dot::Dot (shared_ptr<Window> windowPtr, const sf::Texture & texture, const sf::Vector2f & position)
-: mWindowPtr(windowPtr)
+Dot::Dot (const sf::Texture & texture, const sf::Vector2f & position, const sf::Vector2u & bounds)
+: mTextureSize(texture.getSize()), mPositionDelta(0.0f, 0.0f), mBounds(bounds)
 {
-    mTextureSize = texture.getSize();
-
     mDot.setTexture(texture);
     mDot.setOrigin(mTextureSize.x / 2, mTextureSize.y / 2);
     mDot.setPosition(position);
-    
-    mPositionDelta = {0.0f, 0.0f};
 }
 
 Dot::~Dot ()
@@ -49,7 +46,7 @@ void Dot::move (const sf::Vector2f delta, float elapsedSeconds)
         mPositionDelta.y = -500.0f;
     }
 
-    if ((mDot.getPosition().x + mTextureSize.x / 2 > mWindowPtr->size().x &&
+    if ((mDot.getPosition().x + mTextureSize.x / 2 > mBounds.x &&
          mPositionDelta.x > 0) ||
         (mDot.getPosition().x - mTextureSize.x / 2 < 0 &&
          mPositionDelta.x < 0))
@@ -57,7 +54,7 @@ void Dot::move (const sf::Vector2f delta, float elapsedSeconds)
         mPositionDelta.x = -mPositionDelta.x;
     }
     
-    if ((mDot.getPosition().y + mTextureSize.y / 2 > mWindowPtr->size().y &&
+    if ((mDot.getPosition().y + mTextureSize.y / 2 > mBounds.y &&
          mPositionDelta.y > 0) ||
         (mDot.getPosition().y - mTextureSize.y / 2 < 0 &&
          mPositionDelta.y < 0))
@@ -68,7 +65,7 @@ void Dot::move (const sf::Vector2f delta, float elapsedSeconds)
     mDot.setPosition(mDot.getPosition() + mPositionDelta * elapsedSeconds);
 }
 
-void Dot::draw ()
+void Dot::draw (Window * window)
 {
-    mWindowPtr->draw(mDot);
+    window->draw(mDot);
 }

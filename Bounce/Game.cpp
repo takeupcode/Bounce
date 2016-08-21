@@ -6,42 +6,31 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
+#include "Director.h"
+#include "EventManager.h"
 #include "Game.h"
 
 using namespace std;
 
-Game::Game ()
+Game::Game (Director * director)
+:Directable(director), mDone(false), mMaineWindowIdentity(0)
 {
-}
-
-Game::Game (const std::string & title, const sf::Vector2u & size)
-: mWindow(new Window(title, size))
-{
-    mWindow->loadTriggers();
 }
 
 Game::~Game ()
 {
 }
 
-shared_ptr<Window> Game::getWindow ()
+void Game::loadTriggers ()
 {
-    return mWindow;
-}
+    director()->eventManager()->addSubscription(EventManager::WindowClosed, "Game", shared_from_this());
 
-const shared_ptr<Window> Game::getWindow () const
-{
-    return mWindow;
-}
-
-void Game::handleInput ()
-{
-    getWindow()->handleInput();
+    loadDerivedTriggers();
 }
 
 bool Game::isDone () const
 {
-    return getWindow()->isDone();
+    return mDone;
 }
 
 sf::Time Game::elapsed () const 
@@ -63,4 +52,12 @@ bool Game::isFixedFrameReady () const
 void Game::completeFixedFrame ()
 {
     mFixedFrameTotal -= sf::seconds(mFixedFrameTime);
+}
+
+void Game::notify (EventParameter eventDetails)
+{
+    if (eventDetails.name() == EventManager::WindowClosed)
+    {
+        mDone = true;
+    }
 }

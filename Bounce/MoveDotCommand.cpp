@@ -8,8 +8,8 @@
 
 #include "MoveDotCommand.h"
 
-MoveDotCommand::MoveDotCommand(Dot * dotPtr, const sf::Vector2f & delta, float elapsedSeconds)
-: mDotPtr(dotPtr), mDelta(delta), mElapsedSeconds(elapsedSeconds)
+MoveDotCommand::MoveDotCommand(std::shared_ptr<Dot> dot, const sf::Vector2f & delta, float elapsedSeconds)
+: mDot(dot), mDelta(delta), mElapsedSeconds(elapsedSeconds)
 {
     
 }
@@ -21,7 +21,7 @@ MoveDotCommand::~MoveDotCommand ()
 
 void MoveDotCommand::execute ()
 {
-    mDotPtr->move(mDelta, mElapsedSeconds);
+    mDot->move(mDelta, mElapsedSeconds);
 }
 
 void MoveDotCommand::undo ()

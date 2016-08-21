@@ -9,11 +9,17 @@
 #pragma once
 
 template <typename... Args>
+class EventPublisher;
+
+template <typename... Args>
 class EventSubscriber
 {
 public:
     virtual ~EventSubscriber ()
     { }
+
+protected:
+    friend class EventPublisher<Args...>;
     
     virtual void notify (Args... args) = 0;
 };

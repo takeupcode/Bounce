@@ -7,6 +7,7 @@
 //
 
 #include "EventManager.h"
+#include "Window.h"
 
 using namespace std;
 
@@ -20,8 +21,8 @@ const string EventManager::MoveCharacterRight = "MoveCharacterRight";
 const string EventManager::MoveCharacterUp = "MoveCharacterUp";
 const string EventManager::MoveCharacterDown = "MoveCharacterDown";
 
-EventManager::EventManager ()
-: mHasFocus(true)
+EventManager::EventManager (Director * director)
+: Directable(director)
 { }
 
 bool EventManager::addTrigger (const Trigger & trigger)
@@ -48,7 +49,7 @@ bool EventManager::removeTrigger (const std::string & name)
 }
 
 bool EventManager::addSubscription (const std::string & triggerName, const std::string & identity,
-                                      const std::shared_ptr<EventSubscriber<Trigger::EventParameter>> & subscriber)
+                                      const std::shared_ptr<EventSubscriber<EventParameter>> & subscriber)
 {
     auto position = mTriggers.find(triggerName);
     if (position == mTriggers.end())
@@ -76,35 +77,23 @@ bool EventManager::removeSubscription (const std::string & triggerName, const st
     return true;
 }
 
-void EventManager::handleEvent (const sf::Event & event)
+void EventManager::handleEvent (const Window & window, const sf::Event & event)
 {
     for (auto & triggerPosition: mTriggers)
     {
-        triggerPosition.second->handleEvent(event);
+        triggerPosition.second->handleEvent(window, event);
     }
 }
 
-void EventManager::handleCurrentStates ()
+void EventManager::handleCurrentStates (bool hasFocus)
 {
     for (auto & triggerPosition: mTriggers)
     {
-        triggerPosition.second->handleCurrentStates(mHasFocus);
+        triggerPosition.second->handleCurrentStates(hasFocus);
     }
 }
 
-void EventManager::notify (Trigger::EventParameter eventDetails)
-{
-    if (eventDetails.name() == WindowFocusLost)
-    {
-        mHasFocus = false;
-    }
-    else if (eventDetails.name() == WindowFocusGained)
-    {
-        mHasFocus = true;
-    }
-}
-
-void EventManager::loadTriggers ()
+void EventManager::createTriggers ()
 {
     Trigger triggerWindowClosed {WindowClosed};
     Trigger triggerWindowResized {WindowResized};
@@ -117,11 +106,11 @@ void EventManager::loadTriggers ()
     Trigger triggerMoveCharacterDown {MoveCharacterDown};
     
     Trigger * triggerPtr = &triggerWindowClosed;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowClosed, 0, 0, 0});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowClosed, 0, 0, -1});
     addTrigger(*triggerPtr);
     
     triggerPtr = &triggerWindowResized;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowResized, 0, 0, 0});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowResized, 0, 0, -1});
     addTrigger(*triggerPtr);
     
     triggerPtr = &triggerWindowToggleFullScreen;
@@ -129,11 +118,11 @@ void EventManager::loadTriggers ()
     addTrigger(*triggerPtr);
     
     triggerPtr = &triggerWindowFocusLost;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowFocusLost, 0, 0, 0});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowFocusLost, 0, 0, -1});
     addTrigger(*triggerPtr);
     
     triggerPtr = &triggerWindowFocusGained;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowFocusGained, 0, 0, 0});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowFocusGained, 0, 0, -1});
     addTrigger(*triggerPtr);
     
     triggerPtr = &triggerMoveCharacterLeft;
@@ -151,7 +140,8 @@ void EventManager::loadTriggers ()
     triggerPtr = &triggerMoveCharacterDown;
     triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Down});
     addTrigger(*triggerPtr);
-    
-    addSubscription(WindowFocusLost, "EventManager", shared_from_this());
-    addSubscription(WindowFocusGained, "EventManager", shared_from_this());
+}
+
+void EventManager::loadTriggers ()
+{
 }
