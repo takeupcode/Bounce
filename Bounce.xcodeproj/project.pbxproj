@@ -34,6 +34,7 @@
 		3E4485721D59777000337B84 /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
 		3E4485731D59777000337B84 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
 		3E4485751D68130D00337B84 /* EventDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetails.h; sourceTree = "<group>"; };
+		3E4485761D69546400337B84 /* WindowIdentities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowIdentities.h; sourceTree = "<group>"; };
 		3E4A7A241D30A24A0003B055 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		3E4A7A251D30A24A0003B055 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		3E4A7A271D30A64F0003B055 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
@@ -116,6 +117,7 @@
 				3E4485731D59777000337B84 /* SceneManager.h */,
 				3E4A7A241D30A24A0003B055 /* Window.cpp */,
 				3E4A7A251D30A24A0003B055 /* Window.h */,
+				3E4485761D69546400337B84 /* WindowIdentities.h */,
 				3EA64E9B1D51AF36008A9031 /* WindowManager.cpp */,
 				3EA64E9C1D51AF36008A9031 /* WindowManager.h */,
 				3E9112B81D1E3B9C00D43AC1 /* Resources */,

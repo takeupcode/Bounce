@@ -13,6 +13,7 @@
 #include "EventManager.h"
 #include "MoveDotCommand.h"
 #include "Window.h"
+#include "WindowIdentities.h"
 #include "WindowManager.h"
 
 #include "ResourcePath.hpp"
@@ -115,5 +116,5 @@ shared_ptr<Window> BounceGame::createMainWindow () const
 
 int BounceGame::mainWindowIdentity () const
 {
-    return 1;
+    return static_cast<int>(WindowIdentities::MainWindow);
 }
