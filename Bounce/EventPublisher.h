@@ -109,7 +109,11 @@ public:
     {
         std::vector<std::string> badConnectionIdentities;
         
-        for (auto & identifiedSubscriberPair : mData->mSubscribers)
+        // Iterate through a copy of the subscribers because the notify handlers
+        // could decide to unsubscribe which would invalidate the iterator if
+        // we were iterating through the original collection.
+        MappedWeakSubscriberType mSubscribersCopy = mData->mSubscribers;
+        for (auto & identifiedSubscriberPair : mSubscribersCopy)
         {
             try
             {
