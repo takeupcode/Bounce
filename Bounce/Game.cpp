@@ -52,6 +52,11 @@ void Game::completeFixedFrame ()
     mFixedFrameTotal -= sf::seconds(mFixedFrameTime);
 }
 
+void Game::quit ()
+{
+    mDone = true;
+}
+
 void Game::notify (EventParameter eventDetails)
 {
     if (eventDetails.name() == EventManager::WindowClosed)

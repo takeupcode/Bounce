@@ -29,11 +29,10 @@ SceneMain::SceneMain (Director * director, SceneIdentities identity, std::shared
 
 void SceneMain::created ()
 {
-    if (mCreated)
+    if (hasBeenCreated())
     {
         return;
     }
-    
     Scene::created();
     
     if (!mSphereTexture.loadFromFile(resourcePath() + "sphere.png"))
@@ -44,8 +43,6 @@ void SceneMain::created ()
     mDot.reset(new Dot(mSphereTexture, sf::Vector2f(mWindow->size().x / 2, mWindow->size().y / 2), sf::Vector2u(mWindow->size().x, mWindow->size().y)));
     
     randomGenerator.seed(std::random_device()());
-    
-    mCreated = true;
 }
 
 void SceneMain::update (float elapsedSeconds)

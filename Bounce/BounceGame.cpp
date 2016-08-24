@@ -12,6 +12,7 @@
 #include "Director.h"
 #include "SceneIdentities.h"
 #include "SceneMain.h"
+#include "SceneMainMenu.h"
 #include "SceneManager.h"
 #include "SceneSplash.h"
 #include "Window.h"
@@ -31,8 +32,9 @@ BounceGame::~BounceGame ()
 
 void BounceGame::registerScenes ()
 {
-    director()->sceneManager()->registerScene<SceneSplash>(SceneIdentities::Splash, director()->windowManager()->mainWindow(), true, false);
+    director()->sceneManager()->registerScene<SceneSplash>(SceneIdentities::Splash, director()->windowManager()->mainWindow(), false, false);
     director()->sceneManager()->registerScene<SceneMain>(SceneIdentities::Level01, director()->windowManager()->mainWindow(), false, false);
+    director()->sceneManager()->registerScene<SceneMainMenu>(SceneIdentities::MainMenu, director()->windowManager()->mainWindow(), false, true);
 }
 
 void BounceGame::setInitialScenes ()

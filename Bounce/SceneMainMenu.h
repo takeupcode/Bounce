@@ -1,5 +1,5 @@
 //
-//  SceneMain.h
+//  SceneMainMenu.h
 //  Bounce
 //
 //  Created by Abdul Wahid Tanner on 8/23/16.
@@ -9,21 +9,19 @@
 #pragma once
 
 #include <memory>
-#include <random>
-#include <vector>
 #include <SFML/Graphics.hpp>
 
 #include "Scene.h"
 
-class Command;
 class Director;
-class Dot;
 class Window;
 
-class SceneMain : public Scene
+class SceneMainMenu : public Scene
 {
 public:
     void created () override;
+    
+    void activated () override;
     
     void update (float elapsedSeconds) override;
     void render () override;
@@ -31,7 +29,7 @@ public:
 protected:
     friend class SceneManager;
     
-    SceneMain (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal);
+    SceneMainMenu (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal);
     
     void loadTriggers () override;
     void unloadTriggers () override;
@@ -39,9 +37,13 @@ protected:
     void notify (EventParameter eventDetails) override;
     
 private:
-    sf::Texture mSphereTexture;
-    std::shared_ptr<Dot> mDot;
-    std::mt19937 randomGenerator;
-    std::uniform_real_distribution<float> uniformDistribution;
-    std::vector<std::unique_ptr<Command>> mCommands;
+    sf::Font mFont;
+    sf::Text mMenuTitle;
+    
+    sf::Vector2f mButtonSize;
+    sf::Vector2f mButtonPosition;
+    unsigned int mButtonPadding;
+    
+    sf::RectangleShape mButtons[3];
+    sf::Text mButtonText[3];
 };

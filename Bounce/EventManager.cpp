@@ -22,6 +22,7 @@ const string EventManager::MoveCharacterUp = "MoveCharacterUp";
 const string EventManager::MoveCharacterDown = "MoveCharacterDown";
 const string EventManager::GamePause = "GamePause";
 const string EventManager::GameContinue = "GameContinue";
+const string EventManager::MenuSelect = "MenuSelect";
 
 EventManager::EventManager (Director * director)
 : Directable(director)
@@ -108,6 +109,7 @@ void EventManager::createTriggers ()
     Trigger triggerMoveCharacterDown {MoveCharacterDown};
     Trigger triggerGamePause {GamePause};
     Trigger triggerGameContinue {GameContinue};
+    Trigger triggerMenuSelect {MenuSelect};
     
     Trigger * triggerPtr = &triggerWindowClosed;
     triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowClosed, 0, 0, -1});
@@ -151,6 +153,10 @@ void EventManager::createTriggers ()
     
     triggerPtr = &triggerGameContinue;
     triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, -1});
+    addTrigger(*triggerPtr);
+    
+    triggerPtr = &triggerMenuSelect;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::MouseButtonPressed, 0, 0, sf::Mouse::Button::Left});
     addTrigger(*triggerPtr);
 }
 

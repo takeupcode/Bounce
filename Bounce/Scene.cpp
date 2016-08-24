@@ -14,7 +14,7 @@ using namespace std;
 
 Scene::Scene (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal)
 : Directable(director), mIdentity(identity), mWindow(window), mTransparent(transparent), mModal(modal), mActive(false),
-mPreviousScene(nullptr), mNextScene(nullptr)
+mPreviousScene(nullptr), mNextScene(nullptr), mCreated(false)
 { }
 
 Scene::~Scene ()

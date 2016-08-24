@@ -29,6 +29,8 @@ public:
     bool isFixedFrameReady () const;
     void completeFixedFrame ();
     
+    void quit ();
+    
 protected:
     friend class Director;
     

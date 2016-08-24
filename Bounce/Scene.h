@@ -46,22 +46,30 @@ public:
     
     virtual void created ()
     {
-        loadTriggers();
+        mCreated = true;
     }
     
     virtual void destroyed ()
     {
-        unloadTriggers();
     }
     
     virtual void activated ()
     {
+        loadTriggers();
+        
         mActive = true;
     }
     
     virtual void deactivated ()
     {
+        unloadTriggers();
+        
         mActive = false;
+    }
+    
+    bool hasBeenCreated ()
+    {
+        return mCreated;
     }
     
     virtual void update (float elapsedSeconds) = 0;
@@ -87,4 +95,5 @@ private:
     bool mActive;
     Scene * mPreviousScene;
     Scene * mNextScene;
+    bool mCreated;
 };

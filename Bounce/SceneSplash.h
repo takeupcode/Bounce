@@ -38,5 +38,4 @@ private:
     sf::Font mFont;
     sf::Text mText;
     float mTimePassed;
-    bool mCreated;
 };
