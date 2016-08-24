@@ -23,6 +23,8 @@ public:
     
     void activated () override;
     
+    void deactivated () override;
+    
     void update (float elapsedSeconds) override;
     void render () override;
     

@@ -87,8 +87,6 @@ protected:
     { }
     
     std::shared_ptr<Window> mWindow;
-
-private:
     SceneIdentities mIdentity;
     bool mTransparent;
     bool mModal;

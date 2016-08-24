@@ -35,6 +35,7 @@ public:
     static const std::string GamePause;
     static const std::string GameContinue;
     static const std::string MenuSelect;
+    static const std::string MenuShow;
     
     explicit EventManager (Director * director);
     

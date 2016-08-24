@@ -84,6 +84,11 @@ void SceneMainMenu::activated ()
     mButtonText[0].setOrigin(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
 }
 
+void SceneMainMenu::deactivated ()
+{
+    mActive = false;
+}
+
 void SceneMainMenu::update (float elapsedSeconds)
 {
 }
@@ -106,43 +111,52 @@ void SceneMainMenu::render ()
 void SceneMainMenu::loadTriggers ()
 {
     director()->eventManager()->addSubscription(EventManager::MenuSelect, "SceneMainMenu", shared_from_this());
+    director()->eventManager()->addSubscription(EventManager::MenuShow, "SceneMainMenu", shared_from_this());
 }
 
 void SceneMainMenu::unloadTriggers ()
 {
     director()->eventManager()->removeSubscription(EventManager::MenuSelect, "SceneMainMenu");
+    director()->eventManager()->removeSubscription(EventManager::MenuShow, "SceneMainMenu");
 }
 
 void SceneMainMenu::notify (EventParameter eventDetails)
 {
     if  (eventDetails.name() == EventManager::MenuSelect)
     {
-        sf::Vector2i mousePosition = {eventDetails.mouseButton().x, eventDetails.mouseButton().y};
-        
-        float halfWidth = mButtonSize.x / 2.0f;
-        float halfHeight = mButtonSize.y / 2.0f;
-        
-        for (int i = 0; i < 3; ++i)
+        if (mActive)
         {
-            if(mousePosition.x >= mButtons[i].getPosition().x - halfWidth &&
-               mousePosition.x <= mButtons[i].getPosition().x + halfWidth &&
-               mousePosition.y >= mButtons[i].getPosition().y - halfHeight &&
-               mousePosition.y <= mButtons[i].getPosition().y + halfHeight)
+            sf::Vector2i mousePosition = {eventDetails.mouseButton().x, eventDetails.mouseButton().y};
+            
+            float halfWidth = mButtonSize.x / 2.0f;
+            float halfHeight = mButtonSize.y / 2.0f;
+            
+            for (int i = 0; i < 3; ++i)
             {
-                switch (i)
+                if(mousePosition.x >= mButtons[i].getPosition().x - halfWidth &&
+                   mousePosition.x <= mButtons[i].getPosition().x + halfWidth &&
+                   mousePosition.y >= mButtons[i].getPosition().y - halfHeight &&
+                   mousePosition.y <= mButtons[i].getPosition().y + halfHeight)
                 {
-                case 0:
-                    director()->sceneManager()->activateScene(SceneIdentities::Level01);
-                    break;
+                    switch (i)
+                    {
+                    case 0:
+                        director()->sceneManager()->activateScene(SceneIdentities::Level01);
+                        break;
+                            
+                    case 1:
+                        break;
                         
-                case 1:
-                    break;
-                    
-                case 2:
-                    director()->game()->quit();
-                    break;
+                    case 2:
+                        director()->game()->quit();
+                        break;
+                    }
                 }
             }
         }
+    }
+    else if  (eventDetails.name() == EventManager::MenuShow)
+    {
+        director()->sceneManager()->activateScene(SceneIdentities::MainMenu);
     }
 }
