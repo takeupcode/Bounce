@@ -23,9 +23,6 @@ class Game : public std::enable_shared_from_this<Game>, public EventSubscriber<E
 public:
     virtual ~Game ();
     
-    virtual void update () = 0;
-    virtual void render () = 0;
-    
     bool isDone () const;
     sf::Time elapsed () const;
     void restartClock ();
@@ -35,11 +32,14 @@ public:
 protected:
     friend class Director;
     
-    Game (Director * director);
+    explicit Game (Director * director);
     
-    void loadTriggers ();
-    virtual void loadDerivedTriggers () = 0;
-    
+    virtual void loadTriggers ();
+
+    virtual void registerScenes () = 0;
+
+    virtual void setInitialScenes () = 0;
+
     virtual std::shared_ptr<Window> createMainWindow () const = 0;
     virtual int mainWindowIdentity () const = 0;
     
@@ -53,18 +53,4 @@ private:
     sf::Time mFixedFrameTotal;
     bool mDone;
     int mMaineWindowIdentity;
-};
-
-template <typename T>
-class GameShared : public Game
-{
-protected:
-    GameShared (Director * director)
-    : Game(director)
-    { }
-    
-    std::shared_ptr<T> shared_from_base()
-    {
-        return std::static_pointer_cast<T>(shared_from_this());
-    }
 };

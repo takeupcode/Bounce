@@ -18,31 +18,21 @@ class Command;
 class Dot;
 class Window;
 
-class BounceGame : public GameShared<BounceGame>
+class BounceGame : public Game
 {
 public:
-    BounceGame (Director * director);
+    explicit BounceGame (Director * director);
     virtual ~BounceGame ();
-    
-    void update () override;
-    void render () override;
 
 protected:
-    void loadDerivedTriggers () override;
+    void registerScenes () override;
+    
+    void setInitialScenes () override;
 
     std::shared_ptr<Window> createMainWindow () const override;
     int mainWindowIdentity () const override;
-    
-    void notify (EventParameter eventDetails) override;
 
 private:
     const unsigned int MainWindowWidth = 800;
     const unsigned int MainWindowHeight = 600;
-    
-    sf::Texture mSphereTexture;
-    std::shared_ptr<Dot> mDot;
-    std::mt19937 randomGenerator;
-    std::uniform_real_distribution<float> uniformDistribution;
-    std::vector<std::unique_ptr<Command>> mCommands;
-    std::shared_ptr<Window> mMainWindow;
 };

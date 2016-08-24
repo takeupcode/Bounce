@@ -20,8 +20,11 @@ void Director::playGame ()
         if (game()->isFixedFrameReady())
         {
             windowManager()->handleInput();
-            game()->update();
-            game()->render();
+            
+            float elapsedSeconds = game()->elapsed().asSeconds();
+            sceneManager()->update(elapsedSeconds);
+            sceneManager()->render();
+            sceneManager()->processSceneRemovals();
             game()->completeFixedFrame();
         }
         game()->restartClock();
@@ -87,5 +90,8 @@ void Director::onConfigurationChange ()
         std::shared_ptr<Window> mainWindow = mGame->createMainWindow();
         
         mWindowManager->addWindow(mainWindow);
+        
+        mGame->registerScenes();
+        mGame->setInitialScenes();
     }
 }

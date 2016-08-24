@@ -8,23 +8,41 @@
 
 #pragma once
 
+#include <functional>
 #include <memory>
+#include <map>
+#include <vector>
 
 #include "Directable.h"
 #include "EventDetails.h"
 #include "EventSubscriber.h"
+#include "SceneIdentities.h"
 
 class Scene;
+class Window;
 
 class SceneManager : public std::enable_shared_from_this<SceneManager>, public EventSubscriber<EventParameter>,
     public Directable
 {
 public:
-    SceneManager (Director * director);
+    explicit SceneManager (Director * director);
     
-    bool addScene (std::shared_ptr<Scene> scene);
+    bool hasScene (SceneIdentities scene);
     
-    void handleInput ();
+    bool activateScene (SceneIdentities scene);
+    
+    bool removeScene (SceneIdentities scene);
+    
+    void processSceneRemovals ();
+    
+    template <typename T>
+    void registerScene (SceneIdentities scene, std::shared_ptr<Window> window, bool transparent, bool modal)
+    {
+        mRegisteredScenes[scene] = std::shared_ptr<Scene>(static_cast<Scene *>(new T(director(), scene, window, transparent, modal)));
+    }
+    
+    virtual void update (float elapsedSeconds);
+    virtual void render ();
     
 protected:
     void notify (EventParameter eventDetails) override;
@@ -34,5 +52,7 @@ private:
     
     void loadTriggers ();
     
-    std::shared_ptr<Scene> mFirstScene;
+    Scene * mFirstScene;
+    std::map<SceneIdentities, std::shared_ptr<Scene>> mRegisteredScenes;
+    std::vector<SceneIdentities> mScenesToBeRemoved;
 };

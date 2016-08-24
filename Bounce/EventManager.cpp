@@ -20,6 +20,8 @@ const string EventManager::MoveCharacterLeft = "MoveCharacterLeft";
 const string EventManager::MoveCharacterRight = "MoveCharacterRight";
 const string EventManager::MoveCharacterUp = "MoveCharacterUp";
 const string EventManager::MoveCharacterDown = "MoveCharacterDown";
+const string EventManager::GamePause = "GamePause";
+const string EventManager::GameContinue = "GameContinue";
 
 EventManager::EventManager (Director * director)
 : Directable(director)
@@ -104,6 +106,8 @@ void EventManager::createTriggers ()
     Trigger triggerMoveCharacterRight {MoveCharacterRight};
     Trigger triggerMoveCharacterUp {MoveCharacterUp};
     Trigger triggerMoveCharacterDown {MoveCharacterDown};
+    Trigger triggerGamePause {GamePause};
+    Trigger triggerGameContinue {GameContinue};
     
     Trigger * triggerPtr = &triggerWindowClosed;
     triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::WindowClosed, 0, 0, -1});
@@ -139,6 +143,14 @@ void EventManager::createTriggers ()
     
     triggerPtr = &triggerMoveCharacterDown;
     triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Down});
+    addTrigger(*triggerPtr);
+    
+    triggerPtr = &triggerGamePause;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, sf::Keyboard::Key::P});
+    addTrigger(*triggerPtr);
+    
+    triggerPtr = &triggerGameContinue;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, -1});
     addTrigger(*triggerPtr);
 }
 

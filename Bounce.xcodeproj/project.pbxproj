@@ -11,6 +11,9 @@
 		3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */; };
 		3E2C56B71D433A3700DEEF44 /* Dot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B51D433A3700DEEF44 /* Dot.cpp */; };
 		3E4485741D59777000337B84 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4485721D59777000337B84 /* SceneManager.cpp */; };
+		3E4485791D6A985400337B84 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4485781D6A985400337B84 /* Scene.cpp */; };
+		3E44857D1D6C14BD00337B84 /* SceneSplash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */; };
+		3E4485801D6C156500337B84 /* SceneMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44857E1D6C156500337B84 /* SceneMain.cpp */; };
 		3E4A7A261D30A24A0003B055 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A7A241D30A24A0003B055 /* Window.cpp */; };
 		3E4A7A291D30A64F0003B055 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A7A271D30A64F0003B055 /* Game.cpp */; };
 		3E4A7A2C1D30AB3B0003B055 /* BounceGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A7A2A1D30AB3B0003B055 /* BounceGame.cpp */; };
@@ -35,6 +38,12 @@
 		3E4485731D59777000337B84 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
 		3E4485751D68130D00337B84 /* EventDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetails.h; sourceTree = "<group>"; };
 		3E4485761D69546400337B84 /* WindowIdentities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowIdentities.h; sourceTree = "<group>"; };
+		3E4485771D6955DF00337B84 /* SceneIdentities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneIdentities.h; sourceTree = "<group>"; };
+		3E4485781D6A985400337B84 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneSplash.cpp; sourceTree = "<group>"; };
+		3E44857C1D6C14BD00337B84 /* SceneSplash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneSplash.h; sourceTree = "<group>"; };
+		3E44857E1D6C156500337B84 /* SceneMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneMain.cpp; sourceTree = "<group>"; };
+		3E44857F1D6C156500337B84 /* SceneMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneMain.h; sourceTree = "<group>"; };
 		3E4A7A241D30A24A0003B055 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		3E4A7A251D30A24A0003B055 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		3E4A7A271D30A64F0003B055 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
@@ -112,9 +121,15 @@
 				3E9112B61D1E3B9C00D43AC1 /* main.cpp */,
 				3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */,
 				3E2C56B31D43389000DEEF44 /* MoveDotCommand.h */,
+				3E4485781D6A985400337B84 /* Scene.cpp */,
 				3E9F88071D4ED4F4001D03FB /* Scene.h */,
+				3E4485771D6955DF00337B84 /* SceneIdentities.h */,
+				3E44857E1D6C156500337B84 /* SceneMain.cpp */,
+				3E44857F1D6C156500337B84 /* SceneMain.h */,
 				3E4485721D59777000337B84 /* SceneManager.cpp */,
 				3E4485731D59777000337B84 /* SceneManager.h */,
+				3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */,
+				3E44857C1D6C14BD00337B84 /* SceneSplash.h */,
 				3E4A7A241D30A24A0003B055 /* Window.cpp */,
 				3E4A7A251D30A24A0003B055 /* Window.h */,
 				3E4485761D69546400337B84 /* WindowIdentities.h */,
@@ -229,7 +244,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E4A7A2C1D30AB3B0003B055 /* BounceGame.cpp in Sources */,
+				3E4485791D6A985400337B84 /* Scene.cpp in Sources */,
 				3E2C56B11D43364000DEEF44 /* Command.cpp in Sources */,
+				3E4485801D6C156500337B84 /* SceneMain.cpp in Sources */,
 				3E4485741D59777000337B84 /* SceneManager.cpp in Sources */,
 				3EA64E9D1D51AF36008A9031 /* WindowManager.cpp in Sources */,
 				3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */,
@@ -238,6 +255,7 @@
 				3EA64E9A1D51AD90008A9031 /* Director.cpp in Sources */,
 				3E9112B41D1E3B9C00D43AC1 /* ResourcePath.mm in Sources */,
 				3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */,
+				3E44857D1D6C14BD00337B84 /* SceneSplash.cpp in Sources */,
 				3E4A7A291D30A64F0003B055 /* Game.cpp in Sources */,
 				3E2C56B71D433A3700DEEF44 /* Dot.cpp in Sources */,
 			);

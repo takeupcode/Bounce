@@ -22,7 +22,7 @@ class WindowManager : public std::enable_shared_from_this<WindowManager>, public
     public Directable
 {
 public:
-    WindowManager (Director * director);
+    explicit WindowManager (Director * director);
     
     bool addWindow (std::shared_ptr<Window> window);
     

@@ -10,101 +10,34 @@
 
 #include "BounceGame.h"
 #include "Director.h"
-#include "EventManager.h"
-#include "MoveDotCommand.h"
+#include "SceneIdentities.h"
+#include "SceneMain.h"
+#include "SceneManager.h"
+#include "SceneSplash.h"
 #include "Window.h"
 #include "WindowIdentities.h"
 #include "WindowManager.h"
 
-#include "ResourcePath.hpp"
-
 using namespace std;
 
 BounceGame::BounceGame (Director * director)
-: GameShared(director), uniformDistribution(-10.0f, 10.0f)
+: Game(director)
 {
-    if (!mSphereTexture.loadFromFile(resourcePath() + "sphere.png"))
-    {
-        throw runtime_error("Could not load sphere.png.");
-    }
-    
-    mDot.reset(new Dot(mSphereTexture, sf::Vector2f(MainWindowWidth / 2, MainWindowHeight / 2), sf::Vector2u(MainWindowWidth, MainWindowHeight)));
-    
-    randomGenerator.seed(std::random_device()());
 }
 
 BounceGame::~BounceGame ()
 {
 }
 
-void BounceGame::update ()
+void BounceGame::registerScenes ()
 {
-    sf::Vector2f positionDelta {0.0f, 0.0f};
-    positionDelta.x += uniformDistribution(randomGenerator);
-    positionDelta.y += uniformDistribution(randomGenerator);
-    
-    float elapsedSeconds = elapsed().asSeconds();
-    mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta, elapsedSeconds)));
-    
-    for (auto & cmdPtr: mCommands)
-    {
-        cmdPtr->execute();
-    }
-    mCommands.clear();
+    director()->sceneManager()->registerScene<SceneSplash>(SceneIdentities::Splash, director()->windowManager()->mainWindow(), true, false);
+    director()->sceneManager()->registerScene<SceneMain>(SceneIdentities::Level01, director()->windowManager()->mainWindow(), false, false);
 }
 
-void BounceGame::render ()
+void BounceGame::setInitialScenes ()
 {
-    if (!mMainWindow)
-    {
-        mMainWindow = director()->windowManager()->mainWindow();
-    }
-    mMainWindow->drawBegin();
-    mDot->draw(mMainWindow.get());
-    mMainWindow->drawEnd();
-}
-
-void BounceGame::loadDerivedTriggers()
-{
-    director()->eventManager()->addSubscription(EventManager::MoveCharacterLeft, "BounceGame", shared_from_base());
-    director()->eventManager()->addSubscription(EventManager::MoveCharacterRight, "BounceGame", shared_from_base());
-    director()->eventManager()->addSubscription(EventManager::MoveCharacterUp, "BounceGame", shared_from_base());
-    director()->eventManager()->addSubscription(EventManager::MoveCharacterDown, "BounceGame", shared_from_base());
-}
-
-void BounceGame::notify (EventParameter eventDetails)
-{
-    if (eventDetails.name() == EventManager::MoveCharacterLeft ||
-        eventDetails.name() == EventManager::MoveCharacterRight ||
-        eventDetails.name() == EventManager::MoveCharacterUp ||
-        eventDetails.name() == EventManager::MoveCharacterDown)
-    {
-        sf::Vector2f positionDelta {0.0f, 0.0f};
-        
-        if (eventDetails.name() == EventManager::MoveCharacterLeft)
-        {
-            positionDelta.x -= 10.0f;
-        }
-        else if (eventDetails.name() == EventManager::MoveCharacterRight)
-        {
-            positionDelta.x += 10.0f;
-        }
-        else if (eventDetails.name() == EventManager::MoveCharacterUp)
-        {
-            positionDelta.y -= 10.0f;
-        }
-        else if (eventDetails.name() == EventManager::MoveCharacterDown)
-        {
-            positionDelta.y += 10.0f;
-        }
-        
-        float elapsedSeconds = elapsed().asSeconds();
-        mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta, elapsedSeconds)));
-    }
-    else
-    {
-        Game::notify(eventDetails);
-    }
+    director()->sceneManager()->activateScene(SceneIdentities::Splash);
 }
 
 shared_ptr<Window> BounceGame::createMainWindow () const

@@ -23,7 +23,7 @@ struct WindowEvent
 class EventDetails
 {
 public:
-    EventDetails (const std::string & name)
+    explicit EventDetails (const std::string & name)
     : mData(new EventDetailsData(name))
     { }
     

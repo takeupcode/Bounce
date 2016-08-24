@@ -13,38 +13,56 @@
 #include "Directable.h"
 #include "EventDetails.h"
 #include "EventSubscriber.h"
+#include "SceneIdentities.h"
 
 class Window;
 class SceneManager;
 
-class Scene : public std::enable_shared_from_this<BounceGame>, public EventSubscriber<EventParameter>,
+class Scene : public std::enable_shared_from_this<Scene>, public EventSubscriber<EventParameter>,
     public Directable
 {
 public:
-    virtual ~Scene ()
-    { }
-    
-    bool isTransparent ()
+    virtual ~Scene ();
+
+    SceneIdentities identity () const
+    {
+        return mIdentity;
+    }
+
+    bool isTransparent () const
     {
         return mTransparent;
     }
     
-    bool isModal ()
+    bool isModal () const
     {
         return mModal;
     }
     
+    bool isActive () const
+    {
+        return mActive;
+    }
+    
     virtual void created ()
-    { }
+    {
+        loadTriggers();
+    }
     
     virtual void destroyed ()
-    { }
+    {
+        unloadTriggers();
+    }
     
     virtual void activated ()
-    { }
+    {
+        mActive = true;
+    }
     
     virtual void deactivated ()
-    { }
+    {
+        mActive = false;
+    }
     
     virtual void update (float elapsedSeconds) = 0;
     virtual void render () = 0;
@@ -52,17 +70,21 @@ public:
 protected:
     friend class SceneManager;
     
-    Scene (Director * director, std::shared_ptr<Window> window, bool transparent, bool modal)
-    : Directable(director), mWindow(window), mTransparent(transparent), mModal(model)
-    { }
+    Scene (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal);
+    
+    virtual void loadTriggers () = 0;
+    virtual void unloadTriggers () = 0;
     
     void notify (EventParameter eventDetails) override
     { }
     
-    virtual void loadTriggers () = 0;
+    std::shared_ptr<Window> mWindow;
 
 private:
-    std::shared_ptr<Window> mWindow;
+    SceneIdentities mIdentity;
     bool mTransparent;
     bool mModal;
+    bool mActive;
+    Scene * mPreviousScene;
+    Scene * mNextScene;
 };

@@ -17,7 +17,7 @@ class Directable
 protected:
     friend class Director;
     
-    Directable (Director * director)
+    explicit Directable (Director * director)
     : mDirector(director)
     { }
     
@@ -43,7 +43,7 @@ protected:
         
         return *this;
     }
-    
+
     Director * director () const
     {
         if (!mDirector)

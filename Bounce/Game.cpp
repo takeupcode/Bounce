@@ -24,8 +24,6 @@ Game::~Game ()
 void Game::loadTriggers ()
 {
     director()->eventManager()->addSubscription(EventManager::WindowClosed, "Game", shared_from_this());
-
-    loadDerivedTriggers();
 }
 
 bool Game::isDone () const

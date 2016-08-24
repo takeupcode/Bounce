@@ -32,8 +32,10 @@ public:
     static const std::string MoveCharacterRight;
     static const std::string MoveCharacterUp;
     static const std::string MoveCharacterDown;
+    static const std::string GamePause;
+    static const std::string GameContinue;
     
-    EventManager (Director * director);
+    explicit EventManager (Director * director);
     
     bool addTrigger (const Trigger & trigger);
     bool removeTrigger (const std::string & name);
