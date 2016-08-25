@@ -73,6 +73,6 @@ void SceneSplash::notify (EventParameter eventDetails)
     if  (eventDetails.name() == EventManager::GameContinue)
     {
         director()->sceneManager()->removeScene(SceneIdentities::Splash);
-        director()->sceneManager()->activateScene(SceneIdentities::MainMenu);
+        director()->sceneManager()->addScene(SceneIdentities::MainMenu);
     }
 }

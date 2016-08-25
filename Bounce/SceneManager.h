@@ -27,9 +27,11 @@ class SceneManager : public std::enable_shared_from_this<SceneManager>, public E
 public:
     explicit SceneManager (Director * director);
     
-    bool hasScene (SceneIdentities scene);
+    bool hasScene (SceneIdentities scene) const;
     
-    bool activateScene (SceneIdentities scene);
+    SceneIdentities currentScene () const;
+    
+    bool addScene (SceneIdentities scene, bool addToFront = true);
     
     bool removeScene (SceneIdentities scene);
     

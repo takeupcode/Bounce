@@ -141,7 +141,7 @@ void SceneMainMenu::notify (EventParameter eventDetails)
                     switch (i)
                     {
                     case 0:
-                        director()->sceneManager()->activateScene(SceneIdentities::Level01);
+                        director()->sceneManager()->addScene(SceneIdentities::Level01);
                         break;
                             
                     case 1:
@@ -157,6 +157,10 @@ void SceneMainMenu::notify (EventParameter eventDetails)
     }
     else if  (eventDetails.name() == EventManager::MenuShow)
     {
-        director()->sceneManager()->activateScene(SceneIdentities::MainMenu);
+        SceneIdentities currentSceneIdentity = director()->sceneManager()->currentScene();
+        if (currentSceneIdentity != SceneIdentities::Paused)
+        {
+            director()->sceneManager()->addScene(SceneIdentities::MainMenu);
+        }
     }
 }

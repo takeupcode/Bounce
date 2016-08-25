@@ -162,7 +162,7 @@ void EventManager::createTriggers ()
     addTrigger(*triggerPtr);
     
     triggerPtr = &triggerMenuShow;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, sf::Keyboard::Key::P});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Escape});
     addTrigger(*triggerPtr);
 }
 

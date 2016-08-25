@@ -14,6 +14,7 @@
 #include "SceneMain.h"
 #include "SceneMainMenu.h"
 #include "SceneManager.h"
+#include "ScenePaused.h"
 #include "SceneSplash.h"
 #include "Window.h"
 #include "WindowIdentities.h"
@@ -35,11 +36,13 @@ void BounceGame::registerScenes ()
     director()->sceneManager()->registerScene<SceneSplash>(SceneIdentities::Splash, director()->windowManager()->mainWindow(), false, false);
     director()->sceneManager()->registerScene<SceneMain>(SceneIdentities::Level01, director()->windowManager()->mainWindow(), false, false);
     director()->sceneManager()->registerScene<SceneMainMenu>(SceneIdentities::MainMenu, director()->windowManager()->mainWindow(), false, true);
+    director()->sceneManager()->registerScene<ScenePaused>(SceneIdentities::Paused, director()->windowManager()->mainWindow(), true, true);
 }
 
 void BounceGame::setInitialScenes ()
 {
-    director()->sceneManager()->activateScene(SceneIdentities::Splash);
+    director()->sceneManager()->addScene(SceneIdentities::Splash);
+    director()->sceneManager()->addScene(SceneIdentities::Paused, false);
 }
 
 shared_ptr<Window> BounceGame::createMainWindow () const

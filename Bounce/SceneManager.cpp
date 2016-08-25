@@ -16,7 +16,7 @@ SceneManager::SceneManager (Director * director)
 : Directable(director), mFirstScene(nullptr)
 { }
 
-bool SceneManager::hasScene (SceneIdentities scene)
+bool SceneManager::hasScene (SceneIdentities scene) const
 {
     Scene * currentScene = mFirstScene;
     while (currentScene)
@@ -38,7 +38,17 @@ bool SceneManager::hasScene (SceneIdentities scene)
     return false;
 }
 
-bool SceneManager::activateScene (SceneIdentities scene)
+SceneIdentities SceneManager::currentScene () const
+{
+    if (mFirstScene)
+    {
+        return mFirstScene->identity();
+    }
+    
+    return SceneIdentities::None;
+}
+
+bool SceneManager::addScene (SceneIdentities scene, bool addToFront)
 {
     for (auto position = mScenesToBeRemoved.begin(); position != mScenesToBeRemoved.end(); ++position)
     {
@@ -47,7 +57,7 @@ bool SceneManager::activateScene (SceneIdentities scene)
             mScenesToBeRemoved.erase(position);
         }
     }
-    if (mFirstScene && mFirstScene->identity() != scene)
+    if (addToFront && mFirstScene && mFirstScene->identity() != scene)
     {
         mFirstScene->deactivated();
     }
@@ -57,6 +67,11 @@ bool SceneManager::activateScene (SceneIdentities scene)
     {
         if (currentScene->identity() == scene)
         {
+            if (!addToFront)
+            {
+                return true;
+            }
+            
             if (currentScene->mNextScene && currentScene->mPreviousScene)
             {
                 currentScene->mNextScene->mPreviousScene = currentScene->mPreviousScene;
@@ -86,17 +101,41 @@ bool SceneManager::activateScene (SceneIdentities scene)
     }
     
     Scene * newScene = mRegisteredScenes[scene].get();
-    newScene->mNextScene = mFirstScene;
-    newScene->mPreviousScene = nullptr;
-    
-    if (mFirstScene)
+    if (addToFront)
     {
-        mFirstScene->mPreviousScene = newScene;
+        newScene->mNextScene = mFirstScene;
+        newScene->mPreviousScene = nullptr;
+        
+        if (mFirstScene)
+        {
+            mFirstScene->mPreviousScene = newScene;
+        }
+        mFirstScene = newScene;
+        mFirstScene->created();
+        mFirstScene->activated();
     }
-    mFirstScene = newScene;
-    
-    mFirstScene->created();
-    mFirstScene->activated();
+    else
+    {
+        Scene * lastScene = mFirstScene;
+        while (lastScene && lastScene->mNextScene)
+        {
+            lastScene = lastScene->mNextScene;
+        }
+        newScene->mNextScene = nullptr;
+        newScene->mPreviousScene = lastScene;
+        
+        if (lastScene)
+        {
+            lastScene->mNextScene = newScene;
+            newScene->created();
+        }
+        else
+        {
+            mFirstScene = newScene;
+            mFirstScene->created();
+            mFirstScene->activated();
+        }
+    }
     
     return true;
 }

@@ -10,10 +10,11 @@
 
 enum class SceneIdentities
 {
-    Splash = 1,
+    None = 0,
+    Splash,
     MainMenu,
     Level01,
-    Pause,
+    Paused,
     GameOver,
     Credits
 };
