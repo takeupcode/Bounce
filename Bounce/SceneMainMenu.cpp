@@ -141,6 +141,7 @@ void SceneMainMenu::notify (EventParameter eventDetails)
                         break;
                             
                     case 1:
+                        director()->sceneManager()->addScene(SceneIdentities::Credits);
                         break;
                         
                     case 2:

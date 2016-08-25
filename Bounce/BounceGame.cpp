@@ -10,6 +10,7 @@
 
 #include "BounceGame.h"
 #include "Director.h"
+#include "SceneCredits.h"
 #include "SceneIdentities.h"
 #include "SceneMain.h"
 #include "SceneMainMenu.h"
@@ -37,6 +38,7 @@ void BounceGame::registerScenes ()
     director()->sceneManager()->registerScene<SceneMain>(SceneIdentities::Level01, director()->windowManager()->mainWindow(), false, false);
     director()->sceneManager()->registerScene<SceneMainMenu>(SceneIdentities::MainMenu, director()->windowManager()->mainWindow(), false, true);
     director()->sceneManager()->registerScene<ScenePaused>(SceneIdentities::Paused, director()->windowManager()->mainWindow(), true, true);
+    director()->sceneManager()->registerScene<SceneCredits>(SceneIdentities::Credits, director()->windowManager()->mainWindow(), false, true);
 }
 
 void BounceGame::setInitialScenes ()

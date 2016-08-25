@@ -1,0 +1,70 @@
+//
+//  SceneCredits.cpp
+//  Bounce
+//
+//  Created by Abdul Wahid Tanner on 8/24/16.
+//  Copyright © 2016 Take Up Code. All rights reserved.
+//
+
+#include "Director.h"
+#include "EventManager.h"
+#include "Game.h"
+#include "SceneCredits.h"
+#include "SceneIdentities.h"
+#include "SceneManager.h"
+#include "Window.h"
+
+#include "ResourcePath.hpp"
+
+using namespace std;
+
+SceneCredits::SceneCredits (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal)
+: Scene(director, identity, window, transparent, modal)
+{
+}
+
+void SceneCredits::created ()
+{
+    if (hasBeenCreated())
+    {
+        return;
+    }
+    Scene::created();
+    
+    mFont.loadFromFile(resourcePath() + "sansation.ttf");
+    
+    mText.setFont(mFont);
+    mText.setString({ "Brought to you by Take Up Code" });
+    mText.setCharacterSize(15);
+    sf::FloatRect textRect = mText.getLocalBounds();
+    mText.setOrigin(textRect.left + textRect.width / 2.0f,
+                    textRect.top + textRect.height / 2.0f);
+    mText.setPosition(mWindow->size().x / 2.0f, 100.0f);
+}
+
+void SceneCredits::update (float elapsedSeconds)
+{
+}
+
+void SceneCredits::render ()
+{
+    mWindow->draw(mText);
+}
+
+void SceneCredits::loadTriggers ()
+{
+    director()->eventManager()->addSubscription(EventManager::MenuShow, "SceneCredits", shared_from_this());
+}
+
+void SceneCredits::unloadTriggers ()
+{
+    director()->eventManager()->removeSubscription(EventManager::MenuShow, "SceneCredits");
+}
+
+void SceneCredits::notify (EventParameter eventDetails)
+{
+    if  (eventDetails.name() == EventManager::MenuShow)
+    {
+        director()->sceneManager()->addScene(SceneIdentities::MainMenu);
+    }
+}
