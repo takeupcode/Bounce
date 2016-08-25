@@ -48,14 +48,10 @@ void SceneSplash::update (float elapsedSeconds)
 
 void SceneSplash::render ()
 {
-    mWindow->drawBegin();
-
     if (mTimePassed > 5.0f)
     {
         mWindow->draw(mText);
     }
-    
-    mWindow->drawEnd();
 }
 
 void SceneSplash::loadTriggers ()

@@ -67,11 +67,7 @@ void ScenePaused::update (float elapsedSeconds)
 
 void ScenePaused::render ()
 {
-    mWindow->drawBegin();
-    
     mWindow->draw(mText);
-    
-    mWindow->drawEnd();
 }
 
 void ScenePaused::loadTriggers ()

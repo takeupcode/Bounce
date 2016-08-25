@@ -95,8 +95,6 @@ void SceneMainMenu::update (float elapsedSeconds)
 
 void SceneMainMenu::render ()
 {
-    mWindow->drawBegin();
-    
     mWindow->draw(mMenuTitle);
     
     for (int i = 0; i < 3; ++i)
@@ -104,8 +102,6 @@ void SceneMainMenu::render ()
         mWindow->draw(mButtons[i]);
         mWindow->draw(mButtonText[i]);
     }
-    
-    mWindow->drawEnd();
 }
 
 void SceneMainMenu::loadTriggers ()

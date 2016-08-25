@@ -6,9 +6,13 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
+#include <memory>
+#include <vector>
+
 #include "Director.h"
 #include "Scene.h"
 #include "SceneManager.h"
+#include "Window.h"
 
 using namespace std;
 
@@ -221,10 +225,30 @@ void SceneManager::render ()
         currentScene = currentScene->mNextScene;
     }
     
+    vector<shared_ptr<Window>> windowsToBeRendered;
     while (currentScene)
     {
+        bool newWindow = true;
+        for (auto & window: windowsToBeRendered)
+        {
+            if (window->identity() == currentScene->mWindow->identity())
+            {
+                newWindow = false;
+                break;
+            }
+        }
+        if (newWindow)
+        {
+            windowsToBeRendered.push_back(currentScene->mWindow);
+            currentScene->mWindow->drawBegin();
+        }
         currentScene->render();
         currentScene = currentScene->mPreviousScene;
+    }
+    
+    for (auto & window: windowsToBeRendered)
+    {
+        window->drawEnd();
     }
 }
 

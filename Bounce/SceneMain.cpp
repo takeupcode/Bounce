@@ -62,9 +62,7 @@ void SceneMain::update (float elapsedSeconds)
 
 void SceneMain::render ()
 {
-    mWindow->drawBegin();
     mDot->draw(mWindow.get());
-    mWindow->drawEnd();
 }
 
 void SceneMain::loadTriggers ()
