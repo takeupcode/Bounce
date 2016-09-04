@@ -84,6 +84,21 @@ bool Window::isFullScreen () const
     return mFullScreen;
 }
 
+sf::View Window::defaultView () const
+{
+    return mWindow.getDefaultView();
+}
+
+sf::View Window::view () const
+{
+    return mWindow.getView();
+}
+
+void Window::setView (const sf::View & view)
+{
+    mWindow.setView(view);
+}
+
 void Window::notify (EventParameter eventDetails)
 {
     if  (eventDetails.name() == EventManager::WindowToggleFullScreen)

@@ -72,6 +72,11 @@ public:
         return mCreated;
     }
     
+    sf::View view () const
+    {
+        return mView;
+    }
+    
     virtual void update (float elapsedSeconds) = 0;
     virtual void render () = 0;
     
@@ -91,7 +96,8 @@ protected:
     bool mTransparent;
     bool mModal;
     bool mActive;
+    bool mCreated;
     Scene * mPreviousScene;
     Scene * mNextScene;
-    bool mCreated;
+    sf::View mView;
 };

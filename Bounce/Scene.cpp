@@ -9,12 +9,13 @@
 #include "Director.h"
 #include "EventManager.h"
 #include "Scene.h"
+#include "Window.h"
 
 using namespace std;
 
 Scene::Scene (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal)
 : Directable(director), mIdentity(identity), mWindow(window), mTransparent(transparent), mModal(modal), mActive(false),
-mPreviousScene(nullptr), mNextScene(nullptr), mCreated(false)
+mPreviousScene(nullptr), mNextScene(nullptr), mCreated(false), mView(window->defaultView())
 { }
 
 Scene::~Scene ()

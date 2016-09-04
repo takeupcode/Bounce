@@ -32,6 +32,10 @@ public:
     int identity () const;
     bool isFullScreen () const;
     
+    sf::View defaultView () const;
+    sf::View view () const;
+    void setView (const sf::View & view);
+
     void draw (const sf::Drawable & obj);
     void drawBegin ();
     void drawEnd ();

@@ -242,6 +242,7 @@ void SceneManager::render ()
             windowsToBeRendered.push_back(currentScene->mWindow);
             currentScene->mWindow->drawBegin();
         }
+        currentScene->mWindow->setView(currentScene->view());
         currentScene->render();
         currentScene = currentScene->mPreviousScene;
     }
