@@ -15,6 +15,7 @@
 #include "SceneIdentities.h"
 #include "SceneMain.h"
 #include "SceneManager.h"
+#include "TextureManager.h"
 #include "Window.h"
 #include "WindowIdentities.h"
 
@@ -35,12 +36,10 @@ void SceneMain::created ()
     }
     Scene::created();
     
-    if (!mSphereTexture.loadFromFile(resourcePath() + "sphere.png"))
-    {
-        throw runtime_error("Could not load sphere.png.");
-    }
+    string sphere = "sphere";
+    director()->textureManager()->loadTexture(sphere, "sphere.png");
     
-    mDot.reset(new Dot(mSphereTexture, sf::Vector2f(mWindow->size().x / 2, mWindow->size().y / 2), sf::Vector2u(mWindow->size().x, mWindow->size().y)));
+    mDot.reset(new Dot(director()->textureManager()->texture(sphere), sf::Vector2f(mWindow->size().x / 2, mWindow->size().y / 2), sf::Vector2u(mWindow->size().x, mWindow->size().y)));
     
     randomGenerator.seed(std::random_device()());
 }

@@ -15,7 +15,7 @@ class Window;
 class Dot
 {
 public:
-    Dot (const sf::Texture & texture, const sf::Vector2f & position, const sf::Vector2u & bounds);
+    Dot (const sf::Texture * texture, const sf::Vector2f & position, const sf::Vector2u & bounds);
     ~Dot ();
 
     void move (const sf::Vector2f delta, float elapsedSeconds);

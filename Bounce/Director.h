@@ -13,6 +13,7 @@
 class Game;
 class EventManager;
 class SceneManager;
+class TextureManager;
 class WindowManager;
 
 class Director
@@ -47,6 +48,13 @@ public:
     
     void setSceneManager (std::shared_ptr<SceneManager> manager);
     
+    std::shared_ptr<TextureManager> textureManager () const
+    {
+        return mTextureManager;
+    }
+    
+    void setTextureManager (std::shared_ptr<TextureManager> manager);
+    
     std::shared_ptr<WindowManager> windowManager () const
     {
         return mWindowManager;
@@ -65,5 +73,6 @@ private:
     std::shared_ptr<Game> mGame;
     std::shared_ptr<EventManager> mEventManager;
     std::shared_ptr<SceneManager> mSceneManager;
+    std::shared_ptr<TextureManager> mTextureManager;
     std::shared_ptr<WindowManager> mWindowManager;
 };

@@ -10,6 +10,7 @@
 #include "Game.h"
 #include "EventManager.h"
 #include "SceneManager.h"
+#include "TextureManager.h"
 #include "Window.h"
 #include "WindowManager.h"
 
@@ -61,6 +62,16 @@ void Director::setSceneManager (std::shared_ptr<SceneManager> manager)
     }
 }
 
+void Director::setTextureManager (std::shared_ptr<TextureManager> manager)
+{
+    if (!mTextureManager)
+    {
+        mTextureManager = manager;
+        
+        onConfigurationChange();
+    }
+}
+
 void Director::setWindowManager (std::shared_ptr<WindowManager> manager)
 {
     if (!mWindowManager)
@@ -78,12 +89,13 @@ void Director::loadTriggers ()
     mGame->loadTriggers();
     mEventManager->loadTriggers();
     mSceneManager->loadTriggers();
+    mTextureManager->loadTriggers();
     mWindowManager->loadTriggers();
 }
 
 void Director::onConfigurationChange ()
 {
-    if (mGame && mEventManager && mSceneManager && mWindowManager)
+    if (mGame && mEventManager && mSceneManager && mTextureManager && mWindowManager)
     {
         loadTriggers();
         

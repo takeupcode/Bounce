@@ -39,7 +39,6 @@ protected:
     void notify (EventParameter eventDetails) override;
     
 private:
-    sf::Texture mSphereTexture;
     std::shared_ptr<Dot> mDot;
     std::mt19937 randomGenerator;
     std::uniform_real_distribution<float> uniformDistribution;

@@ -11,10 +11,10 @@
 
 using namespace std;
 
-Dot::Dot (const sf::Texture & texture, const sf::Vector2f & position, const sf::Vector2u & bounds)
-: mTextureSize(texture.getSize()), mPositionDelta(0.0f, 0.0f), mBounds(bounds)
+Dot::Dot (const sf::Texture * texture, const sf::Vector2f & position, const sf::Vector2u & bounds)
+: mTextureSize(texture->getSize()), mPositionDelta(0.0f, 0.0f), mBounds(bounds)
 {
-    mDot.setTexture(texture);
+    mDot.setTexture(*texture);
     mDot.setOrigin(mTextureSize.x / 2, mTextureSize.y / 2);
     mDot.setPosition(position);
 }

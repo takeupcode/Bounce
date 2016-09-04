@@ -20,6 +20,7 @@
 		3E4A7A261D30A24A0003B055 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A7A241D30A24A0003B055 /* Window.cpp */; };
 		3E4A7A291D30A64F0003B055 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A7A271D30A64F0003B055 /* Game.cpp */; };
 		3E4A7A2C1D30AB3B0003B055 /* BounceGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A7A2A1D30AB3B0003B055 /* BounceGame.cpp */; };
+		3E778AA91D7BBD2A009FC697 /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E778AA71D7BBD2A009FC697 /* TextureManager.cpp */; };
 		3E9112B41D1E3B9C00D43AC1 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E9112B31D1E3B9C00D43AC1 /* ResourcePath.mm */; };
 		3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9112B61D1E3B9C00D43AC1 /* main.cpp */; };
 		3E9112BE1D1E3B9C00D43AC1 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */; };
@@ -59,6 +60,8 @@
 		3E4A7A281D30A64F0003B055 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		3E4A7A2A1D30AB3B0003B055 /* BounceGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BounceGame.cpp; sourceTree = "<group>"; };
 		3E4A7A2B1D30AB3B0003B055 /* BounceGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BounceGame.h; sourceTree = "<group>"; };
+		3E778AA71D7BBD2A009FC697 /* TextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
+		3E778AA81D7BBD2A009FC697 /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureManager.h; sourceTree = "<group>"; };
 		3E9112AE1D1E3B9C00D43AC1 /* Bounce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bounce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E9112B21D1E3B9C00D43AC1 /* Bounce-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bounce-Info.plist"; sourceTree = "<group>"; };
 		3E9112B31D1E3B9C00D43AC1 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				3E4485851D6E7AC100337B84 /* ScenePaused.h */,
 				3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */,
 				3E44857C1D6C14BD00337B84 /* SceneSplash.h */,
+				3E778AA71D7BBD2A009FC697 /* TextureManager.cpp */,
+				3E778AA81D7BBD2A009FC697 /* TextureManager.h */,
 				3E4A7A241D30A24A0003B055 /* Window.cpp */,
 				3E4A7A251D30A24A0003B055 /* Window.h */,
 				3E4485761D69546400337B84 /* WindowIdentities.h */,
@@ -274,6 +279,7 @@
 				3E9112B41D1E3B9C00D43AC1 /* ResourcePath.mm in Sources */,
 				3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */,
 				3E44857D1D6C14BD00337B84 /* SceneSplash.cpp in Sources */,
+				3E778AA91D7BBD2A009FC697 /* TextureManager.cpp in Sources */,
 				3E4A7A291D30A64F0003B055 /* Game.cpp in Sources */,
 				3E2C56B71D433A3700DEEF44 /* Dot.cpp in Sources */,
 			);
