@@ -11,9 +11,10 @@
 #include <memory>
 #include <random>
 #include <vector>
+
 #include <SFML/Graphics.hpp>
 
-#include "Scene.h"
+#include "../EasySFML/Scene.h"
 
 class Command;
 class Director;
@@ -23,6 +24,11 @@ class Window;
 class SceneMain : public Scene
 {
 public:
+    static const std::string MoveCharacterLeft;
+    static const std::string MoveCharacterRight;
+    static const std::string MoveCharacterUp;
+    static const std::string MoveCharacterDown;
+
     void created () override;
     
     void update (float elapsedSeconds) override;
@@ -31,7 +37,7 @@ public:
 protected:
     friend class SceneManager;
     
-    SceneMain (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal);
+    SceneMain (Director * director, int identity, std::shared_ptr<Window> window, bool transparent, bool modal);
     
     void loadTriggers () override;
     void unloadTriggers () override;

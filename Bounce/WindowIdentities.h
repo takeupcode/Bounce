@@ -8,7 +8,8 @@
 
 #pragma once
 
-enum class WindowIdentities
+class WindowIdentities
 {
-    MainWindow = 1
+public:
+    const static int MainWindow = 1;
 };

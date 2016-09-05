@@ -9,9 +9,10 @@
 #pragma once
 
 #include <memory>
+
 #include <SFML/Graphics.hpp>
 
-#include "Scene.h"
+#include "../EasySFML/Scene.h"
 
 class Director;
 class Window;
@@ -27,7 +28,7 @@ public:
 protected:
     friend class SceneManager;
     
-    SceneSplash (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal);
+    SceneSplash (Director * director, int identity, std::shared_ptr<Window> window, bool transparent, bool modal);
     
     void loadTriggers () override;
     void unloadTriggers () override;

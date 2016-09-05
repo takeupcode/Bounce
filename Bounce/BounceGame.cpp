@@ -8,8 +8,11 @@
 
 #include <stdexcept>
 
+#include "../EasySFML/Director.h"
+#include "../EasySFML/Window.h"
+#include "../EasySFML/WindowManager.h"
+
 #include "BounceGame.h"
-#include "Director.h"
 #include "SceneCredits.h"
 #include "SceneIdentities.h"
 #include "SceneMain.h"
@@ -17,9 +20,7 @@
 #include "SceneManager.h"
 #include "ScenePaused.h"
 #include "SceneSplash.h"
-#include "Window.h"
 #include "WindowIdentities.h"
-#include "WindowManager.h"
 
 using namespace std;
 

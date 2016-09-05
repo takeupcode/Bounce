@@ -8,7 +8,8 @@
 
 #pragma once
 
-#include "Command.h"
+#include "../EasySFML/Command.h"
+
 #include "Dot.h"
 
 class MoveDotCommand : public Command

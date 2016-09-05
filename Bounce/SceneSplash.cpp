@@ -6,15 +6,17 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
-#include "Director.h"
-#include "EventManager.h"
-#include "SceneManager.h"
+#include "../EasySFML/Director.h"
+#include "../EasySFML/EventManager.h"
+#include "../EasySFML/SceneManager.h"
+#include "../EasySFML/Window.h"
+
+#include "SceneIdentities.h"
 #include "SceneSplash.h"
-#include "Window.h"
 
 #include "ResourcePath.hpp"
 
-SceneSplash::SceneSplash (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal)
+SceneSplash::SceneSplash (Director * director, int identity, std::shared_ptr<Window> window, bool transparent, bool modal)
 : Scene(director, identity, window, transparent, modal)
 {
     

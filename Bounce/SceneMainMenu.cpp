@@ -6,19 +6,20 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
-#include "Director.h"
-#include "EventManager.h"
-#include "Game.h"
-#include "SceneIdentities.h"
-#include "SceneManager.h"
-#include "SceneMainMenu.h"
-#include "Window.h"
+#include "../EasySFML/Director.h"
+#include "../EasySFML/EventManager.h"
+#include "../EasySFML/Game.h"
+#include "../EasySFML/SceneManager.h"
+#include "../EasySFML/Window.h"
 
-#include "ResourcePath.hpp"
+#include "SceneIdentities.h"
+#include "SceneMainMenu.h"
+
+#include "OS/Mac/ResourcePath.hpp"
 
 using namespace std;
 
-SceneMainMenu::SceneMainMenu (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal)
+SceneMainMenu::SceneMainMenu (Director * director, int identity, std::shared_ptr<Window> window, bool transparent, bool modal)
 : Scene(director, identity, window, transparent, modal)
 {
     
@@ -154,7 +155,7 @@ void SceneMainMenu::notify (EventParameter eventDetails)
     }
     else if  (eventDetails.name() == EventManager::MenuShow)
     {
-        SceneIdentities currentSceneIdentity = director()->sceneManager()->currentScene();
+        int currentSceneIdentity = director()->sceneManager()->currentScene();
         if (currentSceneIdentity != SceneIdentities::Paused)
         {
             director()->sceneManager()->addScene(SceneIdentities::MainMenu);

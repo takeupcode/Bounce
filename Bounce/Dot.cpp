@@ -6,8 +6,9 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
+#include "../EasySFML/Window.h"
+
 #include "Dot.h"
-#include "Window.h"
 
 using namespace std;
 

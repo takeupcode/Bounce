@@ -6,19 +6,19 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
-#include "Director.h"
-#include "EventManager.h"
-#include "Game.h"
+#include "../EasySFML/Director.h"
+#include "../EasySFML/EventManager.h"
+#include "../EasySFML/Game.h"
+#include "../EasySFML/SceneManager.h"
+#include "../EasySFML/Window.h"
+
+#include "OS/Mac/ResourcePath.hpp"
 #include "SceneCredits.h"
 #include "SceneIdentities.h"
-#include "SceneManager.h"
-#include "Window.h"
-
-#include "ResourcePath.hpp"
 
 using namespace std;
 
-SceneCredits::SceneCredits (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal)
+SceneCredits::SceneCredits (Director * director, int identity, std::shared_ptr<Window> window, bool transparent, bool modal)
 : Scene(director, identity, window, transparent, modal)
 {
 }

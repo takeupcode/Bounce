@@ -1,0 +1,3 @@
+[submodule "EasySFML"]
+	path = EasySFML
+	url = https://github.com/takeupcode/EasySFML.git

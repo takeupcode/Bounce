@@ -1,9 +1,10 @@
+#include "../EasySFML/Director.h"
+#include "../EasySFML/EventManager.h"
+#include "../EasySFML/SceneManager.h"
+#include "../EasySFML/TextureManager.h"
+#include "../EasySFML/WindowManager.h"
+
 #include "BounceGame.h"
-#include "Director.h"
-#include "EventManager.h"
-#include "SceneManager.h"
-#include "TextureManager.h"
-#include "WindowManager.h"
 
 using namespace std;
 

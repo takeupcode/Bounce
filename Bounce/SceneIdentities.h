@@ -8,13 +8,14 @@
 
 #pragma once
 
-enum class SceneIdentities
+class SceneIdentities
 {
-    None = 0,
-    Splash,
-    MainMenu,
-    Level01,
-    Paused,
-    GameOver,
-    Credits
+public:
+    const static int None = 0;
+    const static int Splash = 1;
+    const static int MainMenu = 2;
+    const static int Level01 = 3;
+    const static int Paused = 4;
+    const static int GameOver = 5;
+    const static int Credits = 6;
 };

@@ -12,7 +12,7 @@
 #include <random>
 #include <vector>
 
-#include "Game.h"
+#include "../EasySFML/Game.h"
 
 class Command;
 class Dot;

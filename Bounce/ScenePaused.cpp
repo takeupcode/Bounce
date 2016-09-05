@@ -6,19 +6,20 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
-#include "Director.h"
-#include "EventManager.h"
-#include "Game.h"
-#include "SceneIdentities.h"
-#include "SceneManager.h"
-#include "ScenePaused.h"
-#include "Window.h"
+#include "../EasySFML/Director.h"
+#include "../EasySFML/EventManager.h"
+#include "../EasySFML/Game.h"
+#include "../EasySFML/SceneManager.h"
+#include "../EasySFML/Window.h"
 
-#include "ResourcePath.hpp"
+#include "SceneIdentities.h"
+#include "ScenePaused.h"
+
+#include "OS/Mac/ResourcePath.hpp"
 
 using namespace std;
 
-ScenePaused::ScenePaused (Director * director, SceneIdentities identity, std::shared_ptr<Window> window, bool transparent, bool modal)
+ScenePaused::ScenePaused (Director * director, int identity, std::shared_ptr<Window> window, bool transparent, bool modal)
 : Scene(director, identity, window, transparent, modal)
 {
 }
@@ -84,7 +85,7 @@ void ScenePaused::notify (EventParameter eventDetails)
 {
     if  (eventDetails.name() == EventManager::GamePause)
     {
-        SceneIdentities currentSceneIdentity = director()->sceneManager()->currentScene();
+        int currentSceneIdentity = director()->sceneManager()->currentScene();
         if (currentSceneIdentity == SceneIdentities::Paused)
         {
             director()->sceneManager()->addScene(SceneIdentities::Level01);
