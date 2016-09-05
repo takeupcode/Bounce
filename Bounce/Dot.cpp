@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Dot::Dot (const sf::Texture * texture, const sf::Vector2f & position, const sf::Vector2u & bounds)
+Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2u & bounds)
 : mTextureSize(texture->getSize()), mPositionDelta(0.0f, 0.0f), mBounds(bounds)
 {
     mDot.setTexture(*texture);

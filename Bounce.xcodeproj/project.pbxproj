@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E24487F1D7E09A300FCFCDC /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E24487D1D7E09A300FCFCDC /* SpriteSheet.cpp */; };
+		3E2448821D7E135300FCFCDC /* SpriteAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2448801D7E135300FCFCDC /* SpriteAnimation.cpp */; };
 		3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */; };
 		3E2C56B71D433A3700DEEF44 /* Dot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B51D433A3700DEEF44 /* Dot.cpp */; };
 		3E44857D1D6C14BD00337B84 /* SceneSplash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */; };
@@ -31,6 +33,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E24487C1D7DFE0D00FCFCDC /* Direction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direction.h; sourceTree = "<group>"; };
+		3E24487D1D7E09A300FCFCDC /* SpriteSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteSheet.cpp; sourceTree = "<group>"; };
+		3E24487E1D7E09A300FCFCDC /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteSheet.h; sourceTree = "<group>"; };
+		3E2448801D7E135300FCFCDC /* SpriteAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteAnimation.cpp; sourceTree = "<group>"; };
+		3E2448811D7E135300FCFCDC /* SpriteAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteAnimation.h; sourceTree = "<group>"; };
 		3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveDotCommand.cpp; sourceTree = "<group>"; };
 		3E2C56B31D43389000DEEF44 /* MoveDotCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveDotCommand.h; sourceTree = "<group>"; };
 		3E2C56B51D433A3700DEEF44 /* Dot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dot.cpp; sourceTree = "<group>"; };
@@ -98,6 +105,7 @@
 				3E778B511D7DC86D009FC697 /* Command.cpp */,
 				3E778B521D7DC86D009FC697 /* Command.h */,
 				3E778B531D7DC86D009FC697 /* Directable.h */,
+				3E24487C1D7DFE0D00FCFCDC /* Direction.h */,
 				3E778B541D7DC86D009FC697 /* Director.cpp */,
 				3E778B551D7DC86D009FC697 /* Director.h */,
 				3E778B561D7DC86D009FC697 /* EventDetails.h */,
@@ -111,6 +119,10 @@
 				3E778B5E1D7DC86D009FC697 /* Scene.h */,
 				3E778B5F1D7DC86D009FC697 /* SceneManager.cpp */,
 				3E778B601D7DC86D009FC697 /* SceneManager.h */,
+				3E2448801D7E135300FCFCDC /* SpriteAnimation.cpp */,
+				3E2448811D7E135300FCFCDC /* SpriteAnimation.h */,
+				3E24487D1D7E09A300FCFCDC /* SpriteSheet.cpp */,
+				3E24487E1D7E09A300FCFCDC /* SpriteSheet.h */,
 				3E778B611D7DC86D009FC697 /* TextureManager.cpp */,
 				3E778B621D7DC86D009FC697 /* TextureManager.h */,
 				3E778B631D7DC86D009FC697 /* Trigger.h */,
@@ -287,10 +299,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E24487F1D7E09A300FCFCDC /* SpriteSheet.cpp in Sources */,
 				3E778B6C1D7DC86D009FC697 /* Scene.cpp in Sources */,
 				3E4A7A2C1D30AB3B0003B055 /* BounceGame.cpp in Sources */,
 				3E4485891D6E9A5F00337B84 /* SceneCredits.cpp in Sources */,
 				3E778B6E1D7DC86D009FC697 /* TextureManager.cpp in Sources */,
+				3E2448821D7E135300FCFCDC /* SpriteAnimation.cpp in Sources */,
 				3E778B6A1D7DC86D009FC697 /* EventManager.cpp in Sources */,
 				3E778B6B1D7DC86D009FC697 /* Game.cpp in Sources */,
 				3E4485801D6C156500337B84 /* SceneMain.cpp in Sources */,
