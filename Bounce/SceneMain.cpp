@@ -44,7 +44,7 @@ void SceneMain::created ()
     Scene::created();
     
     string sphere = "sphere";
-    director()->textureManager()->loadTexture(sphere, resourcePath() + "sphere.png");
+    director()->textureManager()->loadTexture(sphere, resourcePath() + "hero.png");
     
     mDot.reset(new Dot(director()->textureManager()->texture(sphere), sf::Vector2f(mWindow->size().x / 2, mWindow->size().y / 2), sf::Vector2u(mWindow->size().x, mWindow->size().y)));
     
