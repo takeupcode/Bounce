@@ -33,6 +33,6 @@ protected:
     int mainWindowIdentity () const override;
 
 private:
-    const unsigned int MainWindowWidth = 800;
-    const unsigned int MainWindowHeight = 600;
+    const unsigned int MainWindowWidth = 768;
+    const unsigned int MainWindowHeight = 640;
 };

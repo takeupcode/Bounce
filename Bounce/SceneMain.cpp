@@ -10,6 +10,7 @@
 
 #include "../EasySFML/Director.h"
 #include "../EasySFML/EventManager.h"
+#include "../EasySFML/Region.h"
 #include "../EasySFML/SceneManager.h"
 #include "../EasySFML/TextureManager.h"
 #include "../EasySFML/Trigger.h"
@@ -44,9 +45,36 @@ void SceneMain::created ()
     Scene::created();
     
     string sphere = "sphere";
+    string tiles = "tiles";
     director()->textureManager()->loadTexture(sphere, resourcePath() + "hero.png");
+    director()->textureManager()->loadTexture(tiles, resourcePath() + "tiles.png");
     
     mDot.reset(new Dot(director()->textureManager()->texture(sphere), sf::Vector2f(mWindow->size().x / 2, mWindow->size().y / 2), sf::Vector2u(mWindow->size().x, mWindow->size().y)));
+
+    mTileSheet.reset(new SpriteSheet(director()->textureManager()->texture(tiles)));
+    AnimationDefinition * animation = mTileSheet->addAnimation("grass-large", "");
+    animation->addFrame(1.0f, {0, 0}, {48, 48});
+    
+    mRegion.reset(new Region(mTileSheet, {1.0f, 1.0f}, {16, 16}, 48, 40));
+    mRegion->addTileType("grass-large", "grass-large");
+    mRegion->setTile(0, 0, "grass-large");
+    mRegion->setTile(45, 0, "grass-large");
+    mRegion->setTile(0, 37, "grass-large");
+    mRegion->setTile(3, 37, "grass-large");
+    mRegion->setTile(6, 37, "grass-large");
+    mRegion->setTile(9, 37, "grass-large");
+    mRegion->setTile(12, 37, "grass-large");
+    mRegion->setTile(15, 37, "grass-large");
+    mRegion->setTile(18, 37, "grass-large");
+    mRegion->setTile(21, 37, "grass-large");
+    mRegion->setTile(24, 37, "grass-large");
+    mRegion->setTile(27, 37, "grass-large");
+    mRegion->setTile(30, 37, "grass-large");
+    mRegion->setTile(33, 37, "grass-large");
+    mRegion->setTile(36, 37, "grass-large");
+    mRegion->setTile(39, 37, "grass-large");
+    mRegion->setTile(42, 37, "grass-large");
+    mRegion->setTile(45, 37, "grass-large");
     
     randomGenerator.seed(std::random_device()());
     
@@ -85,10 +113,13 @@ void SceneMain::update (float elapsedSeconds)
         cmdPtr->execute();
     }
     mCommands.clear();
+    
+    mRegion->update(elapsedSeconds);
 }
 
 void SceneMain::render ()
 {
+    mRegion->draw(mWindow.get());
     mDot->draw(mWindow.get());
 }
 

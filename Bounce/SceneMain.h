@@ -20,6 +20,8 @@
 class Command;
 class Director;
 class Dot;
+class Region;
+class SpriteSheet;
 class Window;
 
 class SceneMain : public Scene
@@ -47,6 +49,8 @@ protected:
     
 private:
     std::shared_ptr<Dot> mDot;
+    std::shared_ptr<SpriteSheet> mTileSheet;
+    std::shared_ptr<Region> mRegion;
     std::mt19937 randomGenerator;
     std::uniform_real_distribution<float> uniformDistribution;
     std::vector<std::unique_ptr<Command>> mCommands;

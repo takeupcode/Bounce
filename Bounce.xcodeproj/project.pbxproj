@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		3E2448821D7E135300FCFCDC /* SpriteAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2448801D7E135300FCFCDC /* SpriteAnimation.cpp */; };
 		3E2448871D84F1A500FCFCDC /* hero.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448861D84F1A500FCFCDC /* hero.png */; };
+		3E24488B1D85CAFC00FCFCDC /* clouds.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448881D85CAFC00FCFCDC /* clouds.png */; };
+		3E24488C1D85CAFC00FCFCDC /* mountains.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448891D85CAFC00FCFCDC /* mountains.png */; };
+		3E24488D1D85CAFC00FCFCDC /* tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E24488A1D85CAFC00FCFCDC /* tiles.png */; };
+		3E2448901D85F51800FCFCDC /* Region.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E24488E1D85F51800FCFCDC /* Region.cpp */; };
 		3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */; };
 		3E2C56B71D433A3700DEEF44 /* Dot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B51D433A3700DEEF44 /* Dot.cpp */; };
 		3E44857D1D6C14BD00337B84 /* SceneSplash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */; };
@@ -41,6 +45,11 @@
 		3E2448841D83ACAE00FCFCDC /* FrameDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameDefinition.h; sourceTree = "<group>"; };
 		3E2448851D83B0A600FCFCDC /* AnimationDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationDefinition.h; sourceTree = "<group>"; };
 		3E2448861D84F1A500FCFCDC /* hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hero.png; sourceTree = "<group>"; };
+		3E2448881D85CAFC00FCFCDC /* clouds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clouds.png; sourceTree = "<group>"; };
+		3E2448891D85CAFC00FCFCDC /* mountains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mountains.png; sourceTree = "<group>"; };
+		3E24488A1D85CAFC00FCFCDC /* tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles.png; sourceTree = "<group>"; };
+		3E24488E1D85F51800FCFCDC /* Region.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Region.cpp; sourceTree = "<group>"; };
+		3E24488F1D85F51800FCFCDC /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
 		3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveDotCommand.cpp; sourceTree = "<group>"; };
 		3E2C56B31D43389000DEEF44 /* MoveDotCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveDotCommand.h; sourceTree = "<group>"; };
 		3E2C56B51D433A3700DEEF44 /* Dot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dot.cpp; sourceTree = "<group>"; };
@@ -121,6 +130,8 @@
 				3E2448831D838EB700FCFCDC /* FrameTag.h */,
 				3E778B5B1D7DC86D009FC697 /* Game.cpp */,
 				3E778B5C1D7DC86D009FC697 /* Game.h */,
+				3E24488E1D85F51800FCFCDC /* Region.cpp */,
+				3E24488F1D85F51800FCFCDC /* Region.h */,
 				3E778B5D1D7DC86D009FC697 /* Scene.cpp */,
 				3E778B5E1D7DC86D009FC697 /* Scene.h */,
 				3E778B5F1D7DC86D009FC697 /* SceneManager.cpp */,
@@ -213,6 +224,9 @@
 		3E9112B81D1E3B9C00D43AC1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E2448881D85CAFC00FCFCDC /* clouds.png */,
+				3E2448891D85CAFC00FCFCDC /* mountains.png */,
+				3E24488A1D85CAFC00FCFCDC /* tiles.png */,
 				3E2448861D84F1A500FCFCDC /* hero.png */,
 				3E9112C61D1E552B00D43AC1 /* sphere.png */,
 				3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */,
@@ -280,6 +294,9 @@
 				3E9112C71D1E552B00D43AC1 /* sphere.png in Resources */,
 				3E9112BE1D1E3B9C00D43AC1 /* sansation.ttf in Resources */,
 				3E2448871D84F1A500FCFCDC /* hero.png in Resources */,
+				3E24488B1D85CAFC00FCFCDC /* clouds.png in Resources */,
+				3E24488C1D85CAFC00FCFCDC /* mountains.png in Resources */,
+				3E24488D1D85CAFC00FCFCDC /* tiles.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E2448901D85F51800FCFCDC /* Region.cpp in Sources */,
 				3E778B6C1D7DC86D009FC697 /* Scene.cpp in Sources */,
 				3E4A7A2C1D30AB3B0003B055 /* BounceGame.cpp in Sources */,
 				3E4485891D6E9A5F00337B84 /* SceneCredits.cpp in Sources */,
