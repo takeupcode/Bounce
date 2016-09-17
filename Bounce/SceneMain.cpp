@@ -59,7 +59,10 @@ void SceneMain::created ()
     mRegion->addTileType("grass-large", "grass-large");
     mRegion->setTile(0, 0, "grass-large");
     mRegion->setTile(45, 0, "grass-large");
+    mRegion->setTile(0, 31, "grass-large");
+    mRegion->setTile(0, 34, "grass-large");
     mRegion->setTile(0, 37, "grass-large");
+    mRegion->setTile(3, 34, "grass-large");
     mRegion->setTile(3, 37, "grass-large");
     mRegion->setTile(6, 37, "grass-large");
     mRegion->setTile(9, 37, "grass-large");
@@ -161,11 +164,7 @@ void SceneMain::notify (EventParameter eventDetails)
         }
         else if (eventDetails.name() == MoveCharacterUp)
         {
-            positionDelta.y -= 10.0f;
-        }
-        else if (eventDetails.name() == MoveCharacterDown)
-        {
-            positionDelta.y += 10.0f;
+            positionDelta.y -= 200.0f;
         }
         
         float elapsedSeconds = director()->game()->elapsed().asSeconds();
