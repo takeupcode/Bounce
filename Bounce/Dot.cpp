@@ -6,6 +6,7 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
+#include "../EasySFML/Region.h"
 #include "../EasySFML/Window.h"
 
 #include "Dot.h"
@@ -13,64 +14,67 @@
 using namespace std;
 
 Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2u & bounds)
-: mPositionDelta(0.0f, 0.0f), mBounds(bounds)
+: Entity(position, {0.0f, 0.0f}, {87, 136}, {0.5f, 0.5f}), mBounds(bounds)
 {
     mSheet.reset(new SpriteSheet(texture));
     
     AnimationDefinition * animation = mSheet->addAnimation("walk", "walk");
-    animation->addFrame(0.15f, {0, 0}, {87, 136});
-    animation->addFrame(0.15f, {87, 0}, {87, 136});
-    animation->addFrame(0.15f, {174, 0}, {87, 136});
-    animation->addFrame(0.15f, {261, 0}, {87, 136});
-    animation->addFrame(0.15f, {348, 0}, {87, 136});
-    animation->addFrame(0.15f, {435, 0}, {87, 136});
-    animation->addFrame(0.15f, {522, 0}, {87, 136});
-    animation->addFrame(0.15f, {609, 0}, {87, 136});
+    animation->addFrame(0.15f, {0, 0}, size());
+    animation->addFrame(0.15f, {87, 0}, size());
+    animation->addFrame(0.15f, {174, 0}, size());
+    animation->addFrame(0.15f, {261, 0}, size());
+    animation->addFrame(0.15f, {348, 0}, size());
+    animation->addFrame(0.15f, {435, 0}, size());
+    animation->addFrame(0.15f, {522, 0}, size());
+    animation->addFrame(0.15f, {609, 0}, size());
     
-    mAnimation.reset(new SpriteAnimation(mSheet, "walk", {0.5f, 0.5f}));
+    mAnimation.reset(new SpriteAnimation(mSheet, "walk", scale()));
     
     mAnimation->setPosition(position);
 }
 
 void Dot::move (const sf::Vector2f delta, float elapsedSeconds)
 {
-    mPositionDelta += delta;
+    sf::Vector2f newVelocity =  velocity() + delta;
     
-    if (mPositionDelta.x > 500.0f)
+    if (newVelocity.x > 500.0f)
     {
-        mPositionDelta.x = 500.0f;
+        newVelocity.x = 500.0f;
     }
-    else if (mPositionDelta.x < -500.0f)
+    else if (newVelocity.x < -500.0f)
     {
-        mPositionDelta.x = -500.0f;
+        newVelocity.x = -500.0f;
     }
     
-    if (mPositionDelta.y > 500.0f)
+    if (newVelocity.y > 500.0f)
     {
-        mPositionDelta.y = 500.0f;
+        newVelocity.y = 500.0f;
     }
-    else if (mPositionDelta.y < -500.0f)
+    else if (newVelocity.y < -500.0f)
     {
-        mPositionDelta.y = -500.0f;
+        newVelocity.y = -500.0f;
     }
 
-    if ((mAnimation->position().x + mAnimation->size().x / 2 > mBounds.x &&
-         mPositionDelta.x > 0) ||
-        (mAnimation->position().x - mAnimation->size().x / 2 < 0 &&
-         mPositionDelta.x < 0))
+    if ((position().x + mAnimation->scaledSize().x / 2 > mBounds.x &&
+         newVelocity.x > 0) ||
+        (position().x - mAnimation->scaledSize().x / 2 < 0 &&
+         newVelocity.x < 0))
     {
-        mPositionDelta.x = -mPositionDelta.x;
+        newVelocity.x = -newVelocity.x;
     }
     
-    if ((mAnimation->position().y > mBounds.y &&
-         mPositionDelta.y > 0) ||
-        (mAnimation->position().y - mAnimation->size().y < 0 &&
-         mPositionDelta.y < 0))
+    if ((position().y > mBounds.y &&
+         newVelocity.y > 0) ||
+        (position().y - mAnimation->scaledSize().y < 0 &&
+         newVelocity.y < 0))
     {
-        mPositionDelta.y = -mPositionDelta.y;
+        newVelocity.y = -newVelocity.y;
     }
     
-    mAnimation->move(mPositionDelta * elapsedSeconds);
+    setPosition(position() + newVelocity * elapsedSeconds);
+    setVelocity(newVelocity);
+    
+    mAnimation->setPosition(position());
     mAnimation->update(elapsedSeconds);
 }
 

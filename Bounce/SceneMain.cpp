@@ -70,11 +70,11 @@ void SceneMain::created ()
     mRegion->setTile(24, 37, "grass-large");
     mRegion->setTile(27, 37, "grass-large");
     mRegion->setTile(30, 37, "grass-large");
-    mRegion->setTile(33, 37, "grass-large");
-    mRegion->setTile(36, 37, "grass-large");
     mRegion->setTile(39, 37, "grass-large");
     mRegion->setTile(42, 37, "grass-large");
     mRegion->setTile(45, 37, "grass-large");
+    
+    mRegion->setGravity(5.0f);
     
     randomGenerator.seed(std::random_device()());
     
@@ -102,19 +102,22 @@ void SceneMain::created ()
 
 void SceneMain::update (float elapsedSeconds)
 {
-    sf::Vector2f positionDelta {0.0f, 0.0f};
-    positionDelta.x += uniformDistribution(randomGenerator);
-    positionDelta.y += uniformDistribution(randomGenerator);
-    
-    mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta, elapsedSeconds)));
-    
     for (auto & cmdPtr: mCommands)
     {
         cmdPtr->execute();
     }
-    mCommands.clear();
+    if (mCommands.empty())
+    {
+        mDot->move({0.0f, mRegion->gravity()}, elapsedSeconds);
+    }
+    else
+    {
+        mCommands.clear();
+    }
     
     mRegion->update(elapsedSeconds);
+    
+    mRegion->resolveCollisions(mDot.get());
 }
 
 void SceneMain::render ()

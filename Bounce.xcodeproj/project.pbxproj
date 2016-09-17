@@ -68,6 +68,7 @@
 		3E4485881D6E9A5F00337B84 /* SceneCredits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneCredits.h; sourceTree = "<group>"; };
 		3E4A7A2A1D30AB3B0003B055 /* BounceGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BounceGame.cpp; sourceTree = "<group>"; };
 		3E4A7A2B1D30AB3B0003B055 /* BounceGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BounceGame.h; sourceTree = "<group>"; };
+		3E591C441D8CE5C100403F3D /* Entity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		3E778B511D7DC86D009FC697 /* Command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Command.cpp; sourceTree = "<group>"; };
 		3E778B521D7DC86D009FC697 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
 		3E778B531D7DC86D009FC697 /* Directable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Directable.h; sourceTree = "<group>"; };
@@ -121,6 +122,7 @@
 				3E24487C1D7DFE0D00FCFCDC /* Direction.h */,
 				3E778B541D7DC86D009FC697 /* Director.cpp */,
 				3E778B551D7DC86D009FC697 /* Director.h */,
+				3E591C441D8CE5C100403F3D /* Entity.h */,
 				3E778B561D7DC86D009FC697 /* EventDetails.h */,
 				3E778B571D7DC86D009FC697 /* EventManager.cpp */,
 				3E778B581D7DC86D009FC697 /* EventManager.h */,

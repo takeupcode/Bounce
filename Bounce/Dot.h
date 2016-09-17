@@ -12,12 +12,14 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../EasySFML/Entity.h"
 #include "../EasySFML/SpriteAnimation.h"
 #include "../EasySFML/SpriteSheet.h"
 
 class Window;
+class Region;
 
-class Dot
+class Dot : public Entity
 {
 public:
     Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2u & bounds);
@@ -29,6 +31,5 @@ public:
 private:
     std::shared_ptr<SpriteSheet> mSheet;
     std::shared_ptr<SpriteAnimation> mAnimation;
-    sf::Vector2f mPositionDelta;
     sf::Vector2u mBounds;
 };
