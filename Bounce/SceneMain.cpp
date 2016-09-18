@@ -48,36 +48,42 @@ void SceneMain::created ()
     string tiles = "tiles";
     director()->textureManager()->loadTexture(sphere, resourcePath() + "hero.png");
     director()->textureManager()->loadTexture(tiles, resourcePath() + "tiles.png");
-    
-    mDot.reset(new Dot(director()->textureManager()->texture(sphere), sf::Vector2f(mWindow->size().x / 2, mWindow->size().y / 2), sf::Vector2u(mWindow->size().x, mWindow->size().y)));
 
     mTileSheet.reset(new SpriteSheet(director()->textureManager()->texture(tiles)));
     AnimationDefinition * animation = mTileSheet->addAnimation("grass-large", "");
     animation->addFrame(1.0f, {0, 0}, {48, 48});
     
-    mRegion.reset(new Region(mTileSheet, {1.0f, 1.0f}, {16, 16}, 48, 40));
+    mRegion.reset(new Region(mTileSheet, {1.0f, 1.0f}, {48, 48}, 16, 13));
     mRegion->addTileType("grass-large", "grass-large");
     mRegion->setTile(0, 0, "grass-large");
-    mRegion->setTile(45, 0, "grass-large");
-    mRegion->setTile(0, 31, "grass-large");
-    mRegion->setTile(0, 34, "grass-large");
-    mRegion->setTile(0, 37, "grass-large");
-    mRegion->setTile(3, 34, "grass-large");
-    mRegion->setTile(3, 37, "grass-large");
-    mRegion->setTile(6, 37, "grass-large");
-    mRegion->setTile(9, 37, "grass-large");
-    mRegion->setTile(12, 37, "grass-large");
-    mRegion->setTile(15, 37, "grass-large");
-    mRegion->setTile(18, 37, "grass-large");
-    mRegion->setTile(21, 37, "grass-large");
-    mRegion->setTile(24, 37, "grass-large");
-    mRegion->setTile(27, 37, "grass-large");
-    mRegion->setTile(30, 37, "grass-large");
-    mRegion->setTile(39, 37, "grass-large");
-    mRegion->setTile(42, 37, "grass-large");
-    mRegion->setTile(45, 37, "grass-large");
+    mRegion->setTile(15, 0, "grass-large");
+    mRegion->setTile(0, 10, "grass-large");
+    mRegion->setTile(0, 11, "grass-large");
+    mRegion->setTile(0, 12, "grass-large");
+    mRegion->setTile(1, 11, "grass-large");
+    mRegion->setTile(1, 12, "grass-large");
+    mRegion->setTile(2, 11, "grass-large");
+    mRegion->setTile(2, 12, "grass-large");
+    mRegion->setTile(3, 12, "grass-large");
+    mRegion->setTile(4, 12, "grass-large");
+    mRegion->setTile(5, 12, "grass-large");
+    mRegion->setTile(6, 12, "grass-large");
+    mRegion->setTile(7, 12, "grass-large");
+    mRegion->setTile(8, 12, "grass-large");
+    mRegion->setTile(8, 12, "grass-large");
+    mRegion->setTile(9, 12, "grass-large");
+    mRegion->setTile(10, 12, "grass-large");
+    mRegion->setTile(13, 12, "grass-large");
+    mRegion->setTile(14, 12, "grass-large");
+    mRegion->setTile(15, 12, "grass-large");
     
     mRegion->setGravity(5.0f);
+    
+    mDot.reset(new Dot(director()->textureManager()->texture(sphere),
+                       {static_cast<float>(mWindow->size().x / 2), static_cast<float>(mWindow->size().y / 2)},
+                       {0.0f, 0.0f},
+                       {0.0f, mRegion->gravity()},
+                       {mWindow->size().x, mWindow->size().y}));
     
     randomGenerator.seed(std::random_device()());
     
@@ -105,22 +111,16 @@ void SceneMain::created ()
 
 void SceneMain::update (float elapsedSeconds)
 {
+    mDot->update(elapsedSeconds);
+    mRegion->update(elapsedSeconds);
+    
+    mRegion->resolveCollisions(mDot.get());
+    
     for (auto & cmdPtr: mCommands)
     {
         cmdPtr->execute();
     }
-    if (mCommands.empty())
-    {
-        mDot->move({0.0f, mRegion->gravity()}, elapsedSeconds);
-    }
-    else
-    {
-        mCommands.clear();
-    }
-    
-    mRegion->update(elapsedSeconds);
-    
-    mRegion->resolveCollisions(mDot.get());
+    mCommands.clear();
 }
 
 void SceneMain::render ()
@@ -156,18 +156,17 @@ void SceneMain::notify (EventParameter eventDetails)
         
         if (eventDetails.name() == MoveCharacterLeft)
         {
-            positionDelta.x -= 10.0f;
+            positionDelta.x -= 30.0f;
         }
         else if (eventDetails.name() == MoveCharacterRight)
         {
-            positionDelta.x += 10.0f;
+            positionDelta.x += 30.0f;
         }
         else if (eventDetails.name() == MoveCharacterUp)
         {
-            positionDelta.y -= 200.0f;
+            positionDelta.y -= 250.0f;
         }
         
-        float elapsedSeconds = director()->game()->elapsed().asSeconds();
-        mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta, elapsedSeconds)));
+        mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));
     }
 }

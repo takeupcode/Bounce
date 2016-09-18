@@ -8,8 +8,8 @@
 
 #include "MoveDotCommand.h"
 
-MoveDotCommand::MoveDotCommand(std::shared_ptr<Dot> dot, const sf::Vector2f & delta, float elapsedSeconds)
-: mDot(dot), mDelta(delta), mElapsedSeconds(elapsedSeconds)
+MoveDotCommand::MoveDotCommand(std::shared_ptr<Dot> dot, const sf::Vector2f & delta)
+: mDot(dot), mDelta(delta)
 {
     
 }
@@ -21,7 +21,10 @@ MoveDotCommand::~MoveDotCommand ()
 
 void MoveDotCommand::execute ()
 {
-    mDot->move(mDelta, mElapsedSeconds);
+    if (mDot->surface() != nullptr)
+    {
+        mDot->adjustVelocity(mDelta);
+    }
 }
 
 void MoveDotCommand::undo ()

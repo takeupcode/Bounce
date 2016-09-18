@@ -34,5 +34,5 @@ protected:
 
 private:
     const unsigned int MainWindowWidth = 768;
-    const unsigned int MainWindowHeight = 640;
+    const unsigned int MainWindowHeight = 624;
 };

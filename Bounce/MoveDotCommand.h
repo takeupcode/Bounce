@@ -15,7 +15,7 @@
 class MoveDotCommand : public Command
 {
 public:
-    MoveDotCommand(std::shared_ptr<Dot> dot, const sf::Vector2f & delta, float elapsedSeconds);
+    MoveDotCommand(std::shared_ptr<Dot> dot, const sf::Vector2f & delta);
     virtual ~MoveDotCommand ();
     
     void execute () override;
@@ -24,5 +24,4 @@ public:
 private:
     std::shared_ptr<Dot> mDot;
     sf::Vector2f mDelta;
-    float mElapsedSeconds;
 };

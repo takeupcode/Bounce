@@ -22,11 +22,11 @@ class Region;
 class Dot : public Entity
 {
 public:
-    Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2u & bounds);
+    Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2u & bounds);
 
-    void move (const sf::Vector2f delta, float elapsedSeconds);
+    void update (float elapsedSeconds) override;
     
-    void draw (Window * window);
+    void draw (Window * window) override;
     
 private:
     std::shared_ptr<SpriteSheet> mSheet;

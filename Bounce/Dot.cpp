@@ -6,6 +6,8 @@
 //  Copyright © 2016 Take Up Code. All rights reserved.
 //
 
+#include <math.h>
+
 #include "../EasySFML/Region.h"
 #include "../EasySFML/Window.h"
 
@@ -13,8 +15,8 @@
 
 using namespace std;
 
-Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2u & bounds)
-: Entity(position, {0.0f, 0.0f}, {87, 136}, {0.5f, 0.5f}), mBounds(bounds)
+Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2u & bounds)
+: Entity(position, velocity, acceleration, {87, 136}, {0.5f, 0.5f}), mBounds(bounds)
 {
     mSheet.reset(new SpriteSheet(texture));
     
@@ -33,52 +35,62 @@ Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, c
     mAnimation->setPosition(position);
 }
 
-void Dot::move (const sf::Vector2f delta, float elapsedSeconds)
+void Dot::update (float elapsedSeconds)
 {
-    sf::Vector2f newVelocity =  velocity() + delta;
+    mVelocity.x += mAcceleration.x;
+    mVelocity.y += mAcceleration.y;
     
-    if (newVelocity.x > 500.0f)
+    if (mVelocity.x > 200.0f)
     {
-        newVelocity.x = 500.0f;
+        mVelocity.x = 200.0f;
     }
-    else if (newVelocity.x < -500.0f)
+    else if (mVelocity.x < -200.0f)
     {
-        newVelocity.x = -500.0f;
+        mVelocity.x = -200.0f;
     }
     
-    if (newVelocity.y > 500.0f)
+    if (mVelocity.y > 300.0f)
     {
-        newVelocity.y = 500.0f;
+        mVelocity.y = 300.0f;
     }
-    else if (newVelocity.y < -500.0f)
+    else if (mVelocity.y < -300.0f)
     {
-        newVelocity.y = -500.0f;
+        mVelocity.y = -300.0f;
     }
 
-    if ((position().x + mAnimation->scaledSize().x / 2 > mBounds.x &&
-         newVelocity.x > 0) ||
-        (position().x - mAnimation->scaledSize().x / 2 < 0 &&
-         newVelocity.x < 0))
+    mPosition.x += mVelocity.x * elapsedSeconds;
+    mPosition.y += mVelocity.y * elapsedSeconds;
+    
+    // Make sure that collisions can happen each update by ensuring
+    // this object tries to drop at least one pixel each frame.
+    mPosition.y += 1;
+
+    if (mPosition.x + mAnimation->scaledSize().x / 2 > mBounds.x)
     {
-        newVelocity.x = -newVelocity.x;
+        mPosition.x = mBounds.x - mAnimation->scaledSize().x / 2;
+        mVelocity.x = 0;
+    }
+    else if (mPosition.x - mAnimation->scaledSize().x / 2 < 0)
+    {
+        mPosition.x = mAnimation->scaledSize().x / 2;
+        mVelocity.x = 0;
     }
     
-    if ((position().y > mBounds.y &&
-         newVelocity.y > 0) ||
-        (position().y - mAnimation->scaledSize().y < 0 &&
-         newVelocity.y < 0))
+    if (mPosition.y > mBounds.y)
     {
-        newVelocity.y = -newVelocity.y;
+        mPosition.y = mBounds.y;
+        mVelocity.y = 0;
+    }
+    else if (mPosition.y - mAnimation->scaledSize().y < 0 )
+    {
+        mPosition.y = mAnimation->scaledSize().y;
     }
     
-    setPosition(position() + newVelocity * elapsedSeconds);
-    setVelocity(newVelocity);
-    
-    mAnimation->setPosition(position());
     mAnimation->update(elapsedSeconds);
 }
 
 void Dot::draw (Window * window)
 {
+    mAnimation->setPosition(mPosition);
     mAnimation->draw(window);
 }
