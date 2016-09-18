@@ -66,7 +66,9 @@ void SceneMain::created ()
     mRegion->setTile(2, 12, "grass-large");
     mRegion->setTile(3, 12, "grass-large");
     mRegion->setTile(4, 12, "grass-large");
+    mRegion->setTile(5, 10, "grass-large");
     mRegion->setTile(5, 12, "grass-large");
+    mRegion->setTile(6, 10, "grass-large");
     mRegion->setTile(6, 12, "grass-large");
     mRegion->setTile(7, 12, "grass-large");
     mRegion->setTile(8, 12, "grass-large");
