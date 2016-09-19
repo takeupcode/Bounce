@@ -40,13 +40,39 @@ void Dot::update (float elapsedSeconds)
     mVelocity.x += mAcceleration.x;
     mVelocity.y += mAcceleration.y;
     
-    if (mVelocity.x > 200.0f)
+    if (mSurfaceTile)
     {
-        mVelocity.x = 200.0f;
+        float friction = 0.0f;
+        FrameTag * tag = mSurfaceTile->tag("friction");
+        if (tag && tag->type() == FrameTag::TagType::FloatTag)
+        {
+            friction = tag->floatValue();
+            if (mVelocity.x > 0)
+            {
+                mVelocity.x += friction;
+                if (mVelocity.x < 0)
+                {
+                    mVelocity.x = 0;
+                }
+            }
+            else if (mVelocity.x < 0)
+            {
+                mVelocity.x -= friction;
+                if (mVelocity.x > 0)
+                {
+                    mVelocity.x = 0;
+                }
+            }
+        }
     }
-    else if (mVelocity.x < -200.0f)
+    
+    if (mVelocity.x > 100.0f)
     {
-        mVelocity.x = -200.0f;
+        mVelocity.x = 100.0f;
+    }
+    else if (mVelocity.x < -100.0f)
+    {
+        mVelocity.x = -100.0f;
     }
     
     if (mVelocity.y > 300.0f)

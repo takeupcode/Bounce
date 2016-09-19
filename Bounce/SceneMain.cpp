@@ -51,7 +51,8 @@ void SceneMain::created ()
 
     mTileSheet.reset(new SpriteSheet(director()->textureManager()->texture(tiles)));
     AnimationDefinition * animation = mTileSheet->addAnimation("grass-large", "");
-    animation->addFrame(1.0f, {0, 0}, {48, 48});
+    FrameDefinition * frame = animation->addFrame(1.0f, {0, 0}, {48, 48});
+    frame->addTag("friction", -5.0f);
     
     mRegion.reset(new Region(mTileSheet, {1.0f, 1.0f}, {48, 48}, 16, 13));
     mRegion->addTileType("grass-large", "grass-large");
@@ -95,19 +96,19 @@ void SceneMain::created ()
     Trigger triggerMoveCharacterDown {MoveCharacterDown};
     
     Trigger * triggerPtr = &triggerMoveCharacterLeft;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Left});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Left});
     director()->eventManager()->addTrigger(*triggerPtr);
     
     triggerPtr = &triggerMoveCharacterRight;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Right});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Right});
     director()->eventManager()->addTrigger(*triggerPtr);
     
     triggerPtr = &triggerMoveCharacterUp;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Up});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Up});
     director()->eventManager()->addTrigger(*triggerPtr);
     
     triggerPtr = &triggerMoveCharacterDown;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::KeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Down});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Down});
     director()->eventManager()->addTrigger(*triggerPtr);
 }
 
@@ -158,15 +159,15 @@ void SceneMain::notify (EventParameter eventDetails)
         
         if (eventDetails.name() == MoveCharacterLeft)
         {
-            positionDelta.x -= 30.0f;
+            positionDelta.x -= 7.0f;
         }
         else if (eventDetails.name() == MoveCharacterRight)
         {
-            positionDelta.x += 30.0f;
+            positionDelta.x += 7.0f;
         }
         else if (eventDetails.name() == MoveCharacterUp)
         {
-            positionDelta.y -= 250.0f;
+            positionDelta.y -= 225.0f;
         }
         
         mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));
