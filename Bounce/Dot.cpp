@@ -15,7 +15,7 @@
 
 using namespace std;
 
-Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2u & bounds)
+Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
 : Entity(position, velocity, acceleration, {87, 136}, {0.25f, 0.25f}), mBounds(bounds)
 {
     mSheet.reset(new SpriteSheet(texture));

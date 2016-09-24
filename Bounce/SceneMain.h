@@ -48,6 +48,8 @@ protected:
     void notify (EventParameter eventDetails) override;
     
 private:
+    void frameView ();
+    
     std::shared_ptr<Dot> mDot;
     std::shared_ptr<SpriteSheet> mTileSheet;
     std::shared_ptr<Region> mRegion;

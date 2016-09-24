@@ -54,7 +54,7 @@ void SceneMain::created ()
     FrameDefinition * frame = animation->addFrame(1.0f, {0, 0}, {48, 48});
     frame->addTag("friction", -5.0f);
     
-    mRegion.reset(new Region(mTileSheet, {1.0f, 1.0f}, {48, 48}, 16, 13));
+    mRegion.reset(new Region(mTileSheet, {1.0f, 1.0f}, {48, 48}, 32, 13));
     mRegion->addTileType("grass-large", "grass-large");
     mRegion->setTile(0, 0, "grass-large");
     mRegion->setTile(15, 0, "grass-large");
@@ -79,6 +79,18 @@ void SceneMain::created ()
     mRegion->setTile(13, 12, "grass-large");
     mRegion->setTile(14, 12, "grass-large");
     mRegion->setTile(15, 12, "grass-large");
+    mRegion->setTile(16, 12, "grass-large");
+    mRegion->setTile(17, 12, "grass-large");
+    mRegion->setTile(20, 12, "grass-large");
+    mRegion->setTile(21, 12, "grass-large");
+    mRegion->setTile(22, 12, "grass-large");
+    mRegion->setTile(23, 12, "grass-large");
+    mRegion->setTile(24, 12, "grass-large");
+    mRegion->setTile(27, 12, "grass-large");
+    mRegion->setTile(28, 12, "grass-large");
+    mRegion->setTile(29, 12, "grass-large");
+    mRegion->setTile(30, 12, "grass-large");
+    mRegion->setTile(31, 12, "grass-large");
     
     mRegion->setGravity(5.0f);
     
@@ -86,7 +98,7 @@ void SceneMain::created ()
                        {static_cast<float>(mWindow->size().x / 2), static_cast<float>(mWindow->size().y / 2)},
                        {0.0f, 0.0f},
                        {0.0f, mRegion->gravity()},
-                       {mWindow->size().x, mWindow->size().y}));
+                       {mRegion->width(), mRegion->height()}));
     
     randomGenerator.seed(std::random_device()());
     
@@ -124,6 +136,8 @@ void SceneMain::update (float elapsedSeconds)
         cmdPtr->execute();
     }
     mCommands.clear();
+    
+    frameView();
 }
 
 void SceneMain::render ()
@@ -172,4 +186,21 @@ void SceneMain::notify (EventParameter eventDetails)
         
         mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));
     }
+}
+void SceneMain::frameView ()
+{
+    sf::Vector2f center = mView.getCenter();
+    sf::Vector2f size = mView.getSize();
+    
+    center.x = mDot->position().x;
+    if (center.x < size.x / 2)
+    {
+        center.x = size.x / 2;
+    }
+    else if (center.x > mRegion->width() - size.x / 2)
+    {
+        center.x = mRegion->width() - size.x / 2;
+    }
+    
+    mView.setCenter(center);
 }

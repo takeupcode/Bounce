@@ -22,7 +22,7 @@ class Region;
 class Dot : public Entity
 {
 public:
-    Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2u & bounds);
+    Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds);
 
     void update (float elapsedSeconds) override;
     
@@ -31,5 +31,5 @@ public:
 private:
     std::shared_ptr<SpriteSheet> mSheet;
     std::shared_ptr<SpriteAnimation> mAnimation;
-    sf::Vector2u mBounds;
+    sf::Vector2f mBounds;
 };
