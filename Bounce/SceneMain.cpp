@@ -223,6 +223,15 @@ void SceneMain::frameView ()
     {
         center.x = mRegion->width() - size.x / 2;
     }
+
+    if (size.y < mRegion->height())
+    {
+        center.y = mRegion->height() - size.y / 2;
+    }
+    else
+    {
+        center.y = mRegion->height() / 2;
+    }
     
     mView.setCenter(center);
 }
