@@ -174,32 +174,39 @@ void SceneMain::notify (EventParameter eventDetails)
 {
     Scene::notify(eventDetails);
     
-    if (eventDetails.name() == MoveCharacterLeft ||
-        eventDetails.name() == MoveCharacterRight ||
-        eventDetails.name() == MoveCharacterUp ||
-        eventDetails.name() == MoveCharacterDown)
+    if (mActive)
     {
-        sf::Vector2f positionDelta {0.0f, 0.0f};
-        
-        if (eventDetails.name() == MoveCharacterLeft)
+        // Events that we only want to respond to when active.
+        if (eventDetails.name() == MoveCharacterLeft ||
+            eventDetails.name() == MoveCharacterRight ||
+            eventDetails.name() == MoveCharacterUp ||
+            eventDetails.name() == MoveCharacterDown)
         {
-            positionDelta.x -= 7.0f;
+            sf::Vector2f positionDelta {0.0f, 0.0f};
+            
+            if (eventDetails.name() == MoveCharacterLeft)
+            {
+                positionDelta.x -= 7.0f;
+            }
+            else if (eventDetails.name() == MoveCharacterRight)
+            {
+                positionDelta.x += 7.0f;
+            }
+            else if (eventDetails.name() == MoveCharacterUp)
+            {
+                positionDelta.y -= 225.0f;
+            }
+            
+            mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));
         }
-        else if (eventDetails.name() == MoveCharacterRight)
-        {
-            positionDelta.x += 7.0f;
-        }
-        else if (eventDetails.name() == MoveCharacterUp)
-        {
-            positionDelta.y -= 225.0f;
-        }
-        
-        mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));
     }
-    
-    if (!mActive && eventDetails.name() == EventManager::WindowResized)
+    else
     {
-        frameView();
+        // Events that we only want to respond to when not active.
+        if (eventDetails.name() == EventManager::WindowResized)
+        {
+            frameView();
+        }
     }
 }
 void SceneMain::frameView ()
