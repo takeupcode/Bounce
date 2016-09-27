@@ -32,6 +32,11 @@ public:
     static const std::string MoveCharacterUp;
     static const std::string MoveCharacterDown;
 
+    std::string name () const override
+    {
+        return "SceneMain";
+    }
+    
     void created () override;
     
     void update (float elapsedSeconds) override;
@@ -42,6 +47,7 @@ protected:
     
     SceneMain (Director * director, int identity, std::shared_ptr<Window> window, bool transparent, bool modal);
     
+    void createTriggers () override;
     void loadTriggers () override;
     void unloadTriggers () override;
     

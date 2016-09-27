@@ -20,13 +20,12 @@ class Window;
 class ScenePaused : public Scene
 {
 public:
+    std::string name () const override
+    {
+        return "ScenePaused";
+    }
+    
     void created () override;
-    
-    void destroyed () override;
-    
-    void activated () override;
-    
-    void deactivated () override;
     
     void update (float elapsedSeconds) override;
     void render () override;

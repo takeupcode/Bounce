@@ -25,11 +25,12 @@ SceneCredits::SceneCredits (Director * director, int identity, std::shared_ptr<W
 
 void SceneCredits::created ()
 {
-    if (hasBeenCreated())
+    Scene::created();
+    
+    if (hasBeenRecreated())
     {
         return;
     }
-    Scene::created();
     
     mFont.loadFromFile(resourcePath() + "sansation.ttf");
     
@@ -39,11 +40,11 @@ void SceneCredits::created ()
     sf::FloatRect textRect = mText.getLocalBounds();
     mText.setOrigin(textRect.left + textRect.width / 2.0f,
                     textRect.top + textRect.height / 2.0f);
-    mText.setPosition(mWindow->size().x / 2.0f, 100.0f);
 }
 
 void SceneCredits::update (float elapsedSeconds)
 {
+    mText.setPosition(mWindow->size().x / 2.0f, 100.0f);
 }
 
 void SceneCredits::render ()
@@ -53,16 +54,22 @@ void SceneCredits::render ()
 
 void SceneCredits::loadTriggers ()
 {
-    director()->eventManager()->addSubscription(EventManager::MenuShow, "SceneCredits", shared_from_this());
+    Scene::loadTriggers();
+    
+    director()->eventManager()->addSubscription(EventManager::MenuShow, name(), shared_from_this());
 }
 
 void SceneCredits::unloadTriggers ()
 {
-    director()->eventManager()->removeSubscription(EventManager::MenuShow, "SceneCredits");
+    Scene::unloadTriggers();
+    
+    director()->eventManager()->removeSubscription(EventManager::MenuShow, name());
 }
 
 void SceneCredits::notify (EventParameter eventDetails)
 {
+    Scene::notify(eventDetails);
+    
     if  (eventDetails.name() == EventManager::MenuShow)
     {
         director()->sceneManager()->addScene(SceneIdentities::MainMenu);

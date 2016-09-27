@@ -20,11 +20,14 @@ class Window;
 class SceneMainMenu : public Scene
 {
 public:
+    std::string name () const override
+    {
+        return "SceneMainMenu";
+    }
+    
     void created () override;
     
     void activated () override;
-    
-    void deactivated () override;
     
     void update (float elapsedSeconds) override;
     void render () override;

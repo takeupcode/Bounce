@@ -20,6 +20,11 @@ class Window;
 class SceneCredits : public Scene
 {
 public:
+    std::string name () const override
+    {
+        return "SceneCredits";
+    }
+    
     void created () override;
     
     void update (float elapsedSeconds) override;

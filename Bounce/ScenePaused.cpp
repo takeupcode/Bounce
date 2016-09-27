@@ -26,11 +26,12 @@ ScenePaused::ScenePaused (Director * director, int identity, std::shared_ptr<Win
 
 void ScenePaused::created ()
 {
-    if (hasBeenCreated())
+    Scene::created();
+    
+    if (hasBeenRecreated())
     {
         return;
     }
-    Scene::created();
     
     mFont.loadFromFile(resourcePath() + "sansation.ttf");
     
@@ -40,30 +41,11 @@ void ScenePaused::created ()
     sf::FloatRect textRect = mText.getLocalBounds();
     mText.setOrigin(textRect.left + textRect.width / 2.0f,
                          textRect.top + textRect.height / 2.0f);
-    mText.setPosition(mWindow->size().x / 2.0f, 100.0f);
-
-    loadTriggers();
-}
-
-void ScenePaused::destroyed ()
-{
-    Scene::destroyed();
-    
-    unloadTriggers();
-}
-
-void ScenePaused::activated ()
-{
-    mActive = true;
-}
-
-void ScenePaused::deactivated ()
-{
-    mActive = false;
 }
 
 void ScenePaused::update (float elapsedSeconds)
 {
+    mText.setPosition(mWindow->size().x / 2.0f, 100.0f);
 }
 
 void ScenePaused::render ()
@@ -73,16 +55,22 @@ void ScenePaused::render ()
 
 void ScenePaused::loadTriggers ()
 {
-    director()->eventManager()->addSubscription(EventManager::GamePause, "ScenePaused", shared_from_this());
+    Scene::loadTriggers();
+    
+    director()->eventManager()->addSubscription(EventManager::GamePause, name(), shared_from_this());
 }
 
 void ScenePaused::unloadTriggers ()
 {
-    director()->eventManager()->removeSubscription(EventManager::GamePause, "ScenePaused");
+    Scene::unloadTriggers();
+    
+    director()->eventManager()->removeSubscription(EventManager::GamePause, name());
 }
 
 void ScenePaused::notify (EventParameter eventDetails)
 {
+    Scene::notify(eventDetails);
+    
     if  (eventDetails.name() == EventManager::GamePause)
     {
         int currentSceneIdentity = director()->sceneManager()->currentScene();

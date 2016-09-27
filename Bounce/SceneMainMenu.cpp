@@ -27,11 +27,12 @@ SceneMainMenu::SceneMainMenu (Director * director, int identity, std::shared_ptr
 
 void SceneMainMenu::created ()
 {
-    if (hasBeenCreated())
+    Scene::created();
+    
+    if (hasBeenRecreated())
     {
         return;
     }
-    Scene::created();
     
     mFont.loadFromFile(resourcePath() + "sansation.ttf");
     
@@ -41,10 +42,7 @@ void SceneMainMenu::created ()
     sf::FloatRect textRect = mMenuTitle.getLocalBounds();
     mMenuTitle.setOrigin(textRect.left + textRect.width / 2.0f,
                     textRect.top + textRect.height / 2.0f);
-    mMenuTitle.setPosition(mWindow->size().x / 2.0f, 100.0f);
     
-    mButtonSize = sf::Vector2f(mWindow->size().x - 100.0f, 32.0f);
-    mButtonPosition = sf::Vector2f(mWindow->size().x / 2.0f, 200);
     mButtonPadding = 5;
     
     string labels[3] =
@@ -56,12 +54,7 @@ void SceneMainMenu::created ()
     
     for (int i = 0; i < 3; ++i)
     {
-        sf::Vector2f buttonPosition(mButtonPosition.x, mButtonPosition.y + (i * (mButtonSize.y + mButtonPadding)));
-        
-        mButtons[i].setSize(mButtonSize);
         mButtons[i].setFillColor(sf::Color::Red);
-        mButtons[i].setOrigin(mButtonSize.x / 2.0f, mButtonSize.y / 2.0f);
-        mButtons[i].setPosition(buttonPosition);
         
         mButtonText[i].setFont(mFont);
         mButtonText[i].setString(sf::String(labels[i]));
@@ -69,7 +62,6 @@ void SceneMainMenu::created ()
         
         sf::FloatRect rect = mButtonText[i].getLocalBounds();
         mButtonText[i].setOrigin(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
-        mButtonText[i].setPosition(buttonPosition);
     }
 }
 
@@ -85,13 +77,23 @@ void SceneMainMenu::activated ()
     mButtonText[0].setOrigin(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
 }
 
-void SceneMainMenu::deactivated ()
-{
-    mActive = false;
-}
-
 void SceneMainMenu::update (float elapsedSeconds)
 {
+    mMenuTitle.setPosition(mWindow->size().x / 2.0f, 100.0f);
+    
+    mButtonSize = sf::Vector2f(mWindow->size().x - 100.0f, 32.0f);
+    mButtonPosition = sf::Vector2f(mWindow->size().x / 2.0f, 200);
+    
+    for (int i = 0; i < 3; ++i)
+    {
+        sf::Vector2f buttonPosition(mButtonPosition.x, mButtonPosition.y + (i * (mButtonSize.y + mButtonPadding)));
+        
+        mButtons[i].setSize(mButtonSize);
+        mButtons[i].setOrigin(mButtonSize.x / 2.0f, mButtonSize.y / 2.0f);
+        mButtons[i].setPosition(buttonPosition);
+        
+        mButtonText[i].setPosition(buttonPosition);
+    }
 }
 
 void SceneMainMenu::render ()
@@ -107,18 +109,24 @@ void SceneMainMenu::render ()
 
 void SceneMainMenu::loadTriggers ()
 {
-    director()->eventManager()->addSubscription(EventManager::MenuSelect, "SceneMainMenu", shared_from_this());
-    director()->eventManager()->addSubscription(EventManager::MenuShow, "SceneMainMenu", shared_from_this());
+    Scene::loadTriggers();
+    
+    director()->eventManager()->addSubscription(EventManager::MenuSelect, name(), shared_from_this());
+    director()->eventManager()->addSubscription(EventManager::MenuShow, name(), shared_from_this());
 }
 
 void SceneMainMenu::unloadTriggers ()
 {
-    director()->eventManager()->removeSubscription(EventManager::MenuSelect, "SceneMainMenu");
-    director()->eventManager()->removeSubscription(EventManager::MenuShow, "SceneMainMenu");
+    Scene::unloadTriggers();
+    
+    director()->eventManager()->removeSubscription(EventManager::MenuSelect, name());
+    director()->eventManager()->removeSubscription(EventManager::MenuShow, name());
 }
 
 void SceneMainMenu::notify (EventParameter eventDetails)
 {
+    Scene::notify(eventDetails);
+    
     if  (eventDetails.name() == EventManager::MenuSelect)
     {
         if (mActive)

@@ -38,11 +38,12 @@ SceneMain::SceneMain (Director * director, int identity, std::shared_ptr<Window>
 
 void SceneMain::created ()
 {
-    if (hasBeenCreated())
+    Scene::created();
+    
+    if (hasBeenRecreated())
     {
         return;
     }
-    Scene::created();
     
     string sphere = "sphere";
     string tiles = "tiles";
@@ -95,33 +96,12 @@ void SceneMain::created ()
     mRegion->setGravity(5.0f);
     
     mDot.reset(new Dot(director()->textureManager()->texture(sphere),
-                       {static_cast<float>(mWindow->size().x / 2), static_cast<float>(mWindow->size().y / 2)},
+                       {100.0f, static_cast<float>(mWindow->size().y / 2)},
                        {0.0f, 0.0f},
                        {0.0f, mRegion->gravity()},
                        {mRegion->width(), mRegion->height()}));
     
     randomGenerator.seed(std::random_device()());
-    
-    Trigger triggerMoveCharacterLeft {MoveCharacterLeft};
-    Trigger triggerMoveCharacterRight {MoveCharacterRight};
-    Trigger triggerMoveCharacterUp {MoveCharacterUp};
-    Trigger triggerMoveCharacterDown {MoveCharacterDown};
-    
-    Trigger * triggerPtr = &triggerMoveCharacterLeft;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Left});
-    director()->eventManager()->addTrigger(*triggerPtr);
-    
-    triggerPtr = &triggerMoveCharacterRight;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Right});
-    director()->eventManager()->addTrigger(*triggerPtr);
-    
-    triggerPtr = &triggerMoveCharacterUp;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Up});
-    director()->eventManager()->addTrigger(*triggerPtr);
-    
-    triggerPtr = &triggerMoveCharacterDown;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Down});
-    director()->eventManager()->addTrigger(*triggerPtr);
 }
 
 void SceneMain::update (float elapsedSeconds)
@@ -146,24 +126,54 @@ void SceneMain::render ()
     mDot->draw(mWindow.get());
 }
 
+void SceneMain::createTriggers ()
+{
+    Trigger triggerMoveCharacterLeft {MoveCharacterLeft};
+    Trigger triggerMoveCharacterRight {MoveCharacterRight};
+    Trigger triggerMoveCharacterUp {MoveCharacterUp};
+    Trigger triggerMoveCharacterDown {MoveCharacterDown};
+    
+    Trigger * triggerPtr = &triggerMoveCharacterLeft;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Left});
+    director()->eventManager()->addTrigger(*triggerPtr);
+    
+    triggerPtr = &triggerMoveCharacterRight;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Right});
+    director()->eventManager()->addTrigger(*triggerPtr);
+    
+    triggerPtr = &triggerMoveCharacterUp;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Up});
+    director()->eventManager()->addTrigger(*triggerPtr);
+    
+    triggerPtr = &triggerMoveCharacterDown;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Down});
+    director()->eventManager()->addTrigger(*triggerPtr);
+}
+
 void SceneMain::loadTriggers ()
 {
-    director()->eventManager()->addSubscription(MoveCharacterLeft, "SceneMain", shared_from_this());
-    director()->eventManager()->addSubscription(MoveCharacterRight, "SceneMain", shared_from_this());
-    director()->eventManager()->addSubscription(MoveCharacterUp, "SceneMain", shared_from_this());
-    director()->eventManager()->addSubscription(MoveCharacterDown, "SceneMain", shared_from_this());
+    Scene::loadTriggers();
+    
+    director()->eventManager()->addSubscription(MoveCharacterLeft, name(), shared_from_this());
+    director()->eventManager()->addSubscription(MoveCharacterRight, name(), shared_from_this());
+    director()->eventManager()->addSubscription(MoveCharacterUp, name(), shared_from_this());
+    director()->eventManager()->addSubscription(MoveCharacterDown, name(), shared_from_this());
 }
 
 void SceneMain::unloadTriggers ()
 {
-    director()->eventManager()->removeSubscription(MoveCharacterLeft, "SceneMain");
-    director()->eventManager()->removeSubscription(MoveCharacterRight, "SceneMain");
-    director()->eventManager()->removeSubscription(MoveCharacterUp, "SceneMain");
-    director()->eventManager()->removeSubscription(MoveCharacterDown, "SceneMain");
+    Scene::unloadTriggers();
+    
+    director()->eventManager()->removeSubscription(MoveCharacterLeft, name());
+    director()->eventManager()->removeSubscription(MoveCharacterRight, name());
+    director()->eventManager()->removeSubscription(MoveCharacterUp, name());
+    director()->eventManager()->removeSubscription(MoveCharacterDown, name());
 }
 
 void SceneMain::notify (EventParameter eventDetails)
 {
+    Scene::notify(eventDetails);
+    
     if (eventDetails.name() == MoveCharacterLeft ||
         eventDetails.name() == MoveCharacterRight ||
         eventDetails.name() == MoveCharacterUp ||
@@ -185,6 +195,11 @@ void SceneMain::notify (EventParameter eventDetails)
         }
         
         mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));
+    }
+    
+    if (!mActive && eventDetails.name() == EventManager::WindowResized)
+    {
+        frameView();
     }
 }
 void SceneMain::frameView ()

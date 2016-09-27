@@ -24,11 +24,12 @@ SceneSplash::SceneSplash (Director * director, int identity, std::shared_ptr<Win
 
 void SceneSplash::created ()
 {
-    if (hasBeenCreated())
+    Scene::created();
+    
+    if (hasBeenRecreated())
     {
         return;
     }
-    Scene::created();
     
     mTimePassed = 0.0f;
     
@@ -40,12 +41,13 @@ void SceneSplash::created ()
     sf::FloatRect textRect = mText.getLocalBounds();
     mText.setOrigin(textRect.left + textRect.width / 2.0f,
                      textRect.top + textRect.height / 2.0f);
-    mText.setPosition(mWindow->size().x / 2.0f, mWindow->size().y / 2.0f);
 }
 
 void SceneSplash::update (float elapsedSeconds)
 {
     mTimePassed += elapsedSeconds;
+    
+    mText.setPosition(mWindow->size().x / 2.0f, mWindow->size().y / 2.0f);
 }
 
 void SceneSplash::render ()
@@ -58,16 +60,22 @@ void SceneSplash::render ()
 
 void SceneSplash::loadTriggers ()
 {
-    director()->eventManager()->addSubscription(EventManager::GameContinue, "SceneSplash", shared_from_this());
+    Scene::loadTriggers();
+    
+    director()->eventManager()->addSubscription(EventManager::GameContinue, name(), shared_from_this());
 }
 
 void SceneSplash::unloadTriggers ()
 {
-    director()->eventManager()->removeSubscription(EventManager::GameContinue, "SceneSplash");
+    Scene::unloadTriggers();
+    
+    director()->eventManager()->removeSubscription(EventManager::GameContinue, name());
 }
 
 void SceneSplash::notify (EventParameter eventDetails)
 {
+    Scene::notify(eventDetails);
+    
     if  (eventDetails.name() == EventManager::GameContinue)
     {
         director()->sceneManager()->removeScene(SceneIdentities::Splash);
