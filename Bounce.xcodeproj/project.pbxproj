@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3E2448821D7E135300FCFCDC /* SpriteAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2448801D7E135300FCFCDC /* SpriteAnimation.cpp */; };
-		3E2448871D84F1A500FCFCDC /* hero.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448861D84F1A500FCFCDC /* hero.png */; };
+		3E2448871D84F1A500FCFCDC /* HeroWalk.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448861D84F1A500FCFCDC /* HeroWalk.png */; };
 		3E24488B1D85CAFC00FCFCDC /* clouds.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448881D85CAFC00FCFCDC /* clouds.png */; };
 		3E24488C1D85CAFC00FCFCDC /* mountains.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448891D85CAFC00FCFCDC /* mountains.png */; };
 		3E24488D1D85CAFC00FCFCDC /* tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E24488A1D85CAFC00FCFCDC /* tiles.png */; };
 		3E2448901D85F51800FCFCDC /* Region.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E24488E1D85F51800FCFCDC /* Region.cpp */; };
 		3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */; };
 		3E2C56B71D433A3700DEEF44 /* Dot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B51D433A3700DEEF44 /* Dot.cpp */; };
+		3E3170DA1D9E076E0019DA53 /* HeroIdle.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E3170D91D9E076E0019DA53 /* HeroIdle.png */; };
 		3E44857D1D6C14BD00337B84 /* SceneSplash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */; };
 		3E4485801D6C156500337B84 /* SceneMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44857E1D6C156500337B84 /* SceneMain.cpp */; };
 		3E4485831D6D35CA00337B84 /* SceneMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4485811D6D35CA00337B84 /* SceneMainMenu.cpp */; };
@@ -44,7 +45,7 @@
 		3E2448831D838EB700FCFCDC /* FrameTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameTag.h; sourceTree = "<group>"; };
 		3E2448841D83ACAE00FCFCDC /* FrameDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameDefinition.h; sourceTree = "<group>"; };
 		3E2448851D83B0A600FCFCDC /* AnimationDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationDefinition.h; sourceTree = "<group>"; };
-		3E2448861D84F1A500FCFCDC /* hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hero.png; sourceTree = "<group>"; };
+		3E2448861D84F1A500FCFCDC /* HeroWalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeroWalk.png; sourceTree = "<group>"; };
 		3E2448881D85CAFC00FCFCDC /* clouds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clouds.png; sourceTree = "<group>"; };
 		3E2448891D85CAFC00FCFCDC /* mountains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mountains.png; sourceTree = "<group>"; };
 		3E24488A1D85CAFC00FCFCDC /* tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles.png; sourceTree = "<group>"; };
@@ -54,6 +55,7 @@
 		3E2C56B31D43389000DEEF44 /* MoveDotCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveDotCommand.h; sourceTree = "<group>"; };
 		3E2C56B51D433A3700DEEF44 /* Dot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dot.cpp; sourceTree = "<group>"; };
 		3E2C56B61D433A3700DEEF44 /* Dot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dot.h; sourceTree = "<group>"; };
+		3E3170D91D9E076E0019DA53 /* HeroIdle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeroIdle.png; sourceTree = "<group>"; };
 		3E4485761D69546400337B84 /* WindowIdentities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowIdentities.h; sourceTree = "<group>"; };
 		3E4485771D6955DF00337B84 /* SceneIdentities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneIdentities.h; sourceTree = "<group>"; };
 		3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneSplash.cpp; sourceTree = "<group>"; };
@@ -226,10 +228,11 @@
 		3E9112B81D1E3B9C00D43AC1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E3170D91D9E076E0019DA53 /* HeroIdle.png */,
 				3E2448881D85CAFC00FCFCDC /* clouds.png */,
 				3E2448891D85CAFC00FCFCDC /* mountains.png */,
 				3E24488A1D85CAFC00FCFCDC /* tiles.png */,
-				3E2448861D84F1A500FCFCDC /* hero.png */,
+				3E2448861D84F1A500FCFCDC /* HeroWalk.png */,
 				3E9112C61D1E552B00D43AC1 /* sphere.png */,
 				3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */,
 			);
@@ -295,7 +298,8 @@
 			files = (
 				3E9112C71D1E552B00D43AC1 /* sphere.png in Resources */,
 				3E9112BE1D1E3B9C00D43AC1 /* sansation.ttf in Resources */,
-				3E2448871D84F1A500FCFCDC /* hero.png in Resources */,
+				3E3170DA1D9E076E0019DA53 /* HeroIdle.png in Resources */,
+				3E2448871D84F1A500FCFCDC /* HeroWalk.png in Resources */,
 				3E24488B1D85CAFC00FCFCDC /* clouds.png in Resources */,
 				3E24488C1D85CAFC00FCFCDC /* mountains.png in Resources */,
 				3E24488D1D85CAFC00FCFCDC /* tiles.png in Resources */,

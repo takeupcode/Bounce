@@ -45,9 +45,11 @@ void SceneMain::created ()
         return;
     }
     
-    string sphere = "sphere";
+    string walk = "walk";
+    string idle = "idle";
     string tiles = "tiles";
-    director()->textureManager()->loadTexture(sphere, resourcePath() + "hero.png");
+    director()->textureManager()->loadTexture(walk, resourcePath() + "HeroWalk.png");
+    director()->textureManager()->loadTexture(idle, resourcePath() + "HeroIdle.png");
     director()->textureManager()->loadTexture(tiles, resourcePath() + "tiles.png");
 
     mTileSheet.reset(new SpriteSheet(director()->textureManager()->texture(tiles)));
@@ -95,7 +97,7 @@ void SceneMain::created ()
     
     mRegion->setGravity(5.0f);
     
-    mDot.reset(new Dot(director()->textureManager()->texture(sphere),
+    mDot.reset(new Dot(director()->textureManager()->texture(walk),
                        {100.0f, static_cast<float>(mWindow->size().y / 2)},
                        {0.0f, 0.0f},
                        {0.0f, mRegion->gravity()},
