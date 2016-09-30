@@ -8,19 +8,26 @@
 
 #include <math.h>
 
+#include "../EasySFML/Director.h"
 #include "../EasySFML/Region.h"
+#include "../EasySFML/TextureManager.h"
 #include "../EasySFML/Window.h"
 
 #include "Dot.h"
 
 using namespace std;
 
-Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
-: Entity(position, velocity, acceleration, {87, 136}, {0.25f, 0.25f}), mBounds(bounds)
+const string Dot::Walk = "walk";
+const string Dot::WalkEast = "walkEast";
+const string Dot::WalkWest = "walkWest";
+
+Dot::Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
+: Entity(director, position, velocity, acceleration, {87, 136}, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East)
 {
-    mSheet.reset(new SpriteSheet(texture));
+
+    mSheet.reset(new SpriteSheet(director->textureManager()->texture(Walk)));
     
-    AnimationDefinition * animation = mSheet->addAnimation("walk", "walk");
+    AnimationDefinition * animation = mSheet->addAnimation(WalkEast, WalkEast);
     animation->addFrame(0.15f, {0, 0}, size());
     animation->addFrame(0.15f, {87, 0}, size());
     animation->addFrame(0.15f, {174, 0}, size());
@@ -30,7 +37,17 @@ Dot::Dot (std::shared_ptr<sf::Texture> texture, const sf::Vector2f & position, c
     animation->addFrame(0.15f, {522, 0}, size());
     animation->addFrame(0.15f, {609, 0}, size());
     
-    mAnimation.reset(new SpriteAnimation(mSheet, "walk", scale()));
+    animation = mSheet->addAnimation(WalkWest, WalkWest);
+    animation->addFrame(0.15f, {0, 136}, size());
+    animation->addFrame(0.15f, {87, 136}, size());
+    animation->addFrame(0.15f, {174, 136}, size());
+    animation->addFrame(0.15f, {261, 136}, size());
+    animation->addFrame(0.15f, {348, 136}, size());
+    animation->addFrame(0.15f, {435, 136}, size());
+    animation->addFrame(0.15f, {522, 136}, size());
+    animation->addFrame(0.15f, {609, 136}, size());
+    
+    mAnimation.reset(new SpriteAnimation(mSheet, WalkEast, scale()));
     
     mAnimation->setPosition(position);
 }
@@ -82,6 +99,23 @@ void Dot::update (float elapsedSeconds)
     else if (mVelocity.y < -300.0f)
     {
         mVelocity.y = -300.0f;
+    }
+    
+    if (mVelocity.x > 0)
+    {
+        if (mDirection != Direction::East)
+        {
+            mAnimation->setAnimation(WalkEast);
+            mDirection = Direction::East;
+        }
+    }
+    else if (mVelocity.x < 0)
+    {
+        if (mDirection != Direction::West)
+        {
+            mAnimation->setAnimation(WalkWest);
+            mDirection = Direction::West;
+        }
     }
 
     mPosition.x += mVelocity.x * elapsedSeconds;

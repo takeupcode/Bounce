@@ -97,7 +97,7 @@ void SceneMain::created ()
     
     mRegion->setGravity(5.0f);
     
-    mDot.reset(new Dot(director()->textureManager()->texture(walk),
+    mDot.reset(new Dot(director(),
                        {100.0f, static_cast<float>(mWindow->size().y / 2)},
                        {0.0f, 0.0f},
                        {0.0f, mRegion->gravity()},
