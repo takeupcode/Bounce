@@ -15,39 +15,91 @@
 
 #include "Dot.h"
 
+#include "OS/Mac/ResourcePath.hpp"
+
 using namespace std;
 
 const string Dot::Walk = "walk";
 const string Dot::WalkEast = "walkEast";
 const string Dot::WalkWest = "walkWest";
+const string Dot::Idle = "idle";
+const string Dot::IdleEast = "idleEast";
+const string Dot::IdleWest = "idleWest";
 
 Dot::Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
-: Entity(director, position, velocity, acceleration, {87, 136}, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East)
+: Entity(director, position, velocity, acceleration, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
 {
-
-    mSheet.reset(new SpriteSheet(director->textureManager()->texture(Walk)));
+    director->textureManager()->loadTexture(Walk, resourcePath() + "HeroWalk.png");
+    director->textureManager()->loadTexture(Idle, resourcePath() + "HeroIdle.png");
     
-    AnimationDefinition * animation = mSheet->addAnimation(WalkEast, WalkEast);
-    animation->addFrame(0.15f, {0, 0}, size());
-    animation->addFrame(0.15f, {87, 0}, size());
-    animation->addFrame(0.15f, {174, 0}, size());
-    animation->addFrame(0.15f, {261, 0}, size());
-    animation->addFrame(0.15f, {348, 0}, size());
-    animation->addFrame(0.15f, {435, 0}, size());
-    animation->addFrame(0.15f, {522, 0}, size());
-    animation->addFrame(0.15f, {609, 0}, size());
+    shared_ptr<SpriteSheet> idleSheet(new SpriteSheet(Idle, director->textureManager()->texture(Idle)));
     
-    animation = mSheet->addAnimation(WalkWest, WalkWest);
-    animation->addFrame(0.15f, {0, 136}, size());
-    animation->addFrame(0.15f, {87, 136}, size());
-    animation->addFrame(0.15f, {174, 136}, size());
-    animation->addFrame(0.15f, {261, 136}, size());
-    animation->addFrame(0.15f, {348, 136}, size());
-    animation->addFrame(0.15f, {435, 136}, size());
-    animation->addFrame(0.15f, {522, 136}, size());
-    animation->addFrame(0.15f, {609, 136}, size());
+    AnimationDefinition * animation = idleSheet->addAnimation(IdleEast, IdleEast);
+    animation->addFrame(0.23f, {0, 0}, {72, 130});
+    animation->addFrame(0.23f, {72, 0}, {72, 130});
+    animation->addFrame(0.62f, {144, 0}, {72, 130});
+    animation->addFrame(0.31f, {216, 0}, {72, 130});
+    animation->addFrame(0.25f, {288, 0}, {72, 130});
+    animation->addFrame(0.57f, {360, 0}, {72, 130});
+    animation->addFrame(0.23f, {432, 0}, {72, 130});
+    animation->addFrame(0.15f, {504, 0}, {72, 130});
+    animation->addFrame(0.23f, {0, 130}, {72, 130});
+    animation->addFrame(0.35f, {72, 130}, {72, 130});
+    animation->addFrame(0.15f, {144, 130}, {72, 130});
+    animation->addFrame(0.12f, {216, 130}, {72, 130});
+    animation->addFrame(0.31f, {288, 130}, {72, 130});
+    animation->addFrame(0.25f, {360, 130}, {72, 130});
+    animation->addFrame(0.57f, {432, 130}, {72, 130});
+    animation->addFrame(0.23f, {504, 130}, {72, 130});
     
-    mAnimation.reset(new SpriteAnimation(mSheet, WalkEast, scale()));
+    mAnimation.reset(new SpriteAnimation(idleSheet, IdleEast, scale()));
+    setSize(mAnimation->size());
+    
+    animation = idleSheet->addAnimation(IdleWest, IdleWest);
+    animation->addFrame(0.23f, {0, 260}, {72, 130});
+    animation->addFrame(0.23f, {72, 260}, {72, 130});
+    animation->addFrame(0.62f, {144, 260}, {72, 130});
+    animation->addFrame(0.31f, {216, 260}, {72, 130});
+    animation->addFrame(0.25f, {288, 260}, {72, 130});
+    animation->addFrame(0.57f, {360, 260}, {72, 130});
+    animation->addFrame(0.23f, {432, 260}, {72, 130});
+    animation->addFrame(0.15f, {504, 260}, {72, 130});
+    animation->addFrame(0.23f, {0, 390}, {72, 130});
+    animation->addFrame(0.35f, {72, 390}, {72, 130});
+    animation->addFrame(0.15f, {144, 390}, {72, 130});
+    animation->addFrame(0.12f, {216, 390}, {72, 130});
+    animation->addFrame(0.31f, {288, 390}, {72, 130});
+    animation->addFrame(0.25f, {360, 390}, {72, 130});
+    animation->addFrame(0.57f, {432, 390}, {72, 130});
+    animation->addFrame(0.23f, {504, 390}, {72, 130});
+    
+    mAnimation->addAnimation(idleSheet, IdleWest);
+    
+    shared_ptr<SpriteSheet> walkSheet(new SpriteSheet(Walk, director->textureManager()->texture(Walk)));
+    
+    animation = walkSheet->addAnimation(WalkEast, WalkEast);
+    animation->addFrame(0.15f, {0, 0}, {87, 136});
+    animation->addFrame(0.15f, {87, 0}, {87, 136});
+    animation->addFrame(0.15f, {174, 0}, {87, 136});
+    animation->addFrame(0.15f, {261, 0}, {87, 136});
+    animation->addFrame(0.15f, {348, 0}, {87, 136});
+    animation->addFrame(0.15f, {435, 0}, {87, 136});
+    animation->addFrame(0.15f, {522, 0}, {87, 136});
+    animation->addFrame(0.15f, {609, 0}, {87, 136});
+    
+    mAnimation->addAnimation(walkSheet, WalkEast);
+    
+    animation = walkSheet->addAnimation(WalkWest, WalkWest);
+    animation->addFrame(0.15f, {0, 136}, {87, 136});
+    animation->addFrame(0.15f, {87, 136}, {87, 136});
+    animation->addFrame(0.15f, {174, 136}, {87, 136});
+    animation->addFrame(0.15f, {261, 136}, {87, 136});
+    animation->addFrame(0.15f, {348, 136}, {87, 136});
+    animation->addFrame(0.15f, {435, 136}, {87, 136});
+    animation->addFrame(0.15f, {522, 136}, {87, 136});
+    animation->addFrame(0.15f, {609, 136}, {87, 136});
+    
+    mAnimation->addAnimation(walkSheet, WalkWest);
     
     mAnimation->setPosition(position);
 }
@@ -103,18 +155,38 @@ void Dot::update (float elapsedSeconds)
     
     if (mVelocity.x > 0)
     {
-        if (mDirection != Direction::East)
+        if (mDirection != Direction::East || mIdle)
         {
             mAnimation->setAnimation(WalkEast);
+            setSize(mAnimation->size());
             mDirection = Direction::East;
+            mIdle = false;
         }
     }
     else if (mVelocity.x < 0)
     {
-        if (mDirection != Direction::West)
+        if (mDirection != Direction::West || mIdle)
         {
             mAnimation->setAnimation(WalkWest);
+            setSize(mAnimation->size());
             mDirection = Direction::West;
+            mIdle = false;
+        }
+    }
+    else
+    {
+        if (!mIdle)
+        {
+            if (mDirection == Direction::East)
+            {
+                mAnimation->setAnimation(IdleEast);
+            }
+            else if (mDirection == Direction::West)
+            {
+                mAnimation->setAnimation(IdleWest);
+            }
+            setSize(mAnimation->size());
+            mIdle = true;
         }
     }
 

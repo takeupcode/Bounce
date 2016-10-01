@@ -48,11 +48,9 @@ void SceneMain::created ()
     string walk = "walk";
     string idle = "idle";
     string tiles = "tiles";
-    director()->textureManager()->loadTexture(walk, resourcePath() + "HeroWalk.png");
-    director()->textureManager()->loadTexture(idle, resourcePath() + "HeroIdle.png");
     director()->textureManager()->loadTexture(tiles, resourcePath() + "tiles.png");
 
-    mTileSheet.reset(new SpriteSheet(director()->textureManager()->texture(tiles)));
+    mTileSheet.reset(new SpriteSheet(tiles, director()->textureManager()->texture(tiles)));
     AnimationDefinition * animation = mTileSheet->addAnimation("grass-large", "");
     FrameDefinition * frame = animation->addFrame(1.0f, {0, 0}, {48, 48});
     frame->addTag("friction", -5.0f);

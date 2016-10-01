@@ -26,6 +26,9 @@ public:
     static const std::string Walk;
     static const std::string WalkEast;
     static const std::string WalkWest;
+    static const std::string Idle;
+    static const std::string IdleEast;
+    static const std::string IdleWest;
     
     Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds);
 
@@ -34,8 +37,8 @@ public:
     void draw (Window * window) override;
     
 private:
-    std::shared_ptr<SpriteSheet> mSheet;
     std::shared_ptr<SpriteAnimation> mAnimation;
     sf::Vector2f mBounds;
     Direction mDirection;
+    bool mIdle;
 };
