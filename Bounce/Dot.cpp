@@ -27,7 +27,7 @@ const string Dot::IdleEast = "idleEast";
 const string Dot::IdleWest = "idleWest";
 
 Dot::Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
-: Entity(director, position, velocity, acceleration, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
+: Entity(director, position, velocity, acceleration, {0.5f, 0.5f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
 {
     director->textureManager()->loadTexture(Walk, resourcePath() + "HeroWalk.png");
     director->textureManager()->loadTexture(Idle, resourcePath() + "HeroIdle.png");
@@ -135,22 +135,22 @@ void Dot::update (float elapsedSeconds)
         }
     }
     
-    if (mVelocity.x > 100.0f)
+    if (mVelocity.x > 200.0f)
     {
-        mVelocity.x = 100.0f;
+        mVelocity.x = 200.0f;
     }
-    else if (mVelocity.x < -100.0f)
+    else if (mVelocity.x < -200.0f)
     {
-        mVelocity.x = -100.0f;
+        mVelocity.x = -200.0f;
     }
     
-    if (mVelocity.y > 300.0f)
+    if (mVelocity.y > 400.0f)
     {
-        mVelocity.y = 300.0f;
+        mVelocity.y = 400.0f;
     }
-    else if (mVelocity.y < -300.0f)
+    else if (mVelocity.y < -400.0f)
     {
-        mVelocity.y = -300.0f;
+        mVelocity.y = -400.0f;
     }
     
     if (mVelocity.x > 0)

@@ -55,7 +55,7 @@ void SceneMain::created ()
     FrameDefinition * frame = animation->addFrame(1.0f, {0, 0}, {48, 48});
     frame->addTag("friction", -5.0f);
     
-    mRegion.reset(new Region(mTileSheet, {1.0f, 1.0f}, {48, 48}, 32, 13));
+    mRegion.reset(new Region(mTileSheet, {1.5f, 1.5f}, {48, 48}, 32, 13));
     mRegion->addTileType("grass-large", "grass-large");
     mRegion->setTile(0, 0, "grass-large");
     mRegion->setTile(15, 0, "grass-large");
@@ -194,7 +194,7 @@ void SceneMain::notify (EventParameter eventDetails)
             }
             else if (eventDetails.name() == MoveCharacterUp)
             {
-                positionDelta.y -= 225.0f;
+                positionDelta.y -= 250.0f;
             }
             
             mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));
