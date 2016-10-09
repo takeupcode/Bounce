@@ -28,6 +28,18 @@ public:
     static const std::string WalkWest;
     static const std::string IdleEast;
     static const std::string IdleWest;
+    static const std::string JumpStartEast;
+    static const std::string JumpStartWest;
+    static const std::string JumpLoopEast;
+    static const std::string JumpLoopWest;
+    static const std::string FallStartEast;
+    static const std::string FallStartWest;
+    static const std::string FallLoopEast;
+    static const std::string FallLoopWest;
+    static const std::string RunEast;
+    static const std::string RunWest;
+    static const std::string SkidEast;
+    static const std::string SkidWest;
     
     Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds);
 
