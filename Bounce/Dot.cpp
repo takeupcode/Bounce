@@ -19,87 +19,83 @@
 
 using namespace std;
 
-const string Dot::Walk = "walk";
+const string Dot::Hero = "hero";
 const string Dot::WalkEast = "walkEast";
 const string Dot::WalkWest = "walkWest";
-const string Dot::Idle = "idle";
 const string Dot::IdleEast = "idleEast";
 const string Dot::IdleWest = "idleWest";
 
 Dot::Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
-: Entity(director, position, velocity, acceleration, {0.5f, 0.5f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
+: Entity(director, position, velocity, acceleration, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
 {
-    director->textureManager()->loadTexture(Walk, resourcePath() + "HeroWalk.png");
-    director->textureManager()->loadTexture(Idle, resourcePath() + "HeroIdle.png");
+    director->textureManager()->loadTexture(Hero, resourcePath() + "Hero.png");
     
-    shared_ptr<SpriteSheet> idleSheet(new SpriteSheet(Idle, director->textureManager()->texture(Idle)));
+    shared_ptr<SpriteSheet> heroSheet(new SpriteSheet(Hero, resourcePath() + "Hero.json", director->textureManager()->texture(Hero)));
     
-    AnimationDefinition * animation = idleSheet->addAnimation(IdleEast, IdleEast);
-    animation->addFrame(0.23f, {0, 0}, {72, 130});
-    animation->addFrame(0.23f, {72, 0}, {72, 130});
-    animation->addFrame(0.62f, {144, 0}, {72, 130});
-    animation->addFrame(0.31f, {216, 0}, {72, 130});
-    animation->addFrame(0.25f, {288, 0}, {72, 130});
-    animation->addFrame(0.57f, {360, 0}, {72, 130});
-    animation->addFrame(0.23f, {432, 0}, {72, 130});
-    animation->addFrame(0.15f, {504, 0}, {72, 130});
-    animation->addFrame(0.23f, {0, 130}, {72, 130});
-    animation->addFrame(0.35f, {72, 130}, {72, 130});
-    animation->addFrame(0.15f, {144, 130}, {72, 130});
-    animation->addFrame(0.12f, {216, 130}, {72, 130});
-    animation->addFrame(0.31f, {288, 130}, {72, 130});
-    animation->addFrame(0.25f, {360, 130}, {72, 130});
-    animation->addFrame(0.57f, {432, 130}, {72, 130});
-    animation->addFrame(0.23f, {504, 130}, {72, 130});
+    AnimationDefinition * animation = heroSheet->addAnimation(IdleEast, IdleEast);
+    animation->addFrame("Hero/Idle/Right-000", 0.23f);
+    animation->addFrame("Hero/Idle/Right-001", 0.23f);
+    animation->addFrame("Hero/Idle/Right-002", 0.62f);
+    animation->addFrame("Hero/Idle/Right-003", 0.31f);
+    animation->addFrame("Hero/Idle/Right-004", 0.25f);
+    animation->addFrame("Hero/Idle/Right-005", 0.57f);
+    animation->addFrame("Hero/Idle/Right-006", 0.23f);
+    animation->addFrame("Hero/Idle/Right-007", 0.15f);
+    animation->addFrame("Hero/Idle/Right-008", 0.23f);
+    animation->addFrame("Hero/Idle/Right-009", 0.35f);
+    animation->addFrame("Hero/Idle/Right-010", 0.15f);
+    animation->addFrame("Hero/Idle/Right-011", 0.12f);
+    animation->addFrame("Hero/Idle/Right-012", 0.31f);
+    animation->addFrame("Hero/Idle/Right-013", 0.25f);
+    animation->addFrame("Hero/Idle/Right-014", 0.57f);
+    animation->addFrame("Hero/Idle/Right-015", 0.23f);
     
-    mAnimation.reset(new SpriteAnimation(idleSheet, IdleEast, scale()));
+    mAnimation.reset(new SpriteAnimation(heroSheet, IdleEast, scale()));
     setSize(mAnimation->size());
     
-    animation = idleSheet->addAnimation(IdleWest, IdleWest);
-    animation->addFrame(0.23f, {0, 260}, {72, 130});
-    animation->addFrame(0.23f, {72, 260}, {72, 130});
-    animation->addFrame(0.62f, {144, 260}, {72, 130});
-    animation->addFrame(0.31f, {216, 260}, {72, 130});
-    animation->addFrame(0.25f, {288, 260}, {72, 130});
-    animation->addFrame(0.57f, {360, 260}, {72, 130});
-    animation->addFrame(0.23f, {432, 260}, {72, 130});
-    animation->addFrame(0.15f, {504, 260}, {72, 130});
-    animation->addFrame(0.23f, {0, 390}, {72, 130});
-    animation->addFrame(0.35f, {72, 390}, {72, 130});
-    animation->addFrame(0.15f, {144, 390}, {72, 130});
-    animation->addFrame(0.12f, {216, 390}, {72, 130});
-    animation->addFrame(0.31f, {288, 390}, {72, 130});
-    animation->addFrame(0.25f, {360, 390}, {72, 130});
-    animation->addFrame(0.57f, {432, 390}, {72, 130});
-    animation->addFrame(0.23f, {504, 390}, {72, 130});
+    animation = heroSheet->addAnimation(IdleWest, IdleWest);
+    animation->addFrame("Hero/Idle/Left-000", 0.23f);
+    animation->addFrame("Hero/Idle/Left-001", 0.23f);
+    animation->addFrame("Hero/Idle/Left-002", 0.62f);
+    animation->addFrame("Hero/Idle/Left-003", 0.31f);
+    animation->addFrame("Hero/Idle/Left-004", 0.25f);
+    animation->addFrame("Hero/Idle/Left-005", 0.57f);
+    animation->addFrame("Hero/Idle/Left-006", 0.23f);
+    animation->addFrame("Hero/Idle/Left-007", 0.15f);
+    animation->addFrame("Hero/Idle/Left-008", 0.23f);
+    animation->addFrame("Hero/Idle/Left-009", 0.35f);
+    animation->addFrame("Hero/Idle/Left-010", 0.15f);
+    animation->addFrame("Hero/Idle/Left-011", 0.12f);
+    animation->addFrame("Hero/Idle/Left-012", 0.31f);
+    animation->addFrame("Hero/Idle/Left-013", 0.25f);
+    animation->addFrame("Hero/Idle/Left-014", 0.57f);
+    animation->addFrame("Hero/Idle/Left-015", 0.23f);
     
-    mAnimation->addAnimation(idleSheet, IdleWest);
+    mAnimation->addAnimation(heroSheet, IdleWest);
     
-    shared_ptr<SpriteSheet> walkSheet(new SpriteSheet(Walk, director->textureManager()->texture(Walk)));
+    animation = heroSheet->addAnimation(WalkEast, WalkEast);
+    animation->addFrame("Hero/Walk/Right-000", 0.15f);
+    animation->addFrame("Hero/Walk/Right-001", 0.15f);
+    animation->addFrame("Hero/Walk/Right-002", 0.15f);
+    animation->addFrame("Hero/Walk/Right-003", 0.15f);
+    animation->addFrame("Hero/Walk/Right-004", 0.15f);
+    animation->addFrame("Hero/Walk/Right-005", 0.15f);
+    animation->addFrame("Hero/Walk/Right-006", 0.15f);
+    animation->addFrame("Hero/Walk/Right-007", 0.15f);
     
-    animation = walkSheet->addAnimation(WalkEast, WalkEast);
-    animation->addFrame(0.15f, {0, 0}, {87, 136});
-    animation->addFrame(0.15f, {87, 0}, {87, 136});
-    animation->addFrame(0.15f, {174, 0}, {87, 136});
-    animation->addFrame(0.15f, {261, 0}, {87, 136});
-    animation->addFrame(0.15f, {348, 0}, {87, 136});
-    animation->addFrame(0.15f, {435, 0}, {87, 136});
-    animation->addFrame(0.15f, {522, 0}, {87, 136});
-    animation->addFrame(0.15f, {609, 0}, {87, 136});
+    mAnimation->addAnimation(heroSheet, WalkEast);
     
-    mAnimation->addAnimation(walkSheet, WalkEast);
+    animation = heroSheet->addAnimation(WalkWest, WalkWest);
+    animation->addFrame("Hero/Walk/Left-000", 0.15f);
+    animation->addFrame("Hero/Walk/Left-001", 0.15f);
+    animation->addFrame("Hero/Walk/Left-002", 0.15f);
+    animation->addFrame("Hero/Walk/Left-003", 0.15f);
+    animation->addFrame("Hero/Walk/Left-004", 0.15f);
+    animation->addFrame("Hero/Walk/Left-005", 0.15f);
+    animation->addFrame("Hero/Walk/Left-006", 0.15f);
+    animation->addFrame("Hero/Walk/Left-007", 0.15f);
     
-    animation = walkSheet->addAnimation(WalkWest, WalkWest);
-    animation->addFrame(0.15f, {0, 136}, {87, 136});
-    animation->addFrame(0.15f, {87, 136}, {87, 136});
-    animation->addFrame(0.15f, {174, 136}, {87, 136});
-    animation->addFrame(0.15f, {261, 136}, {87, 136});
-    animation->addFrame(0.15f, {348, 136}, {87, 136});
-    animation->addFrame(0.15f, {435, 136}, {87, 136});
-    animation->addFrame(0.15f, {522, 136}, {87, 136});
-    animation->addFrame(0.15f, {609, 136}, {87, 136});
-    
-    mAnimation->addAnimation(walkSheet, WalkWest);
+    mAnimation->addAnimation(heroSheet, WalkWest);
     
     mAnimation->setPosition(position);
 }

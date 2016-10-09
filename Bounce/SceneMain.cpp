@@ -48,11 +48,11 @@ void SceneMain::created ()
     string walk = "walk";
     string idle = "idle";
     string tiles = "tiles";
-    director()->textureManager()->loadTexture(tiles, resourcePath() + "tiles.png");
+    director()->textureManager()->loadTexture(tiles, resourcePath() + "Tiles.png");
 
-    mTileSheet.reset(new SpriteSheet(tiles, director()->textureManager()->texture(tiles)));
+    mTileSheet.reset(new SpriteSheet(tiles, resourcePath() + "Tiles.json", director()->textureManager()->texture(tiles)));
     AnimationDefinition * animation = mTileSheet->addAnimation("grass-large", "");
-    FrameDefinition * frame = animation->addFrame(1.0f, {0, 0}, {48, 48});
+    FrameDefinition * frame = animation->addFrame("Large/Grass", 1.0f);
     frame->addTag("friction", -5.0f);
     
     mRegion.reset(new Region(mTileSheet, {1.5f, 1.5f}, {48, 48}, 32, 13));
@@ -194,7 +194,7 @@ void SceneMain::notify (EventParameter eventDetails)
             }
             else if (eventDetails.name() == MoveCharacterUp)
             {
-                positionDelta.y -= 250.0f;
+                positionDelta.y -= 270.0f;
             }
             
             mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));

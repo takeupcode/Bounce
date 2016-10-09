@@ -23,10 +23,9 @@ class Region;
 class Dot : public Entity
 {
 public:
-    static const std::string Walk;
+    static const std::string Hero;
     static const std::string WalkEast;
     static const std::string WalkWest;
-    static const std::string Idle;
     static const std::string IdleEast;
     static const std::string IdleWest;
     
