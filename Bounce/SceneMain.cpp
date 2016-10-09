@@ -17,7 +17,7 @@
 #include "../EasySFML/Window.h"
 
 #include "BounceGame.h"
-#include "MoveDotCommand.h"
+#include "MoveHeroCommand.h"
 #include "SceneIdentities.h"
 #include "SceneMain.h"
 #include "WindowIdentities.h"
@@ -95,7 +95,7 @@ void SceneMain::created ()
     
     mRegion->setGravity(5.0f);
     
-    mDot.reset(new Dot(director(),
+    mHero.reset(new Hero(director(),
                        {100.0f, static_cast<float>(mWindow->size().y / 2)},
                        {0.0f, 0.0f},
                        {0.0f, mRegion->gravity()},
@@ -106,10 +106,10 @@ void SceneMain::created ()
 
 void SceneMain::update (float elapsedSeconds)
 {
-    mDot->update(elapsedSeconds);
+    mHero->update(elapsedSeconds);
     mRegion->update(elapsedSeconds);
     
-    mRegion->resolveCollisions(mDot.get());
+    mRegion->resolveCollisions(mHero.get());
     
     for (auto & cmdPtr: mCommands)
     {
@@ -123,7 +123,7 @@ void SceneMain::update (float elapsedSeconds)
 void SceneMain::render ()
 {
     mRegion->draw(mWindow.get());
-    mDot->draw(mWindow.get());
+    mHero->draw(mWindow.get());
 }
 
 void SceneMain::createTriggers ()
@@ -197,7 +197,7 @@ void SceneMain::notify (EventParameter eventDetails)
                 positionDelta.y -= 270.0f;
             }
             
-            mCommands.push_back(unique_ptr<Command>(new MoveDotCommand(mDot, positionDelta)));
+            mCommands.push_back(unique_ptr<Command>(new MoveHeroCommand(mHero, positionDelta)));
         }
     }
     else
@@ -214,7 +214,7 @@ void SceneMain::frameView ()
     sf::Vector2f center = mView.getCenter();
     sf::Vector2f size = mView.getSize();
     
-    center.x = mDot->position().x;
+    center.x = mHero->position().x;
     if (center.x < size.x / 2)
     {
         center.x = size.x / 2;

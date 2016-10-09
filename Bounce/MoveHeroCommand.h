@@ -1,5 +1,5 @@
 //
-//  MoveDotCommand.h
+//  MoveHeroCommand.h
 //  Bounce
 //
 //  Created by Abdul Wahid Tanner on 7/23/16.
@@ -10,18 +10,18 @@
 
 #include "../EasySFML/Command.h"
 
-#include "Dot.h"
+#include "Hero.h"
 
-class MoveDotCommand : public Command
+class MoveHeroCommand : public Command
 {
 public:
-    MoveDotCommand(std::shared_ptr<Dot> dot, const sf::Vector2f & delta);
-    virtual ~MoveDotCommand ();
+    MoveHeroCommand(std::shared_ptr<Hero> hero, const sf::Vector2f & delta);
+    virtual ~MoveHeroCommand ();
     
     void execute () override;
     void undo () override;
     
 private:
-    std::shared_ptr<Dot> mDot;
+    std::shared_ptr<Hero> mHero;
     sf::Vector2f mDelta;
 };

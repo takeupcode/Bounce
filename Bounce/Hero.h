@@ -1,5 +1,5 @@
 //
-//  Dot.h
+//  Hero.h
 //  Bounce
 //
 //  Created by Abdul Wahid Tanner on 7/23/16.
@@ -20,10 +20,10 @@
 class Window;
 class Region;
 
-class Dot : public Entity
+class Hero : public Entity
 {
 public:
-    static const std::string Hero;
+    static const std::string HeroId;
     static const std::string WalkEast;
     static const std::string WalkWest;
     static const std::string IdleEast;
@@ -41,7 +41,7 @@ public:
     static const std::string SkidEast;
     static const std::string SkidWest;
     
-    Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds);
+    Hero (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds);
 
     void update (float elapsedSeconds) override;
     

@@ -1,5 +1,5 @@
 //
-//  Dot.cpp
+//  Hero.cpp
 //  Bounce
 //
 //  Created by Abdul Wahid Tanner on 7/23/16.
@@ -13,36 +13,36 @@
 #include "../EasySFML/TextureManager.h"
 #include "../EasySFML/Window.h"
 
-#include "Dot.h"
+#include "Hero.h"
 
 #include "OS/Mac/ResourcePath.hpp"
 
 using namespace std;
 
-const string Dot::Hero = "hero";
-const string Dot::WalkEast = "walkEast";
-const string Dot::WalkWest = "walkWest";
-const string Dot::IdleEast = "idleEast";
-const string Dot::IdleWest = "idleWest";
-const string Dot::JumpStartEast = "jumpStartEast";
-const string Dot::JumpStartWest = "jumpStartWest";
-const string Dot::JumpLoopEast = "jumpLoopEast";
-const string Dot::JumpLoopWest = "jumpLoopWest";
-const string Dot::FallStartEast = "fallStartEast";
-const string Dot::FallStartWest = "fallStartWest";
-const string Dot::FallLoopEast = "fallLoopEast";
-const string Dot::FallLoopWest = "fallLoopWest";
-const string Dot::RunEast = "runEast";
-const string Dot::RunWest = "runWest";
-const string Dot::SkidEast = "skidEast";
-const string Dot::SkidWest = "skidWest";
+const string Hero::HeroId = "hero";
+const string Hero::WalkEast = "walkEast";
+const string Hero::WalkWest = "walkWest";
+const string Hero::IdleEast = "idleEast";
+const string Hero::IdleWest = "idleWest";
+const string Hero::JumpStartEast = "jumpStartEast";
+const string Hero::JumpStartWest = "jumpStartWest";
+const string Hero::JumpLoopEast = "jumpLoopEast";
+const string Hero::JumpLoopWest = "jumpLoopWest";
+const string Hero::FallStartEast = "fallStartEast";
+const string Hero::FallStartWest = "fallStartWest";
+const string Hero::FallLoopEast = "fallLoopEast";
+const string Hero::FallLoopWest = "fallLoopWest";
+const string Hero::RunEast = "runEast";
+const string Hero::RunWest = "runWest";
+const string Hero::SkidEast = "skidEast";
+const string Hero::SkidWest = "skidWest";
 
-Dot::Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
+Hero::Hero (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
 : Entity(director, position, velocity, acceleration, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
 {
-    director->textureManager()->loadTexture(Hero, resourcePath() + "Hero.png");
+    director->textureManager()->loadTexture(HeroId, resourcePath() + "Hero.png");
     
-    shared_ptr<SpriteSheet> heroSheet(new SpriteSheet(Hero, resourcePath() + "Hero.json", director->textureManager()->texture(Hero)));
+    shared_ptr<SpriteSheet> heroSheet(new SpriteSheet(HeroId, resourcePath() + "Hero.json", director->textureManager()->texture(HeroId)));
     
     AnimationDefinition * animation = heroSheet->addAnimation(IdleEast, IdleEast);
     animation->addFrame("Hero/Idle/Right-000", 0.23f);
@@ -241,7 +241,7 @@ Dot::Dot (Director * director, const sf::Vector2f & position, const sf::Vector2f
     mAnimation->addAnimation(heroSheet, SkidWest);
 }
 
-void Dot::update (float elapsedSeconds)
+void Hero::update (float elapsedSeconds)
 {
     mVelocity.x += mAcceleration.x;
     mVelocity.y += mAcceleration.y;
@@ -358,7 +358,7 @@ void Dot::update (float elapsedSeconds)
     mAnimation->update(elapsedSeconds);
 }
 
-void Dot::draw (Window * window)
+void Hero::draw (Window * window)
 {
     mAnimation->setPosition(mPosition);
     mAnimation->draw(window);

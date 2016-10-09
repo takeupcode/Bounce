@@ -11,8 +11,8 @@
 		3E24488B1D85CAFC00FCFCDC /* clouds.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448881D85CAFC00FCFCDC /* clouds.png */; };
 		3E24488C1D85CAFC00FCFCDC /* mountains.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2448891D85CAFC00FCFCDC /* mountains.png */; };
 		3E2448901D85F51800FCFCDC /* Region.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E24488E1D85F51800FCFCDC /* Region.cpp */; };
-		3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */; };
-		3E2C56B71D433A3700DEEF44 /* Dot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B51D433A3700DEEF44 /* Dot.cpp */; };
+		3E2C56B41D43389000DEEF44 /* MoveHeroCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B21D43389000DEEF44 /* MoveHeroCommand.cpp */; };
+		3E2C56B71D433A3700DEEF44 /* Hero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E2C56B51D433A3700DEEF44 /* Hero.cpp */; };
 		3E44857D1D6C14BD00337B84 /* SceneSplash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */; };
 		3E4485801D6C156500337B84 /* SceneMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E44857E1D6C156500337B84 /* SceneMain.cpp */; };
 		3E4485831D6D35CA00337B84 /* SceneMainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4485811D6D35CA00337B84 /* SceneMainMenu.cpp */; };
@@ -51,10 +51,10 @@
 		3E2448891D85CAFC00FCFCDC /* mountains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mountains.png; sourceTree = "<group>"; };
 		3E24488E1D85F51800FCFCDC /* Region.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Region.cpp; sourceTree = "<group>"; };
 		3E24488F1D85F51800FCFCDC /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
-		3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveDotCommand.cpp; sourceTree = "<group>"; };
-		3E2C56B31D43389000DEEF44 /* MoveDotCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveDotCommand.h; sourceTree = "<group>"; };
-		3E2C56B51D433A3700DEEF44 /* Dot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dot.cpp; sourceTree = "<group>"; };
-		3E2C56B61D433A3700DEEF44 /* Dot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dot.h; sourceTree = "<group>"; };
+		3E2C56B21D43389000DEEF44 /* MoveHeroCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveHeroCommand.cpp; sourceTree = "<group>"; };
+		3E2C56B31D43389000DEEF44 /* MoveHeroCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveHeroCommand.h; sourceTree = "<group>"; };
+		3E2C56B51D433A3700DEEF44 /* Hero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hero.cpp; sourceTree = "<group>"; };
+		3E2C56B61D433A3700DEEF44 /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
 		3E4485761D69546400337B84 /* WindowIdentities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowIdentities.h; sourceTree = "<group>"; };
 		3E4485771D6955DF00337B84 /* SceneIdentities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneIdentities.h; sourceTree = "<group>"; };
 		3E44857B1D6C14BD00337B84 /* SceneSplash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneSplash.cpp; sourceTree = "<group>"; };
@@ -202,11 +202,11 @@
 				3E778B711D7DCB05009FC697 /* OS */,
 				3E4A7A2A1D30AB3B0003B055 /* BounceGame.cpp */,
 				3E4A7A2B1D30AB3B0003B055 /* BounceGame.h */,
-				3E2C56B51D433A3700DEEF44 /* Dot.cpp */,
-				3E2C56B61D433A3700DEEF44 /* Dot.h */,
+				3E2C56B51D433A3700DEEF44 /* Hero.cpp */,
+				3E2C56B61D433A3700DEEF44 /* Hero.h */,
 				3E9112B61D1E3B9C00D43AC1 /* main.cpp */,
-				3E2C56B21D43389000DEEF44 /* MoveDotCommand.cpp */,
-				3E2C56B31D43389000DEEF44 /* MoveDotCommand.h */,
+				3E2C56B21D43389000DEEF44 /* MoveHeroCommand.cpp */,
+				3E2C56B31D43389000DEEF44 /* MoveHeroCommand.h */,
 				3E4485871D6E9A5F00337B84 /* SceneCredits.cpp */,
 				3E4485881D6E9A5F00337B84 /* SceneCredits.h */,
 				3E4485771D6955DF00337B84 /* SceneIdentities.h */,
@@ -354,11 +354,11 @@
 				3E4485861D6E7AC100337B84 /* ScenePaused.cpp in Sources */,
 				3E9112B41D1E3B9C00D43AC1 /* ResourcePath.mm in Sources */,
 				3E778B691D7DC86D009FC697 /* Director.cpp in Sources */,
-				3E2C56B41D43389000DEEF44 /* MoveDotCommand.cpp in Sources */,
+				3E2C56B41D43389000DEEF44 /* MoveHeroCommand.cpp in Sources */,
 				3E778B701D7DC86D009FC697 /* WindowManager.cpp in Sources */,
 				3E44857D1D6C14BD00337B84 /* SceneSplash.cpp in Sources */,
 				3E778B6F1D7DC86D009FC697 /* Window.cpp in Sources */,
-				3E2C56B71D433A3700DEEF44 /* Dot.cpp in Sources */,
+				3E2C56B71D433A3700DEEF44 /* Hero.cpp in Sources */,
 				3E778B681D7DC86D009FC697 /* Command.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

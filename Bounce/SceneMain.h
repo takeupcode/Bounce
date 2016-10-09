@@ -19,7 +19,7 @@
 
 class Command;
 class Director;
-class Dot;
+class Hero;
 class Region;
 class SpriteSheet;
 class Window;
@@ -56,7 +56,7 @@ protected:
 private:
     void frameView ();
     
-    std::shared_ptr<Dot> mDot;
+    std::shared_ptr<Hero> mHero;
     std::shared_ptr<SpriteSheet> mTileSheet;
     std::shared_ptr<Region> mRegion;
     std::mt19937 randomGenerator;
