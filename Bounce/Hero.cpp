@@ -19,6 +19,13 @@
 
 using namespace std;
 
+HeroStateFalling Hero::mStateFalling;
+HeroStateIdle Hero::mStateIdle;
+HeroStateJumping Hero::mStateJumping;
+HeroStateRunning Hero::mStateRunning;
+HeroStateSkidding Hero::mStateSkidding;
+HeroStateWalking Hero::mStateWalking;
+
 const string Hero::HeroId = "hero";
 const string Hero::WalkEast = "walkEast";
 const string Hero::WalkWest = "walkWest";
@@ -38,8 +45,15 @@ const string Hero::SkidEast = "skidEast";
 const string Hero::SkidWest = "skidWest";
 
 Hero::Hero (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
-: Entity(director, position, velocity, acceleration, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
+: Entity(director, &mStateIdle, position, velocity, acceleration, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
 {
+    mStateFalling.setHero(this);
+    mStateIdle.setHero(this);
+    mStateJumping.setHero(this);
+    mStateRunning.setHero(this);
+    mStateSkidding.setHero(this);
+    mStateWalking.setHero(this);
+    
     director->textureManager()->loadTexture(HeroId, resourcePath() + "Hero.png");
     
     shared_ptr<SpriteSheet> heroSheet(new SpriteSheet(HeroId, resourcePath() + "Hero.json", director->textureManager()->texture(HeroId)));
@@ -239,122 +253,19 @@ Hero::Hero (Director * director, const sf::Vector2f & position, const sf::Vector
     animation->addFrame("Hero/Idle/Left-014", 0.04f);
     
     mAnimation->addAnimation(heroSheet, SkidWest);
+    
+    mCurrentState->enter();
+}
+
+void Hero::handleCommand (int command)
+{
+    Entity::handleCommand(command);
 }
 
 void Hero::update (float elapsedSeconds)
 {
-    mVelocity.x += mAcceleration.x;
-    mVelocity.y += mAcceleration.y;
-    
-    if (mSurfaceTile)
-    {
-        float friction = 0.0f;
-        FrameTag * tag = mSurfaceTile->tag("friction");
-        if (tag && tag->type() == FrameTag::TagType::FloatTag)
-        {
-            friction = tag->floatValue();
-            if (mVelocity.x > 0)
-            {
-                mVelocity.x += friction;
-                if (mVelocity.x < 0)
-                {
-                    mVelocity.x = 0;
-                }
-            }
-            else if (mVelocity.x < 0)
-            {
-                mVelocity.x -= friction;
-                if (mVelocity.x > 0)
-                {
-                    mVelocity.x = 0;
-                }
-            }
-        }
-    }
-    
-    if (mVelocity.x > 200.0f)
-    {
-        mVelocity.x = 200.0f;
-    }
-    else if (mVelocity.x < -200.0f)
-    {
-        mVelocity.x = -200.0f;
-    }
-    
-    if (mVelocity.y > 400.0f)
-    {
-        mVelocity.y = 400.0f;
-    }
-    else if (mVelocity.y < -400.0f)
-    {
-        mVelocity.y = -400.0f;
-    }
-    
-    if (mVelocity.x > 0)
-    {
-        if (mDirection != Direction::East || mIdle)
-        {
-            mAnimation->setAnimation(WalkEast);
-            setSize(mAnimation->size());
-            mDirection = Direction::East;
-            mIdle = false;
-        }
-    }
-    else if (mVelocity.x < 0)
-    {
-        if (mDirection != Direction::West || mIdle)
-        {
-            mAnimation->setAnimation(WalkWest);
-            setSize(mAnimation->size());
-            mDirection = Direction::West;
-            mIdle = false;
-        }
-    }
-    else
-    {
-        if (!mIdle)
-        {
-            if (mDirection == Direction::East)
-            {
-                mAnimation->setAnimation(IdleEast);
-            }
-            else if (mDirection == Direction::West)
-            {
-                mAnimation->setAnimation(IdleWest);
-            }
-            setSize(mAnimation->size());
-            mIdle = true;
-        }
-    }
+    Entity::update(elapsedSeconds);
 
-    mPosition.x += mVelocity.x * elapsedSeconds;
-    mPosition.y += mVelocity.y * elapsedSeconds;
-    
-    // Make sure that collisions can happen each update by ensuring
-    // this object tries to drop at least one pixel each frame.
-    mPosition.y += 1;
-
-    if (mPosition.x + mAnimation->scaledSize().x / 2 > mBounds.x)
-    {
-        mPosition.x = mBounds.x - mAnimation->scaledSize().x / 2;
-        mVelocity.x = 0;
-    }
-    else if (mPosition.x - mAnimation->scaledSize().x / 2 < 0)
-    {
-        mPosition.x = mAnimation->scaledSize().x / 2;
-        mVelocity.x = 0;
-    }
-    
-    if (mPosition.y > mBounds.y)
-    {
-        mPosition.y = mBounds.y;
-        mVelocity.y = 0;
-    }
-    else if (mPosition.y - mAnimation->scaledSize().y < 0 )
-    {
-        mPosition.y = mAnimation->scaledSize().y;
-    }
-    
     mAnimation->update(elapsedSeconds);
 }
 

@@ -17,7 +17,7 @@
 #include "../EasySFML/Window.h"
 
 #include "BounceGame.h"
-#include "MoveHeroCommand.h"
+#include "HeroCommand.h"
 #include "SceneIdentities.h"
 #include "SceneMain.h"
 #include "WindowIdentities.h"
@@ -26,10 +26,11 @@
 
 using namespace std;
 
-const string SceneMain::MoveCharacterLeft = "MoveCharacterLeft";
-const string SceneMain::MoveCharacterRight = "MoveCharacterRight";
-const string SceneMain::MoveCharacterUp = "MoveCharacterUp";
-const string SceneMain::MoveCharacterDown = "MoveCharacterDown";
+const string SceneMain::CharacterWalkLeft = "CharacterWalkLeft";
+const string SceneMain::CharacterWalkRight = "CharacterWalkRight";
+const string SceneMain::CharacterRunLeft = "CharacterRunLeft";
+const string SceneMain::CharacterRunRight = "CharacterRunRight";
+const string SceneMain::CharacterJump = "CharacterJump";
 
 SceneMain::SceneMain (Director * director, int identity, std::shared_ptr<Window> window, bool transparent, bool modal)
 : Scene(director, identity, window, transparent, modal), uniformDistribution(-10.0f, 10.0f)
@@ -128,25 +129,38 @@ void SceneMain::render ()
 
 void SceneMain::createTriggers ()
 {
-    Trigger triggerMoveCharacterLeft {MoveCharacterLeft};
-    Trigger triggerMoveCharacterRight {MoveCharacterRight};
-    Trigger triggerMoveCharacterUp {MoveCharacterUp};
-    Trigger triggerMoveCharacterDown {MoveCharacterDown};
+    Trigger triggerCharacterWalkLeft {CharacterWalkLeft};
+    Trigger triggerCharacterWalkRight {CharacterWalkRight};
+    Trigger triggerCharacterRunLeft {CharacterRunLeft};
+    Trigger triggerCharacterRunRight {CharacterRunRight};
+    Trigger triggerCharacterJump {CharacterJump};
     
-    Trigger * triggerPtr = &triggerMoveCharacterLeft;
+    Trigger * triggerPtr = &triggerCharacterWalkLeft;
     triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Left});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyNotPressed, 0, 0, sf::Keyboard::Key::Right});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyNotPressed, 0, 0, sf::Keyboard::Key::LShift});
     director()->eventManager()->addTrigger(*triggerPtr);
     
-    triggerPtr = &triggerMoveCharacterRight;
+    triggerPtr = &triggerCharacterWalkRight;
     triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Right});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyNotPressed, 0, 0, sf::Keyboard::Key::Left});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyNotPressed, 0, 0, sf::Keyboard::Key::LShift});
     director()->eventManager()->addTrigger(*triggerPtr);
     
-    triggerPtr = &triggerMoveCharacterUp;
+    triggerPtr = &triggerCharacterRunLeft;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Left});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyNotPressed, 0, 0, sf::Keyboard::Key::Right});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::LShift});
+    director()->eventManager()->addTrigger(*triggerPtr);
+    
+    triggerPtr = &triggerCharacterRunRight;
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Right});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyNotPressed, 0, 0, sf::Keyboard::Key::Left});
+    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::LShift});
+    director()->eventManager()->addTrigger(*triggerPtr);
+    
+    triggerPtr = &triggerCharacterJump;
     triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Up});
-    director()->eventManager()->addTrigger(*triggerPtr);
-    
-    triggerPtr = &triggerMoveCharacterDown;
-    triggerPtr->addTriggerPoint(Trigger::TriggerPoint {Trigger::TriggerType::CurrentKeyboardKeyPressed, 0, 0, sf::Keyboard::Key::Down});
     director()->eventManager()->addTrigger(*triggerPtr);
 }
 
@@ -154,20 +168,22 @@ void SceneMain::loadTriggers ()
 {
     Scene::loadTriggers();
     
-    director()->eventManager()->addSubscription(MoveCharacterLeft, name(), shared_from_this());
-    director()->eventManager()->addSubscription(MoveCharacterRight, name(), shared_from_this());
-    director()->eventManager()->addSubscription(MoveCharacterUp, name(), shared_from_this());
-    director()->eventManager()->addSubscription(MoveCharacterDown, name(), shared_from_this());
+    director()->eventManager()->addSubscription(CharacterWalkLeft, name(), shared_from_this());
+    director()->eventManager()->addSubscription(CharacterWalkRight, name(), shared_from_this());
+    director()->eventManager()->addSubscription(CharacterRunLeft, name(), shared_from_this());
+    director()->eventManager()->addSubscription(CharacterRunRight, name(), shared_from_this());
+    director()->eventManager()->addSubscription(CharacterJump, name(), shared_from_this());
 }
 
 void SceneMain::unloadTriggers ()
 {
     Scene::unloadTriggers();
     
-    director()->eventManager()->removeSubscription(MoveCharacterLeft, name());
-    director()->eventManager()->removeSubscription(MoveCharacterRight, name());
-    director()->eventManager()->removeSubscription(MoveCharacterUp, name());
-    director()->eventManager()->removeSubscription(MoveCharacterDown, name());
+    director()->eventManager()->removeSubscription(CharacterWalkLeft, name());
+    director()->eventManager()->removeSubscription(CharacterWalkRight, name());
+    director()->eventManager()->removeSubscription(CharacterRunLeft, name());
+    director()->eventManager()->removeSubscription(CharacterRunRight, name());
+    director()->eventManager()->removeSubscription(CharacterJump, name());
 }
 
 void SceneMain::notify (EventParameter eventDetails)
@@ -177,27 +193,25 @@ void SceneMain::notify (EventParameter eventDetails)
     if (mActive)
     {
         // Events that we only want to respond to when active.
-        if (eventDetails.name() == MoveCharacterLeft ||
-            eventDetails.name() == MoveCharacterRight ||
-            eventDetails.name() == MoveCharacterUp ||
-            eventDetails.name() == MoveCharacterDown)
+        if (eventDetails.name() == CharacterWalkLeft)
         {
-            sf::Vector2f positionDelta {0.0f, 0.0f};
-            
-            if (eventDetails.name() == MoveCharacterLeft)
-            {
-                positionDelta.x -= 7.0f;
-            }
-            else if (eventDetails.name() == MoveCharacterRight)
-            {
-                positionDelta.x += 7.0f;
-            }
-            else if (eventDetails.name() == MoveCharacterUp)
-            {
-                positionDelta.y -= 270.0f;
-            }
-            
-            mCommands.push_back(unique_ptr<Command>(new MoveHeroCommand(mHero, positionDelta)));
+            mCommands.push_back(unique_ptr<Command>(new HeroCommand(mHero, Hero::CommandWalkWest)));
+        }
+        else if (eventDetails.name() == CharacterWalkRight)
+        {
+            mCommands.push_back(unique_ptr<Command>(new HeroCommand(mHero, Hero::CommandWalkEast)));
+        }
+        else if (eventDetails.name() == CharacterRunLeft)
+        {
+            mCommands.push_back(unique_ptr<Command>(new HeroCommand(mHero, Hero::CommandRunWest)));
+        }
+        else if (eventDetails.name() == CharacterRunRight)
+        {
+            mCommands.push_back(unique_ptr<Command>(new HeroCommand(mHero, Hero::CommandRunEast)));
+        }
+        else if (eventDetails.name() == CharacterJump)
+        {
+            mCommands.push_back(unique_ptr<Command>(new HeroCommand(mHero, Hero::CommandJump)));
         }
     }
     else

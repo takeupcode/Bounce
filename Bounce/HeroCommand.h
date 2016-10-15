@@ -1,5 +1,5 @@
 //
-//  MoveHeroCommand.h
+//  HeroCommand.h
 //  Bounce
 //
 //  Created by Abdul Wahid Tanner on 7/23/16.
@@ -12,16 +12,15 @@
 
 #include "Hero.h"
 
-class MoveHeroCommand : public Command
+class HeroCommand : public Command
 {
 public:
-    MoveHeroCommand(std::shared_ptr<Hero> hero, const sf::Vector2f & delta);
-    virtual ~MoveHeroCommand ();
+    HeroCommand(std::shared_ptr<Hero> hero, int command);
     
     void execute () override;
     void undo () override;
     
 private:
     std::shared_ptr<Hero> mHero;
-    sf::Vector2f mDelta;
+    int mCommand;
 };

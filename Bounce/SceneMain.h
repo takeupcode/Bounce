@@ -27,11 +27,6 @@ class Window;
 class SceneMain : public Scene
 {
 public:
-    static const std::string MoveCharacterLeft;
-    static const std::string MoveCharacterRight;
-    static const std::string MoveCharacterUp;
-    static const std::string MoveCharacterDown;
-
     std::string name () const override
     {
         return "SceneMain";
@@ -54,6 +49,12 @@ protected:
     void notify (EventParameter eventDetails) override;
     
 private:
+    static const std::string CharacterWalkLeft;
+    static const std::string CharacterWalkRight;
+    static const std::string CharacterRunLeft;
+    static const std::string CharacterRunRight;
+    static const std::string CharacterJump;
+
     void frameView ();
     
     std::shared_ptr<Hero> mHero;
