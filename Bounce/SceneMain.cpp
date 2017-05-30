@@ -55,24 +55,35 @@ void SceneMain::created ()
     AnimationDefinition * animation = mTileSheet->addAnimation("grass-large", "");
     FrameDefinition * frame = animation->addFrame("Large/Grass", 1.0f);
     frame->addTag("friction", -5.0f);
-    
+
+    animation = mTileSheet->addAnimation("empty-large", "");
+    frame = animation->addFrame("Large/Empty", 1.0f);
+    frame->addTag("friction", 0.0f);
+    frame->addTag("empty", true);
+
     mRegion.reset(new Region(mTileSheet, {1.5f, 1.5f}, {48, 48}, 32, 13));
     mRegion->addTileType("grass-large", "grass-large");
+    //mRegion->addTileType("empty-large", "empty-large");
+    
     mRegion->setTile(0, 0, "grass-large");
-    mRegion->setTile(15, 0, "grass-large");
+    mRegion->setTile(31, 0, "grass-large");
     mRegion->setTile(0, 10, "grass-large");
     mRegion->setTile(0, 11, "grass-large");
     mRegion->setTile(0, 12, "grass-large");
+    mRegion->setTile(1, 10, "empty-large");
     mRegion->setTile(1, 11, "grass-large");
     mRegion->setTile(1, 12, "grass-large");
     mRegion->setTile(2, 11, "grass-large");
     mRegion->setTile(2, 12, "grass-large");
+    mRegion->setTile(3, 11, "empty-large");
     mRegion->setTile(3, 12, "grass-large");
+    mRegion->setTile(4, 10, "empty-large");
     mRegion->setTile(4, 12, "grass-large");
     mRegion->setTile(5, 10, "grass-large");
     mRegion->setTile(5, 12, "grass-large");
     mRegion->setTile(6, 10, "grass-large");
     mRegion->setTile(6, 12, "grass-large");
+    //mRegion->setTile(7, 10, "empty-large");
     mRegion->setTile(7, 12, "grass-large");
     mRegion->setTile(8, 12, "grass-large");
     mRegion->setTile(8, 12, "grass-large");

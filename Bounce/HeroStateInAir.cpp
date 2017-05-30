@@ -19,7 +19,7 @@ void HeroStateInAir::update (float elapsedSeconds)
     hero()->mVelocity.x += hero()->mAcceleration.x;
     hero()->mVelocity.y += hero()->mAcceleration.y;
     
-    SpriteAnimation * surface = hero()->mSurfaceTile;
+    Tile * surface = hero()->mSurfaceTile;
     if (surface != nullptr)
     {
         // Make sure that collisions can happen each update by ensuring

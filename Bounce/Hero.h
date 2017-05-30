@@ -80,8 +80,5 @@ private:
     static const std::string SkidEast;
     static const std::string SkidWest;
     
-    std::shared_ptr<SpriteAnimation> mAnimation;
     sf::Vector2f mBounds;
-    Direction mDirection;
-    bool mIdle;
 };

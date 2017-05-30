@@ -45,7 +45,7 @@ const string Hero::SkidEast = "skidEast";
 const string Hero::SkidWest = "skidWest";
 
 Hero::Hero (Director * director, const sf::Vector2f & position, const sf::Vector2f & velocity, const sf::Vector2f & acceleration, const sf::Vector2f & bounds)
-: Entity(director, &mStateIdle, position, velocity, acceleration, {0.25f, 0.25f}), mBounds(bounds), mDirection(Direction::East), mIdle(true)
+: Entity(director, &mStateIdle, position, velocity, acceleration, {0.25f, 0.25f}), mBounds(bounds)
 {
     mStateFalling.setHero(this);
     mStateIdle.setHero(this);

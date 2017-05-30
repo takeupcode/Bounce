@@ -44,6 +44,7 @@
 		3E9112B41D1E3B9C00D43AC1 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E9112B31D1E3B9C00D43AC1 /* ResourcePath.mm */; };
 		3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E9112B61D1E3B9C00D43AC1 /* main.cpp */; };
 		3E9112BE1D1E3B9C00D43AC1 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */; };
+		3EA28B511DB43EDA006F3CFB /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EA28B4F1DB43EDA006F3CFB /* Tile.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +131,8 @@
 		3E9112B51D1E3B9C00D43AC1 /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		3E9112B61D1E3B9C00D43AC1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3E9112BD1D1E3B9C00D43AC1 /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
+		3EA28B4F1DB43EDA006F3CFB /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
+		3EA28B501DB43EDA006F3CFB /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +180,8 @@
 				3E8A6D501DA998A6002E3C3B /* SpriteImage.h */,
 				3E778B611D7DC86D009FC697 /* TextureManager.cpp */,
 				3E778B621D7DC86D009FC697 /* TextureManager.h */,
+				3EA28B4F1DB43EDA006F3CFB /* Tile.cpp */,
+				3EA28B501DB43EDA006F3CFB /* Tile.h */,
 				3E778B631D7DC86D009FC697 /* Trigger.h */,
 				3E778B641D7DC86D009FC697 /* Window.cpp */,
 				3E778B651D7DC86D009FC697 /* Window.h */,
@@ -392,6 +397,7 @@
 				3E8A6D681DAC8D2D002E3C3B /* HeroStateJumping.cpp in Sources */,
 				3E8A6D521DA9CC46002E3C3B /* SpriteSheet.cpp in Sources */,
 				3E778B6B1D7DC86D009FC697 /* Game.cpp in Sources */,
+				3EA28B511DB43EDA006F3CFB /* Tile.cpp in Sources */,
 				3E4485801D6C156500337B84 /* SceneMain.cpp in Sources */,
 				3E778B6D1D7DC86D009FC697 /* SceneManager.cpp in Sources */,
 				3E9112B71D1E3B9C00D43AC1 /* main.cpp in Sources */,
